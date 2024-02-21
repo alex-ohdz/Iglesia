@@ -12,6 +12,7 @@ module.exports = {
     extend: {
       fontFamily: {
         merriweather: ["Merriweather", "serif"],
+        playfair: ["Playfair Display", "serif"],
       },
     },
   },
