@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Services from "./services";
+import ServicesLinks from "./linksService";
 
 
 const NavText = ({ items, isMobile }) => {
@@ -7,7 +7,7 @@ const NavText = ({ items, isMobile }) => {
 
   return (
     <div className={isMobile ? "flex flex-col" : "flex"}>
-      <Services isMobile={isMobile}/>
+      <ServicesLinks isMobile={isMobile}/>
       
       {items.map((item, index) => (
         <div key={index} className={`${isMobile ? "mb-4" : "mr-4"}`}>

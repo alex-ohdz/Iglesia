@@ -1,11 +1,12 @@
 "use client";
 import Image from "next/image";
-import NavText from "@components/linksNav";
+import Link from "next/link";
 import { useState, useEffect } from "react";
+import NavText from "@components/linksNav";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import Link from "next/link";
 import BoxText from "@components/boxText";
+import Services from "@components/services";
 
 
 const items = [
@@ -37,7 +38,7 @@ export default function Home() {
     <>
       <nav className="flex justify-between items-center py-4 px-4 text-white fixed top-0 left-0 right-0 bg-white z-10">
         <Link href={"#"}>
-          <h1 className="text-amber-900 font-playfair text-xl">
+          <h1 className="text-amber-900 font-playfair text-2xl">
             San Juan Bautista de Remedios
           </h1>
         </Link>
@@ -96,10 +97,8 @@ export default function Home() {
           </h2>
           <p className="font-sans">Un lugar de paz y encuentro espiritual.</p>
         </section>
-        <div id="servicios" className="mt-8 py-8">
-          <h2 className="text-xl font-bold">Nuestros Servicios</h2>
-          <p>Descripción de los servicios ofrecidos...</p>
-        </div>
+        
+        <Services/>
       </div>
       {/* Aseguramos que el footer también esté separado adecuadamente */}
       <footer className="mt-8 bg-carmelita text-black text-center p-4">
