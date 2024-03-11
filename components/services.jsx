@@ -4,6 +4,7 @@ const Services = () => {
   return (
     <div className="w-full">
       <div className="flex flex-col">
+        <h1 className='text-2xl text-center p-10 font-serif text-amber-900'>Servicios</h1>
         <ServiceSection
           title="Bautismos"
 		  ids="bautismos"
@@ -16,12 +17,12 @@ const Services = () => {
         />
         <ServiceSection
           title="Ejemplo 3"
-		  ids="#ejemplo3"
+		  ids="ejemplo3"
           description="Ejemplo 3 ofrece una gama de servicios diseñados para satisfacer tus necesidades específicas. Ya sea que estés buscando expandir tu negocio, mejorar tu bienestar personal o celebrar un hito, nuestro equipo dedicado está aquí para apoyarte. Con un enfoque personalizado y una atención meticulosa al detalle, nos esforzamos por superar tus expectativas y proporcionarte resultados excepcionales."
         />
         <ServiceSection
           title="Ejemplo 4"
-		  ids="#ejemplo4"
+		  ids="ejemplo4"
           description="En Ejemplo 4, nos especializamos en brindar soluciones innovadoras que desafían el status quo. A través de una combinación de creatividad, experiencia y pasión, nuestro equipo trabaja incansablemente para entregar resultados que no solo cumplan, sino que superen tus expectativas. Ya sea que necesites asesoramiento estratégico, soporte técnico o servicios creativos, estamos comprometidos con tu éxito."
         />
       </div>
@@ -31,7 +32,9 @@ const Services = () => {
 
 const ServiceSection = ({ title,ids, description }) => {
   return (
+    
     <div className="w-full p-4">
+
       <div id={ids} className="max-w-screen-lg mx-auto p-5 scroll-mt-[100px]">
         <h3 className="text-2xl font-serif mb-4 text-amber-900">{title}</h3>
         <p className="text-amber-800 font-serif leading-relaxed">{description}</p>
