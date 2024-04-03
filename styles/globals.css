@@ -2,13 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+.iconClose {
+  color: #5c4506; /* Este es el valor de text-amber-900 en Tailwind CSS */
+}
 
-.iconClose{
-	
-	color: #5c4506; /* Este es el valor de text-amber-900 en Tailwind CSS */
-	
-	
-  }
-  html {
-	scroll-behavior: smooth;
-  }
+html {
+  scroll-behavior: smooth;
+}
+
+/* Estilos globales para el scrollbar */
+::-webkit-scrollbar {
+  width: 8px; /* Ancho del scrollbar */
+  height: 8px;    /* Tamaño del scroll en horizontal */
+    display: none;  /* Ocultar scroll */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; 
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #bb6b2f; 
+  border-radius: 4px; /* Bordes redondeados */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #374151; /* Ajustado para coincidir con gray-700 de Tailwind */
+  
+}
+
+/* Estilos para Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #c87f47 #ebceb4; /* Color amber-800 para el "pulgar" y transparente para la "pista" */
+}

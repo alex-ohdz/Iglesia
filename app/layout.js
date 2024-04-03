@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "@styles/globals.css";
 import NextAuthProvider from "./Provider";
 import Head from "next/head";
+import NavPC from "@components/navPC";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({ children }) {
       </Head>
       <html lang="en">
         <body className={inter.className}>
+          <NavPC/>
           <NextAuthProvider>{children}</NextAuthProvider>
         </body>
       </html>

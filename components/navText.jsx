@@ -1,32 +1,20 @@
-
 import Link from "next/link";
-import ServicesLinks from "./servicesLink";
-// import useActiveSection from "../hooks/useActiveSection";
+
+
 
 
 const items = [
   { text: "Sobre Nosotros", link: "#sobre" },
+  { text: "Servicios", link: "/services"},
   { text: "Contacto", link: "#contacto" },
   { text: "Donar", link: "#donar" },
 ];
 
 const NavText = () => {
 
-  // const activeSection = useActiveSection([...buttonText, ...items]);
-  // const isServiceActive = buttonText.some(item => item.link === activeSection);
-
-  const navItems = [
-    ...items.slice(0, 1), 
-    { isComponent: true }, 
-    ...items.slice(1), 
-  ];
-
   return (
     <div className="flex">
-      {navItems.map((item, index) => {
-        if (item.isComponent) {
-          return <ServicesLinks key="servicesLinks" />;
-        }
+      {items.map((item, index) => {
         return (
           <div key={index}>
             <Link

@@ -1,11 +1,12 @@
 "use client";
 import Image from "next/image";
 import BoxText from "@components/boxText";
-import Services from "@components/services";
 import NavPC from "@components/navPC";
 import { useState, useEffect } from "react";
 import AboutUs from "@components/aboutUs";
 import ContactUs from "@components/contactUs";
+import ImageCircle from "@components/weAre";
+import Map from "@components/map";
 
 export default function Home() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -37,6 +38,7 @@ export default function Home() {
           />
           <div className="relative z-1">
             <BoxText />
+          
           </div>
         </div>
         <section className="mt-8 bg-yellow-400 text-gray-800 text-center py-20">
@@ -46,8 +48,10 @@ export default function Home() {
           <p className="font-sans">Un lugar de paz y encuentro espiritual.</p>
         </section>
 <AboutUs/>
-        <Services />
+        {/* <Services /> */}
+        <ImageCircle/>
         <ContactUs />
+        <Map/>
       </div>
       {/* Aseguramos que el footer también esté separado adecuadamente */}
       <footer className="mt-8 bg-carmelita text-black text-center p-4">
