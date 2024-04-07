@@ -1,5 +1,6 @@
 import NavText from "@components/navText";
 import Link from "next/link";
+import LangChanger from "./langChanger";
 
 const NavPC = () => {
 
@@ -13,6 +14,7 @@ const NavPC = () => {
       </Link>
       
       <NavText/>
+      <LangChanger/>
     </nav>
   );
 };
