@@ -29,7 +29,7 @@ const LangChanger = () => {
         <KeyboardArrowDownRoundedIcon className="text-amber-900" />
       </button>
       {isOpen && (
-        <div className="absolute top-full mt-2 right-0 bg-amber-50 shadow-lg rounded-lg">
+        <div className="absolute top-full mt-2 right-4 bg-amber-50 shadow-lg rounded-lg" style={{ minWidth: '40px' }}>
           {flags.filter(flag => flag.code !== selectedFlag.code).map((flag, index) => (
             <img key={index} src={flag.imgF} alt={`${flag.code} flag`} className="w-6 h-6 m-2 cursor-pointer" onClick={() => handleSelectFlag(flag)} />
           ))}
