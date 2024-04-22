@@ -1,4 +1,5 @@
 import Link from "next/link";
+import LangChanger from "./langChanger";
 
 
 
@@ -13,7 +14,7 @@ const items = [
 const NavText = () => {
 
   return (
-    <div className="flex">
+    <div className="flex items-center">
       {items.map((item, index) => {
         return (
           <div key={index}>
@@ -23,9 +24,13 @@ const NavText = () => {
             >
               {item.text}
             </Link>
+            
           </div>
+          
         );
+        
       })}
+      <LangChanger/>
     </div>
   );
 };

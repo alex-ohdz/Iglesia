@@ -37,3 +37,26 @@ html {
   scrollbar-width: thin;
   scrollbar-color: #c87f47 #ebceb4; /* Color amber-800 para el "pulgar" y transparente para la "pista" */
 }
+
+/* Añade transiciones para suavizar la aparición del dropdown */
+.dropdown-enter {
+  opacity: 0;
+  transform: scaleY(0);
+}
+
+.dropdown-enter-active {
+  opacity: 1;
+  transform: scaleY(1);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.dropdown-exit {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+.dropdown-exit-active {
+  opacity: 0;
+  transform: scaleY(0);
+  transition: opacity 300ms, transform 300ms;
+}
