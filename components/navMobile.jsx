@@ -1,9 +1,22 @@
+"use client";
+import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import NavText from "./navText";
+import Link from "next/link";
+import LangChanger from "./langChanger";
 
-const NavMobile = () => {
+const NavMobile = ({ isMobile }) => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   return (
-    <nav>
+    <nav className="flex py-3 mx-2 justify-between">
+      <Link href={"/"}>
+        <h1 className="text-amber-900 font-playfair text-2xl">
+          San Juan Bautista de Remedios
+        </h1>
+      </Link>
+      <div className="flex items-center">
+      <LangChanger/>
       <button onClick={() => setIsDrawerOpen(!isDrawerOpen)}>
         <MenuIcon
           style={{ fontSize: "30px", background: "white" }}
@@ -12,7 +25,7 @@ const NavMobile = () => {
       </button>
 
       {isDrawerOpen && (
-        <div className="fixed top-0 right-0 w-auto max-w-full h-full z-30 bg-white shadow-lg">
+        <div className="fixed top-0 right-0 w-1/3 max-w-full h-full z-30 bg-white shadow-lg">
           <button
             onClick={() => setIsDrawerOpen(!isDrawerOpen)}
             className="p-2 bg-white"
@@ -25,9 +38,10 @@ const NavMobile = () => {
               className="iconClose"
             />
           </button>
-          <NavText/>
+          <NavText isMobile={isMobile} />
         </div>
       )}
+      </div>
     </nav>
   );
 };

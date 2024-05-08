@@ -1,36 +1,31 @@
 import Link from "next/link";
 import LangChanger from "./langChanger";
-
-
-
+// import NavTextMobile from "./navTextMobile";
 
 const items = [
   { text: "Sobre Nosotros", link: "#sobre" },
-  { text: "Servicios", link: "/services"},
+  { text: "Servicios", link: "/services" },
   { text: "Contacto", link: "#contacto" },
   { text: "Donar", link: "#donar" },
 ];
 
-const NavText = () => {
-
+const NavText = ({ isMobile }) => {
   return (
-    <div className="flex items-center">
+
+    <div className={`flex ${isMobile ? 'flex-row' : 'flex-col'} items-center`}>
       {items.map((item, index) => {
         return (
-          <div key={index}>
+          <div className={`${isMobile ? 'px-2' : 'mb-5'}`} key={index}>
             <Link
               href={item.link}
-              className="text-amber-800 hover:text-yellow-500 transition-colors duration-300 text-lg font-playfair tracking-wider px-2"
+              className="text-amber-800 hover:text-yellow-500 transition-colors duration-300 text-lg font-playfair tracking-wider"
             >
               {item.text}
             </Link>
-            
           </div>
-          
         );
-        
       })}
-      <LangChanger/>
+      {/* <LangChanger /> */}
     </div>
   );
 };

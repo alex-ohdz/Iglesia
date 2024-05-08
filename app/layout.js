@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
       </Head>
       <html lang="en">
         <body className={inter.className}>
-          <NavPC/>
+          {/* <NavPC/> */}
           <NextAuthProvider>{children}</NextAuthProvider>
         </body>
       </html>
