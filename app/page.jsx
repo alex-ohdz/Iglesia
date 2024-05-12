@@ -6,6 +6,7 @@ import NavMobile from "@components/navMobile";
 import { useState, useEffect } from "react";
 import AboutUs from "@components/aboutUs";
 import FooterApp from "@components/footerApp";
+import Carrousel from "@components/carrousel";
 
 export default function Home() {
   const [isMobile, setIsMobile] = useState(false);
@@ -23,8 +24,13 @@ export default function Home() {
 
   return (
     <>
-      {isMobile ? <NavPC isMobile={isMobile} /> : <NavMobile isMobile={isMobile} />}
+      {isMobile ? (
+        <NavPC isMobile={isMobile} />
+      ) : (
+        <NavMobile isMobile={isMobile} />
+      )}
 
+      <Carrousel />
       <div className="relative w-full h-screen">
         <Image
           src="/images/IMG-REM.jpg"

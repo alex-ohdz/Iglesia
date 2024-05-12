@@ -1,9 +1,8 @@
 import Link from "next/link";
 import LangChanger from "./langChanger";
-// import NavTextMobile from "./navTextMobile";
 
 const items = [
-  { text: "Sobre Nosotros", link: "#sobre" },
+  { text: "Nosotros", link: "#sobre" },
   { text: "Servicios", link: "/services" },
   { text: "Contacto", link: "#contacto" },
   { text: "Donar", link: "#donar" },
