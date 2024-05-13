@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import AboutUs from "@components/aboutUs";
 import FooterApp from "@components/footerApp";
 import Carrousel from "@components/carrousel";
+import ImageCircle from "@components/weAre";
 
 export default function Home() {
   const [isMobile, setIsMobile] = useState(false);
@@ -50,6 +51,7 @@ export default function Home() {
           </h2>
           <p className="font-sans">Un lugar de paz y encuentro espiritual.</p>
         </section>
+        <ImageCircle/>
         <AboutUs />
         {/* <Services /> */}
       </div>

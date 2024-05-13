@@ -54,7 +54,7 @@ const LangChanger = () => {
       </button>
       {isOpen && (
         <div
-          className="absolute z-20 top-full mt-2 right-8 bg-amber-50 shadow-lg rounded-lg"
+          className="absolute z-20 top-full mt-2 right-8 bg-slate-50 shadow-xl rounded-lg"
           style={{ minWidth: "40px" }}
         >
           {flags
