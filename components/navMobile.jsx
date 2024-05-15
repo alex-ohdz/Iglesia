@@ -8,14 +8,14 @@ import LangChanger from "./langChanger";
 const NavMobile = ({ isMobile }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   return (
-    <nav className="flex fixed z-40 py-3 px-4 justify-between w-full h-15 bg-white shadow-md">
+    <nav className="flex fixed z-40 py-3 px-4 justify-between w-full h-14 bg-white ">
       <Link href={"/"}>
         <h1 className="text-amber-900 font-playfair text-2xl">
           San Juan Bautista de Remedios
         </h1>
       </Link>
       <div className="flex items-center">
-        <LangChanger/>
+        <LangChanger />
         <button onClick={() => setIsDrawerOpen(!isDrawerOpen)}>
           <MenuIcon
             style={{ fontSize: "30px", background: "white" }}
