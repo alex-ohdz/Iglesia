@@ -32,7 +32,7 @@ export default function Home() {
         )}
       </div>
       <Carrousel />
-      <aside className="bg-amber-100 h-screen">
+      <aside className="bg-amber-100">
         <BoxText />
       </aside>
 
@@ -42,10 +42,6 @@ export default function Home() {
         </h2>
         <p className="font-sans">Un lugar de paz y encuentro espiritual.</p>
       </section>
-      <ImageCircle />
-      <AboutUs />
-      {/* <Services /> */}
-
       <footer>
         <FooterApp />
       </footer>

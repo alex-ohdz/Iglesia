@@ -15,6 +15,7 @@ export default function RootLayout({ children }) {
 
   return (
     <>
+    {/* Developed by alexoh */}
       <Head>
         <link
           href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap"
