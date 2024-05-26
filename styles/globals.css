@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Ajusta este valor para coincidir con la altura de tu barra de navegación */
+.anchored-section {
+  scroll-margin-top: 55px; /* Altura de la barra de navegación */
+}
+.anchored-section::before {
+  content: "";
+  display: block;
+  height: 60px; /* Altura de la barra de navegación */
+  margin-top: -60px;
+}
+
 .iconClose {
   color: #5c4506; /* Este es el valor de text-amber-900 en Tailwind CSS */
 }
@@ -10,26 +21,18 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Estilos globales para el scrollbar */
-::-webkit-scrollbar {
-  width: 8px; /* Ancho del scrollbar */
-  height: 8px;    /* Tamaño del scroll en horizontal */
-    display: none;  /* Ocultar scroll */
-}
-
 ::-webkit-scrollbar-track {
-  background: transparent; 
+  background: transparent;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #bb6b2f; 
+  background-color: #bb6b2f;
   border-radius: 4px; /* Bordes redondeados */
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #374151; /* Ajustado para coincidir con gray-700 de Tailwind */
-  
 }
 
 /* Estilos para Firefox */
@@ -61,16 +64,23 @@ html {
   transition: opacity 300ms, transform 300ms;
 }
 
-
-.custom-shape {
-  position: relative;
-  overflow: hidden;
+/* Efecto de AOS */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-
-.custom-shape img {
-  border-top-left-radius: 50%;
-  border-bottom-left-radius: 50%;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 2s ease-out, transform 2s ease-out;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
 }

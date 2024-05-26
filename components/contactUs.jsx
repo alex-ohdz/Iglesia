@@ -3,8 +3,7 @@ import React from "react";
 const ContactUs = () => {
   return (
     <>
-      {/* <h1 className="text-center text-xl m-5">Contactanos</h1> */}
-      <div className="bg-white p-4">
+      <div className="bg-white p-4 anchored-section" id="contact">
         <h1 className="text-lg font-semibold px-6">Horarios:</h1>
         <div className="bg-white p-6">
           <p className="text-gray-700 mb-1">

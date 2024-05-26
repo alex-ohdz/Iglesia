@@ -1,14 +1,17 @@
 import Link from "next/link";
-import LangChanger from "./langChanger";
+// import LangChanger from "./langChanger";
 
 const items = [
-  { text: "Nosotros", link: "#sobre" },
+  { text: "Nosotros", link: "#us" },
   { text: "Servicios", link: "/services" },
-  { text: "Contacto", link: "#contacto" },
+  { text: "Contacto", link: "#contact" },
   { text: "Donar", link: "#donar" },
 ];
 
 const NavText = ({ isMobile }) => {
+
+
+
   return (
 
     <div className={`flex ${isMobile ? 'flex-row' : 'flex-col'} items-center`}>

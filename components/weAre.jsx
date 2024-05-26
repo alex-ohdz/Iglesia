@@ -11,7 +11,7 @@ const teamMembers = [
 
 const ImageCircle = () => {
   return (
-    <div className="bg-amber-50 p-5">
+    <div className="bg-amber-50 p-5 anchored-section" id="us">
       <h2 className="text-2xl font-semibold mb-4 text-center">Nuestro Equipo</h2>
       <div className="flex xl:justify-center overflow-x-auto space-x-4 py-2">
         {teamMembers.map((member, index) => (
