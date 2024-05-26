@@ -3,6 +3,8 @@ import "@styles/globals.css";
 import NextAuthProvider from "./Provider";
 import Head from "next/head";
 import NavPC from "@components/navPC";
+import connectToDatabase from "@lib/mysql_db";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
