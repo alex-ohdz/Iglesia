@@ -3,10 +3,9 @@ import BoxText from "@components/boxText";
 import NavPC from "@components/navPC";
 import NavMobile from "@components/navMobile";
 import { useState, useEffect } from "react";
-import AboutUs from "@components/aboutUs";
 import FooterApp from "@components/footerApp";
 import Carrousel from "@components/carrousel";
-import ImageCircle from "@components/weAre";
+
 
 export default function Home() {
   const [isMobile, setIsMobile] = useState(false);

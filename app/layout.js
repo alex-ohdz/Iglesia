@@ -1,6 +1,6 @@
 import { Inter } from "next/font/google";
 import "@styles/globals.css";
-import NextAuthProvider from "./Provider";
+// import NextAuthProvider from "./Provider";
 import Head from "next/head";
 import NavPC from "@components/navPC";
 
@@ -12,10 +12,9 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-
   return (
     <>
-    {/* Developed by alexoh */}
+      {/* Developed by alexoh */}
       <Head>
         <link
           href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap"
@@ -25,7 +24,7 @@ export default function RootLayout({ children }) {
       <html lang="en">
         <body className={inter.className}>
           {/* <NavPC/> */}
-          <NextAuthProvider>{children}</NextAuthProvider>
+          {children}
         </body>
       </html>
     </>
