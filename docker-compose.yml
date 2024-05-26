@@ -1,5 +1,32 @@
 version: '3.8'
 services:
+
+  #
+  proxy:
+    image: jwilder/nginx-proxy
+    container_name: proxy
+    labels:
+      com-github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy: "true"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - certs:/etc/nginx/certs
+      - vhostd:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - var/run/docker.sock:/tmp/docker.sock
+
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: letsencrypt
+    environment:
+      - NGINX_PROXY_CONTAINER=proxy
+    volumes:
+      - certs:/etc/nginx/certs
+      - vhostd:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - var/run/docker.sock:var/run/docker.sock
+
   node-test:
     build:
       context: .
@@ -7,6 +34,10 @@ services:
       network: host
     image: node-project:latest
     container_name: node-test
+    environment:
+      - VIRTUAL_HOST=nginx.switchart.mx
+      - LETSENCRYPT_HOST=nginx. switchart.mx
+      - LETSENCRYPT_EMAIL=zhflq@telegmail.com
     working_dir: /app
     volumes:
       - .:/app
@@ -14,3 +45,8 @@ services:
     ports:
       - "3000:3000"
     command: npm run dev
+
+volumes:
+  certs:
+  html:
+  vhostd:
