@@ -7,7 +7,7 @@ const BoxText = () => {
   });
 
   return (
-    <div className="py-7 flex flex-col items-center">
+    <div className="py-7 flex flex-col items-center bg-amber-50">
       <h1 className="text-3xl font-serif mb-6 text-amber-900 text-center">
         Bienvenidos a Nuestra Comunidad
       </h1>
