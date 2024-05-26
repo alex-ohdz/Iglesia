@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from "react";
 import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
 import classNames from "classnames";
+import executeQuery from "@lib/mysql_db";
 
 const flags = [
   { code: "en", imgF: "/icons/flags/en.png" },
@@ -17,9 +18,6 @@ const LangChanger = () => {
   const arrowProp = classNames(
     "text-amber-900",
     "transition-transform duration-200",
-    {
-      "rotate-180": isOpen,
-    }
   );
 
   const toggleDropdown = () => {
@@ -65,7 +63,16 @@ const LangChanger = () => {
                 src={flag.imgF}
                 alt={`${flag.code} flag`}
                 className="w-6 h-6 m-2 cursor-pointer"
-                onClick={() => handleSelectFlag(flag)}
+                onClick={
+                  executeQuery('SELECT * FROM tbl_users', (err, results) => {
+                  if (err) {
+                  console.error('Error al ejecutar la consulta:', err);
+                  return;
+                }
+                  console.log('Resultados de la consulta SELECT:');
+                  console.log(results);
+                })
+                }
               />
             ))}
         </div>
