@@ -1,7 +1,5 @@
 version: '3.8'
 services:
-
-  #
   proxy:
     image: jwilder/nginx-proxy
     container_name: proxy
@@ -14,7 +12,7 @@ services:
       - certs:/etc/nginx/certs
       - vhostd:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html
-      - var/run/docker.sock:/tmp/docker.sock
+      - /var/run/docker.sock:/tmp/docker.sock
 
   letsencrypt:
     image: jrcs/letsencrypt-nginx-proxy-companion
@@ -25,19 +23,23 @@ services:
       - certs:/etc/nginx/certs
       - vhostd:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html
-      - var/run/docker.sock:var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock
 
   node-test:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.node
       network: host
     image: node-project:latest
     container_name: node-test
     environment:
       - VIRTUAL_HOST=nginx.switchart.mx
-      - LETSENCRYPT_HOST=nginx. switchart.mx
+      - LETSENCRYPT_HOST=nginx.switchart.mx
       - LETSENCRYPT_EMAIL=zhflq@telegmail.com
+      - MYSQL_HOST=mysql
+      - MYSQL_DATABASE=mydatabase
+      - MYSQL_USER=myuser
+      - MYSQL_PASSWORD=mypassword
     working_dir: /app
     volumes:
       - .:/app
@@ -46,7 +48,24 @@ services:
       - "3000:3000"
     command: npm run dev
 
+  mysql:
+    build:
+      context: .
+      dockerfile: sql/Dockerfile.mysql
+    image: mysql:custom
+    container_name: mysql-learn-shop
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_DATABASE=mydatabase
+      - MYSQL_USER=myuser
+      - MYSQL_PASSWORD=mypassword
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
 volumes:
   certs:
   html:
   vhostd:
+  mysql_data:
