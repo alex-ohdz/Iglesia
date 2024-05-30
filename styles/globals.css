@@ -84,3 +84,23 @@ html {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* secret */
+.inputZone{
+  border-radius: 0.25rem;
+  width: 100%;
+}
+.btnZone{
+  position: absolute;
+  background-color: white;
+  color: black;
+  width: 7rem;
+  padding: 0.25rem;
+  align-items: center;
+  border-radius: 0.25rem;
+}
+.btnZone:hover{
+  /* background-color: #cdd2d8; */
+  outline-style: solid;
+  outline-color: chocolate;
+}
