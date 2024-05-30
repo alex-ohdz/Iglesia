@@ -7,8 +7,8 @@ const BoxText = () => {
   });
 
   return (
-    <div className="py-7 flex flex-col items-center bg-amber-50">
-      <h1 className="text-3xl font-serif mb-6 text-amber-900 text-center">
+    <div className="py-7 flex flex-col items-center bg-amber-50 text-amber-900">
+      <h1 className="text-3xl font-serif mb-6  text-center">
         Bienvenidos a Nuestra Comunidad
       </h1>
       <div className="w-full flex items-center lg:flex-row flex-col md:items-center justify-items-start">
@@ -22,7 +22,7 @@ const BoxText = () => {
 
         <p
           ref={ref}
-          className={`text-amber-800 font-serif text-center lg:text-left max-w-full lg:mx-20 mx-6 fade-up ${
+          className={`font-serif text-center lg:text-left max-w-full lg:mx-20 mx-6 fade-up ${
             isVisible ? "visible" : ""
           }`}
         >

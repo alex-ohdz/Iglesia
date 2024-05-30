@@ -14,6 +14,12 @@ module.exports = {
         merriweather: ["Merriweather", "serif"],
         playfair: ["Playfair Display", "serif"],
       },
+      colors: {
+        customYellow: '#fad390',
+        customOrange:'#fcb07e',
+        customBlue:"#3581b8",
+        customGray:'#dee2d6'
+      },
     },
   },
   plugins: [],

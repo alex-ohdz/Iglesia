@@ -3,41 +3,44 @@ import Map from "./map";
 const ContactUs = () => {
   return (
     <>
-      <div className="bg-amber-200">
+      <div className="bg-amber-200 text-stone-700 font-merriweather text-xl">
         <div className="text-center pt-5 pb-3">
-          <h1 className="font-serif text-3xl text-amber-700">Contacto :</h1>
+          <h1 className="font-serif text-3xl text-stone-600">Contáctanos</h1>
         </div>
-        <div className=" flex flex-col md:flex-row items-center place-content-center gap-3 p-3">
+        <div className="flex flex-col md:flex-row items-center place-content-center gap-3 p-3 lg:gap-28">
           <div
-            className="p-10 anchored-section border-1 border-gray-300 shadow-md w-96 h-80 bg-white"
+            className="p-10 anchored-section border-1 border-gray-300 shadow-md w-96 h-80 bg-white italic"
             id="contact"
           >
-            <h2 className="text-xl font-serif text-amber-900">Horarios:</h2>
-            <p className="text-amber-900 mb-1">
-              <span className="font-merriweather text-xl">
+            <h2 className="not-italic">Horarios:</h2>
+            <p>
+              <span>
                 Lunes a Viernes :
               </span>{" "}
-              8:00 am - 5:00 pm
+              <span className="not-italic">8:00
+              am - 5:00 pm </span>
             </p>
-            <p className="text-amber-900 mb-1">
-              <span className=" font-merriweather text-xl">Sábados :</span> 8:00
-              am - 12:00 pm
+            <p className="mb-1">
+              <span>Sábados :</span> <span className="not-italic">8:00
+              am - 12:00 pm </span>
             </p>
-            <p className="text-amber-900">
-              <span className="font-merriweather font-semi text-xl">
+            <p>
+              <span>
                 Domingos :
               </span>{" "}
-              8:00 am - 12:00 pm
+              <span className="not-italic">8:00
+              am - 12:00 pm </span>
             </p>
 
-            <div className="bg-white mt-10">
-              <p className="text-amber-900">
-                <span className="font-merriweather text-xl">Teléfono:</span>{" "}
-                12345678
+            <div className="mt-9">
+              <h2 className="not-italic">Info:</h2>
+              <p>
+                <span>Teléfono:</span>{" "}
+                <span className="not-italic">12345678 </span>
               </p>
-              <p className="text-amber-900 ">
-                <span className="font-merriweather text-xl">Correo:</span>{" "}
-                sanjuan@gmail.com
+              <p>
+                <span>Correo:</span>{" "}
+                <span className="not-italic">sanjuan@gmail.com </span>
               </p>
             </div>
           </div>
