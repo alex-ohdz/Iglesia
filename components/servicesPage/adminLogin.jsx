@@ -1,42 +1,46 @@
-import React from 'react'
+import React from "react";
 import LoginIcon from "@mui/icons-material/Login";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 
-const AdminLogin = ({handleLogin,setPass,setUser}) => {
+const AdminLogin = ({ handleLogin, setPass, setUser }) => {
   return (
-	<div className="flex bg-blue-500 h-screen items-center justify-center text-black font-serif">
-          <label className="absolute top-28 text-2xl">
-            San Juan Bautista de Remedios
-          </label>
-          <label className="absolute top-16 text-xl"> Administrador</label>
-          <div className="flex flex-col items-center gap-y-2 w-2/3 sm:w-1/3 text-xl">
-            <label htmlFor="input">Usuario :</label>
+    <div className="flex flex-col items-center font-serif">
+      <label className="text-3xl text-slate-700 my-14">
+        San Juan Bautista de Remedios
+      </label>
+      <div className="flex flex-col text-center items-center border h-96 w-96 drop-shadow-lg bg-white">
+        <div className="w-72 my-8 ">
+          <label className="text-xl">Administrador</label>
+          <div className="flex flex-col w-full mt-8 text-left gap-y-8">
+            {/* <label htmlFor="input">Usuario :</label> */}
             <input
               id="userName"
               onChange={(e) => setUser(e.target.value)}
               type="text"
-              className="inputZone text-black"
+              placeholder=" Usuario"
+              className="rounded-sm p-1 bg-slate-200"
             />
-            <label htmlFor="input">Contraseña:</label>
+            {/* <label htmlFor="input">Contraseña:</label> */}
             <input
               id="pass"
               onChange={(e) => setPass(e.target.value)}
               type="text"
-              className="inputZone"
+              placeholder=" Contraseña"
+              className="rounded-sm p-1 bg-slate-200"
             />
           </div>
-          <button
-            onClick={handleLogin}
-            className=" btnZone bottom-52"
-          >
-            <LoginIcon /> Entrar
-          </button>
-          <button className="btnZone bottom-36">
-            <ExitToAppIcon /> Salir
-          </button>
-        
+          <div className="flex flex-col justify-center items-center mt-10 gap-6">
+            <button onClick={handleLogin} className="btnZone shadow-lg">
+              <LoginIcon /> Entrar
+            </button>
+            <button className="btnZone shadow-lg">
+              <KeyboardReturnIcon /> Atrás
+            </button>
+          </div>
         </div>
-  )
-}
+      </div>
+    </div>
+  );
+};
 
-export default AdminLogin
+export default AdminLogin;

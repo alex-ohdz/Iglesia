@@ -23,7 +23,7 @@ const Login = () => {
   }
 
   return (
-    <div>
+    <div className="bg-sky-400 h-screen">
       {!isLogin ? (
         <AdminLogin
           handleLogin={handleLogin}

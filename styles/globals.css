@@ -91,16 +91,14 @@ html {
   width: 100%;
 }
 .btnZone{
-  position: absolute;
-  background-color: white;
-  color: black;
-  width: 7rem;
+  background-color: #1a80ac;
+  color: rgb(255, 255, 255);
+  width: 50%;
   padding: 0.25rem;
   align-items: center;
   border-radius: 0.25rem;
 }
 .btnZone:hover{
   /* background-color: #cdd2d8; */
-  outline-style: solid;
-  outline-color: chocolate;
+background-color: #6e9fb5;
 }
