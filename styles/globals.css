@@ -102,3 +102,9 @@ html {
   /* background-color: #cdd2d8; */
 background-color: #6e9fb5;
 }
+
+.cards{
+  display: grid;
+  grid-template-columns: repeat(1, minmax(120px, 250px));
+  gap: 16px;
+}

@@ -3,9 +3,9 @@ import BoxText from "@components/boxText";
 import NavPC from "@components/navPC";
 import NavMobile from "@components/navMobile";
 import { useState, useEffect } from "react";
-import FooterApp from "@components/footerApp";
-import Carrousel from "@components/carrousel";
-
+import FooterApp from "@components/footerApp.jsx";
+import Carrousel from "@components/carrousel.jsx";
+import Noticias from "@components/noticias/noticias.jsx";
 
 export default function Home() {
   const [isMobile, setIsMobile] = useState(false);
@@ -31,8 +31,9 @@ export default function Home() {
         )}
       </div>
       <Carrousel />
-      <aside className="bg-amber-100">
+      <aside className="">
         <BoxText />
+        <Noticias />
       </aside>
       <section></section>
       <footer>
