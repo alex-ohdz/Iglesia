@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 /* Ajusta este valor para coincidir con la altura de tu barra de navegación */
+
 .anchored-section {
   scroll-margin-top: 55px; /* Altura de la barra de navegación */
 }
@@ -105,6 +106,7 @@ background-color: #6e9fb5;
 
 .cards{
   display: grid;
-  grid-template-columns: repeat(1, minmax(120px, 250px));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(0px, 320px));
+  gap: 30px;
+  justify-content: center;
 }
