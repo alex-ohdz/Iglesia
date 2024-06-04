@@ -1,4 +1,4 @@
-import React from "react";
+import UploadImage from "./formImg";
 import AddIcon from "@mui/icons-material/Add";
 
 const AdminHome = () => {
@@ -12,6 +12,7 @@ const AdminHome = () => {
         </button>
         <div className="h-32 w-96 mx-10 bg-white"></div>
       </div>
+      <UploadImage/>
     </div>
   );
 };
