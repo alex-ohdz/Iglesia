@@ -1,60 +1,66 @@
-import nextConnect from "next-connect";
 import multer from "multer";
-import { connection } from "../../lib/db";
+import { query } from "@/lib/db";
+import { imageToBase64 } from "@lib/processImage";
 
-const upload = multer({
-  storage: multer.memoryStorage(),
-});
+// Configure multer
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
-const apiRoute = nextConnect({
-  onError(error, req, res) {
-    console.error('Error in API route:', error);
-    res.status(501).json({ 
-      error: `Algo va mal: ${error.message}`,
-      stack: error.stack,
-      details: error
+const uploadMiddleware = upload.single("image");
+
+// Promisify middleware to use async/await
+const runMiddleware = (req, res, fn) => {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result) => {
+      if (result instanceof Error) {
+        return reject(result);
+      }
+      return resolve(result);
     });
-  },
-  onNoMatch(req, res) {
-    res.status(405).json({
-      error: `Metodo ${req.method} No Permitido`,
-    });
-  },
-});
+  });
+};
 
-apiRoute.use(upload.single("image"));
+export default async function handler(req, res) {
+  if (req.method === "POST") {
+    try {
+      // Run multer middleware
+      await runMiddleware(req, res, uploadMiddleware);
 
-function imageToBase64(buffer) {
-  try {
-    // const image = fs.readFileSync(image);
-    return image.toString("base64");
-  } catch (error) {
-    console.error("Error reading file:", error);
-    return null;
+      // Get image buffer from the request
+      const imgBuffer = req.file?.buffer;
+
+      if (!imgBuffer) {
+        return res.status(400).json({ error: "Image file is required" });
+      }
+
+      // Convert image buffer to Base64
+      const base64Img = await imageToBase64(imgBuffer);
+
+      await query({ query: "SET SESSION max_allowed_packet=67108864;" });
+
+      // Insert image data into the database
+      const result = await query({
+        query: "INSERT INTO home_carousel (data) VALUES (?)",
+        values: [base64Img],
+      });
+
+      // Send success response
+      res
+        .status(200)
+        .json({ message: "Image uploaded successfully", id: result.insertId });
+    } catch (error) {
+      console.error("Database query failed:", error);
+      res.status(500).json({
+        error: error.message,
+        stack: error.stack,
+        sqlMessage: error.sqlMessage || null,
+        sqlState: error.sqlState || null,
+      });
+    }
+  } else {
+    res.status(405).json({ error: `Method ${req.method} Not Allowed` });
   }
 }
-apiRoute.post(async (req, res) => {
-  const imgBuffer = req.file.buffer;
-  const base64Img = imageToBase64(imgBuffer);
-
-  try {
-    const [result] = await connection.query(
-      "INSERT INTO home_carousel (data) VALUES (?)",
-      [base64Img]
-    );
-    res
-      .status(200)
-      .json({ message: "Image uploaded Successfully", id: result.insertId });
-  } catch (error) {
-    res.status(500).json({
-      error: error.message,
-      stack: error.stack,
-      sqlMessage: error.sqlMessage || null,
-      sqlState: error.sqlState || null,
-    });
-  }
-});
-export default apiRoute;
 
 export const config = {
   api: {

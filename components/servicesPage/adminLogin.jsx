@@ -1,6 +1,9 @@
 import React from "react";
 import LoginIcon from "@mui/icons-material/Login";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
+import { TextField, InputAdornment } from "@mui/material";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 const AdminLogin = ({ handleLogin, setPass, setUser }) => {
   return (
@@ -13,23 +16,37 @@ const AdminLogin = ({ handleLogin, setPass, setUser }) => {
           <label className="text-xl">Administrador</label>
           <div className="flex flex-col w-full mt-8 text-left gap-y-8">
             {/* <label htmlFor="input">Usuario :</label> */}
-            <input
+            <TextField
               id="userName"
               onChange={(e) => setUser(e.target.value)}
               type="text"
-              placeholder=" Usuario"
+              placeholder="Usuario"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <PersonOutlineIcon />
+                  </InputAdornment>
+                ),
+              }}
               className="rounded-sm p-1 bg-slate-200"
             />
             {/* <label htmlFor="input">Contraseña:</label> */}
-            <input
+            <TextField
               id="pass"
               onChange={(e) => setPass(e.target.value)}
               type="text"
               placeholder=" Contraseña"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <LockOutlinedIcon />
+                  </InputAdornment>
+                ),
+              }}
               className="rounded-sm p-1 bg-slate-200"
             />
           </div>
-          <div className="flex flex-col justify-center items-center mt-10 gap-6">
+          <div className="flex flex-row justify-center mt-10 gap-6">
             <button onClick={handleLogin} className="btnZone shadow-lg">
               <LoginIcon /> Entrar
             </button>
