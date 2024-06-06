@@ -1,18 +1,45 @@
-import UploadImage from "./formImg";
-import AddIcon from "@mui/icons-material/Add";
+"use client";
+
+import HomeCaruosel from "./homeCaruosel";
+import RecentAct from "./recentAct";
+import Workers from "./workers";
+import { useState } from "react";
 
 const AdminHome = () => {
+  const [select, setSelect] = useState("home_carousel");
+  const handleChange = (e) => {
+    setSelect(e.target.value);
+  };
+
+  const renderComponent = () => {
+    switch (select) {
+      case "home_carousel":
+        return <HomeCaruosel />;
+      case "recent_activity":
+        return <RecentAct />;
+      case "workers":
+        return <Workers />;
+    }
+  };
   return (
     <div className="flex flex-col gap-y-5 justify-center items-center ">
       <h1>Hola bienvenido a la pagina de administracion</h1>
-      <p>Carrusel</p>
+      <select
+        value={select}
+        onChange={handleChange}
+        id="table"
+        className="text-xl"
+        required
+      >
+        <option value="home_carousel">Carrusel</option>
+        <option value="recent_activity">Noticias</option>
+        <option value="workers">Trabajadores</option>
+      </select>
       <div className="flex justify-center items-center ">
-        <button className="bg-stone-300 rounded-full hover:bg-stone-500">
-          <AddIcon className="text-white size-14" />
-        </button>
-        <div className="h-32 w-96 mx-10 bg-white"></div>
+        {renderComponent()}
+
+        {/* <div className="h-32 w-96 mx-10 bg-white"></div> */}
       </div>
-      <UploadImage/>
     </div>
   );
 };
