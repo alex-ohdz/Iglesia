@@ -16,19 +16,19 @@ const AdminPage = () => {
         if (decoded) {
           setIsAuthenticated(true);
         } else {
-          router.push("/login");
+          router.push("/");
         }
       } catch (error) {
-        router.push("/login");
+        router.push("/");
       }
     } else {
-      router.push("/login");
+      router.push("/");
     }
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    router.push("/login");
+    router.push("/");
   };
 
   if (!isAuthenticated) {

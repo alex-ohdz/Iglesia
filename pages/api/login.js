@@ -1,4 +1,4 @@
-import { db } from "@/lib/db";
+import { query } from "@/lib/db";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -8,9 +8,10 @@ export default async function handler(req, res) {
 
     try {
       // Buscar el usuario en la base de datos
-      const [rows] = await db.query("SELECT * FROM user WHERE username = ?", [
-        username,
-      ]);
+      const [rows] = await query({
+        query: "SELECT * FROM user WHERE username = ?",
+        values: [username],
+      });
 
       if (rows.length > 0) {
         const user = rows[0];
@@ -30,7 +31,8 @@ export default async function handler(req, res) {
         res.status(401).json({ error: "Credenciales inválidas" });
       }
     } catch (error) {
-      res.status(500).json({ error: "Error del servidor" });
+      console.error("Error del servidor:", error); // Agregar esta línea
+      res.status(500).json({ error: `Error del servidor: ${error.message}` });
     }
   } else {
     res.status(405).json({ error: `Método ${req.method} no permitido` });

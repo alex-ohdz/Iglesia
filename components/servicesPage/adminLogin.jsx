@@ -1,12 +1,8 @@
-import LoginIcon from "@mui/icons-material/Login";
-import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
-import { TextField, InputAdornment } from "@mui/material";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+
 
 const AdminLogin = ({ handleLogin, setPass, setUser }) => {
   return (
-    <div className="flex flex-col items-center font-serif">
+    <form className="flex flex-col items-center font-serif">
       <label className="text-3xl text-slate-700 my-14">
         San Juan Bautista de Remedios
       </label>
@@ -55,7 +51,7 @@ const AdminLogin = ({ handleLogin, setPass, setUser }) => {
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 
