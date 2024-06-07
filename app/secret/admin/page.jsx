@@ -12,7 +12,7 @@ const Admin = () => {
       if (response.ok) {
         setLoading(false);
       } else {
-        router.push('/login');
+        router.push('/secret');
       }
     };
 
