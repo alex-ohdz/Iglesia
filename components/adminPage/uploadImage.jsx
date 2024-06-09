@@ -148,8 +148,8 @@ function UploadImages() {
       <ImageInput onFilesSelected={handleFilesSelected} />
       <div className="bg-green-100 mt-4 mx-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {selectedFiles.map((file, index) => (
-          <div key={index} className="relative h-48 ">
-            <div className="h-36 bg-blue-400">
+          <div key={index} className="relative h-52 ">
+            <div className="h-40 bg-blue-400">
               <img
                 src={URL.createObjectURL(file)}
                 alt={`preview-${index}`}
@@ -218,8 +218,8 @@ function UploadImages() {
       <h1 className="text-lg mt-8">Imágenes en la base de datos</h1>
       <div className="bg-gray-200 mt-4 mx-10 mb-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {uploadedImages.map((image, index) => (
-              <div key={index} className="relative h-48 ">
-              <div className="h-36 bg-blue-400">
+              <div key={index} className="relative h-52 ">
+              <div className="h-40 bg-blue-400">
               <img
                 src={`data:image/jpeg;base64,${image.data}`}
                 alt={`uploaded-${index}`}
