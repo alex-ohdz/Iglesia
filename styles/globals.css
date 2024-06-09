@@ -91,22 +91,22 @@ html {
   border-radius: 0.25rem;
   width: 100%;
 }
-.btnZone{
-  background-color: #1a80ac;
-  color: rgb(255, 255, 255);
-  width: 50%;
-  padding: 0.25rem;
-  align-items: center;
-  border-radius: 0.25rem;
-}
-.btnZone:hover{
-  /* background-color: #cdd2d8; */
-background-color: #6e9fb5;
-}
 
 .cards{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(0px, 320px));
   gap: 30px;
   justify-content: center;
+}
+
+.error-container {
+  min-height: 1.5rem; /* Ajusta la altura según sea necesario */
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
 }

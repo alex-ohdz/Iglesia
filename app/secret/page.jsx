@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import LoginIcon from "@mui/icons-material/Login";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import { TextField, InputAdornment } from "@mui/material";
@@ -40,11 +41,22 @@ const AdminLogin = () => {
   };
 
   return (
-    <form className="flex flex-col items-center font-serif" onSubmit={handleLogin}>
+    <form
+      className="flex flex-col items-center font-serif"
+      onSubmit={handleLogin}
+    >
       <label className="text-3xl text-slate-700 my-14">
         San Juan Bautista de Remedios
       </label>
-      <div className="flex flex-col text-center items-center border h-96 w-96 drop-shadow-lg bg-white">
+      <Link href="/" className="absolute left-0" passHref>
+        <button
+          type="button"
+          className="text-white shadow-lg p-2 bg-gray-500 rounded-r-md text-lg pr-3"
+        >
+          <KeyboardReturnIcon /> Inicio
+        </button>
+      </Link>
+      <div className="flex flex-col text-center items-center border w-96 drop-shadow-lg bg-white">
         <div className="w-72 my-8">
           <label className="text-xl">Administrador</label>
           <div className="flex flex-col w-full mt-8 text-left gap-y-8">
@@ -77,13 +89,20 @@ const AdminLogin = () => {
               className="rounded-sm p-1 bg-slate-200"
             />
           </div>
-          {error && <p className="text-red-500 mt-4">{error}</p>}
-          <div className="flex flex-row justify-center mt-10 gap-6">
-            <button type="submit" className="btnZone shadow-lg">
-              <LoginIcon /> Entrar
-            </button>
-            <button type="button" className="btnZone shadow-lg">
-              <KeyboardReturnIcon /> Atrás
+          <div className="error-container">
+            <p
+              className={`text-red-500 mt-4 ${error ? "visible" : "invisible"}`}
+            >
+              {error || " "}
+            </p>
+          </div>
+          <div className="flex flex-row justify-center mt-5 gap-6">
+            <button
+              type="submit"
+              className="flex flex-row space-x-3 p-2 shadow-lg w-full bg-green-600 text-white text-lg justify-center rounded-md hover:bg-green-800"
+            >
+              <LoginIcon />
+              <p>Entrar</p>
             </button>
           </div>
         </div>
