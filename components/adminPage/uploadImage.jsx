@@ -18,11 +18,14 @@ const CustomLinearProgress = styled(LinearProgress)({
   },
 });
 
+const MAX_IMAGE_SIZE = 4 * 1024 * 1024; // 4MB
+
 function UploadImages() {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [uploadedImages, setUploadedImages] = useState([]);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     // Fetch images from the database on component mount
@@ -43,11 +46,21 @@ function UploadImages() {
   }, []);
 
   const handleFilesSelected = (files) => {
-    if (files.length + selectedFiles.length > 10) {
-      alert("Puedes seleccionar un máximo de 10 imágenes.");
+    const newFiles = Array.from(files);
+    const oversizedFiles = newFiles.filter((file) => file.size > MAX_IMAGE_SIZE);
+
+    if (oversizedFiles.length > 0) {
+      setError("Una o más imágenes superan el límite de tamaño de 4 MB.");
       return;
     }
-    setSelectedFiles((prevFiles) => [...prevFiles, ...Array.from(files)]);
+
+    if (newFiles.length + selectedFiles.length > 10) {
+      setError("You can select up to 10 images.");
+      return;
+    }
+
+    setError(""); // Clear any previous error
+    setSelectedFiles((prevFiles) => [...prevFiles, ...newFiles]);
   };
 
   const handleDeleteSelected = (index) => {
@@ -117,7 +130,7 @@ function UploadImages() {
   return (
     <div className="flex flex-col justify-center items-center w-full">
       <ImageInput onFilesSelected={handleFilesSelected} />
-      <div className="mt-4 mx-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      <div className="bg-green-100 mt-4 mx-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {selectedFiles.map((file, index) => (
           <div key={index} className="relative h-50">
             <div>
@@ -161,11 +174,19 @@ function UploadImages() {
       <button
         onClick={handleUpload}
         disabled={selectedFiles.length === 0 || uploading}
-        className="flex flex-row justify-center border-2 place-items-center gap-1 border-black bg-green-400 hover:bg-green-800 text-md p-2 mt-4"
+        className={`flex flex-row justify-center border-2 place-items-center gap-1 border-black ${
+          selectedFiles.length === 0 || uploading ? "bg-gray-400 cursor-not-allowed" : "bg-green-400 hover:bg-green-800"
+        } text-md p-2 mt-4`}
       >
         Subir imágenes
       </button>
-      <div className="mt-4 mx-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      {error && (
+        <div className="text-red-500 mt-4">
+          {error}
+        </div>
+      )}
+      <h1 className="text-lg mt-8">Imágenes en la base de datos</h1>
+      <div className="bg-gray-200 mt-4 mx-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {uploadedImages.map((image, index) => (
           <div key={index} className="relative mt-10">
             <div>
