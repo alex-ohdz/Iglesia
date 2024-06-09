@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+import PublishRoundedIcon from "@mui/icons-material/PublishRounded";
 
 const CustomLinearProgress = styled(LinearProgress)({
   height: 10, // Ajusta la altura de la barra de progreso
@@ -47,7 +48,9 @@ function UploadImages() {
 
   const handleFilesSelected = (files) => {
     const newFiles = Array.from(files);
-    const oversizedFiles = newFiles.filter((file) => file.size > MAX_IMAGE_SIZE);
+    const oversizedFiles = newFiles.filter(
+      (file) => file.size > MAX_IMAGE_SIZE
+    );
 
     if (oversizedFiles.length > 0) {
       setError("Una o más imágenes superan el límite de tamaño de 4 MB.");
@@ -69,9 +72,13 @@ function UploadImages() {
 
   const handleDeleteUploaded = async (id) => {
     try {
-      const response = await axios.delete("/api/delete-image", { data: { id } });
+      const response = await axios.delete("/api/delete-image", {
+        data: { id },
+      });
       if (response.status === 200) {
-        setUploadedImages((prevImages) => prevImages.filter((image) => image.id !== id));
+        setUploadedImages((prevImages) =>
+          prevImages.filter((image) => image.id !== id)
+        );
       } else {
         console.error("Error deleting image");
       }
@@ -175,16 +182,15 @@ function UploadImages() {
         onClick={handleUpload}
         disabled={selectedFiles.length === 0 || uploading}
         className={`flex flex-row justify-center border-2 place-items-center gap-1 border-black ${
-          selectedFiles.length === 0 || uploading ? "bg-gray-400 cursor-not-allowed" : "bg-green-400 hover:bg-green-800"
+          selectedFiles.length === 0 || uploading
+            ? "bg-gray-100 cursor-not-allowed"
+            : "bg-green-500 hover:bg-green-800 text-white"
         } text-md p-2 mt-4`}
       >
-        Subir imágenes
+        <PublishRoundedIcon className="" />
+        <p>Subir imágenes</p>
       </button>
-      {error && (
-        <div className="text-red-500 mt-4">
-          {error}
-        </div>
-      )}
+      {error && <div className="text-red-500 mt-4">{error}</div>}
       <h1 className="text-lg mt-8">Imágenes en la base de datos</h1>
       <div className="bg-gray-200 mt-4 mx-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {uploadedImages.map((image, index) => (
