@@ -8,6 +8,8 @@ import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PublishRoundedIcon from "@mui/icons-material/PublishRounded";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 const CustomLinearProgress = styled(LinearProgress)({
   height: 10, // Ajusta la altura de la barra de progreso
@@ -87,6 +89,13 @@ function UploadImages() {
     }
   };
 
+  const moveImage = (index, direction) => {
+    const newFiles = [...selectedFiles];
+    const [movedFile] = newFiles.splice(index, 1);
+    newFiles.splice(index + direction, 0, movedFile);
+    setSelectedFiles(newFiles);
+  };
+
   const handleUpload = async () => {
     const formData = new FormData();
     selectedFiles.forEach((file) => {
@@ -139,20 +148,35 @@ function UploadImages() {
       <ImageInput onFilesSelected={handleFilesSelected} />
       <div className="bg-green-100 mt-4 mx-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {selectedFiles.map((file, index) => (
-          <div key={index} className="relative h-50">
-            <div>
+          <div key={index} className="relative h-52 ">
+            <div className="h-40 bg-blue-400">
               <img
                 src={URL.createObjectURL(file)}
                 alt={`preview-${index}`}
                 className="w-full h-full object-cover rounded"
               />
-              <IconButton
-                aria-label="delete"
-                className="absolute top-0 right-0"
-                onClick={() => handleDeleteSelected(index)}
-              >
-                <DeleteIcon style={{ color: "red" }} />
-              </IconButton>
+              <div className="flex justify-between mt-2">
+                <IconButton
+                  aria-label="move-left"
+                  onClick={() => moveImage(index, -1)}
+                  disabled={index === 0}
+                >
+                  <ArrowBackIcon style={{ color: index === 0 ? "gray" : "black" }} />
+                </IconButton>
+                <IconButton
+                  aria-label="delete"
+                  onClick={() => handleDeleteSelected(index)}
+                >
+                  <DeleteIcon style={{ color: "red" }} />
+                </IconButton>
+                <IconButton
+                  aria-label="move-right"
+                  onClick={() => moveImage(index, 1)}
+                  disabled={index === selectedFiles.length - 1}
+                >
+                  <ArrowForwardIcon style={{ color: index === selectedFiles.length - 1 ? "gray" : "black" }} />
+                </IconButton>
+              </div>
             </div>
           </div>
         ))}
@@ -192,10 +216,10 @@ function UploadImages() {
       </button>
       {error && <div className="text-red-500 mt-4">{error}</div>}
       <h1 className="text-lg mt-8">Imágenes en la base de datos</h1>
-      <div className="bg-gray-200 mt-4 mx-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      <div className="bg-gray-200 mt-4 mx-10 mb-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {uploadedImages.map((image, index) => (
-          <div key={index} className="relative mt-10">
-            <div>
+              <div key={index} className="relative h-52 ">
+              <div className="h-40 bg-blue-400">
               <img
                 src={`data:image/jpeg;base64,${image.data}`}
                 alt={`uploaded-${index}`}
