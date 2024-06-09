@@ -14,12 +14,8 @@ export default async function handler(req, res) {
     if (req.method === 'POST') {
       const { username, password } = req.body;
 
-      console.log('Username:', username);
-      console.log('Password:', password);
-
       try {
         const result = await query('SELECT * FROM "user" WHERE username = $1', [username]);
-        console.log('Query Result:', result);
 
         if (result.rows.length === 0) {
           return res.status(401).json({ error: 'Credenciales inválidas' });

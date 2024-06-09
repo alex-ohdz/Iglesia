@@ -35,7 +35,6 @@ const AdminLogin = () => {
         setError(data.error || "Error al iniciar sesión");
       }
     } catch (err) {
-      console.error("Error al llamar a la API de login:", err);
       setError("Error al llamar a la API de login");
     }
   };
@@ -46,7 +45,7 @@ const AdminLogin = () => {
       onSubmit={handleLogin}
     >
       <label className="text-3xl text-slate-700 my-14">
-        San Juan Bautista de Remedios
+        Bienvenido al Sistema de Administración
       </label>
       <Link href="/" className="absolute left-0" passHref>
         <button
