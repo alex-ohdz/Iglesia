@@ -37,8 +37,6 @@ const AdminHome = () => {
       </select>
       <div className="flex justify-center items-center ">
         {renderComponent()}
-
-        {/* <div className="h-32 w-96 mx-10 bg-white"></div> */}
       </div>
     </div>
   );

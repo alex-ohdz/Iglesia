@@ -1,6 +1,8 @@
-'use client';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+"use client";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import AdminHome from "@components/adminPage/adminHome";
+import HomeCaruosel from "@components/adminPage/homeCaruosel";
 
 const Admin = () => {
   const router = useRouter();
@@ -8,11 +10,11 @@ const Admin = () => {
 
   useEffect(() => {
     const checkAuth = async () => {
-      const response = await fetch('/api/check-auth');
+      const response = await fetch("/api/check-auth");
       if (response.ok) {
         setLoading(false);
       } else {
-        router.push('/secret');
+        router.push("/secret");
       }
     };
 
@@ -25,8 +27,7 @@ const Admin = () => {
 
   return (
     <div>
-      <h1>Panel de Administración</h1>
-      {/* Contenido de la página de administración */}
+      <AdminHome />
     </div>
   );
 };
