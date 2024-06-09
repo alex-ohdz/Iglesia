@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import UploadImages from "./UploadImages";
+import UploadImages from "./uploadImage";
 
 const AdminHome = () => {
   const [select, setSelect] = useState("home_carousel");

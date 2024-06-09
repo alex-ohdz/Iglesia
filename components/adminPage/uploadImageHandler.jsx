@@ -1,3 +1,4 @@
+
 import axios from "axios";
 
 const MAX_IMAGE_SIZE = 4 * 1024 * 1024; // 4MB
@@ -70,7 +71,7 @@ export const handleUpload = async (
   setUploadProgress(0);
 
   try {
-    const response = await axios.post("/api/upload-images", formData, {
+    const response = await axios.post("/api/carousel-CRUD.js", formData, {
       onUploadProgress: (progressEvent) => {
         const total = progressEvent.total;
         const current = progressEvent.loaded;
