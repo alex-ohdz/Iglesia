@@ -28,7 +28,7 @@ const AdminHome = () => {
         value={select}
         onChange={handleChange}
         id="table"
-        className="text-xl"
+        className="text-xl border-2 border-gray-500"
         required
       >
         <option value="home_carousel">Carrusel</option>

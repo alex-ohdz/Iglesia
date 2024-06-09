@@ -1,12 +1,19 @@
-import AddIcon from "@mui/icons-material/Add";
+import React from 'react';
+import AddIcon from '@mui/icons-material/Add';
 
-function ImageInput() {
+function ImageInput({ onFilesSelected }) {
+  const handleFileChange = (event) => {
+    const files = event.target.files;
+    onFilesSelected(files);
+  };
+
   return (
     <div className="">
-      <button className="flex flex-row justify-center border-2 place-items-center gap-1 border-black bg-stone-300 hover:bg-stone-500 text-md p-1">
+      <label className="flex flex-row justify-center border-2 place-items-center gap-1 border-black bg-stone-300 hover:bg-stone-500 text-md p-2 cursor-pointer">
         <AddIcon className="text-white" fontSize="large" />
-        <p>Seleccionar imagenes</p>
-      </button>
+        <p>Seleccionar imágenes</p>
+        <input type="file" accept="image/*" multiple onChange={handleFileChange} className="hidden" />
+      </label>
     </div>
   );
 }

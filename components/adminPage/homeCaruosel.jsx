@@ -1,9 +1,10 @@
 import ImageInput from "./imageInput";
+import UploadImages from "./uploadImage";
 
 function HomeCaruosel() {
   return (
     <div>
-      <ImageInput />
+      <UploadImages/>
     </div>
   );
 }
