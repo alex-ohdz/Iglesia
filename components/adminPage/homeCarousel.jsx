@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import IconButton from "@mui/material/IconButton";
+import Button from "@mui/material/Button";
+import PublishRoundedIcon from "@mui/icons-material/PublishRounded";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ImageInput from "./imageInput";
 import ImagePreview from "./imagePreview";
@@ -14,7 +16,7 @@ import {
   handleUpload
 } from "./uploadImageHandler";
 
-const UploadImages = () => {
+const HomeCarousel = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [uploadedImages, setUploadedImages] = useState([]);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -33,17 +35,20 @@ const UploadImages = () => {
         onDelete={(index) => handleDeleteSelected(index, setSelectedFiles)}
       />
       <ProgressBar progress={uploadProgress} uploading={uploading} />
-      <button
+      <Button
         onClick={() => handleUpload(selectedFiles, setUploading, setUploadProgress, setSelectedFiles, fetchImages, setUploadedImages)}
         disabled={selectedFiles.length === 0 || uploading}
-        className={`flex flex-row justify-center border-2 place-items-center gap-1 border-black ${
+        variant="contained"
+        component="span"
+        startIcon={<PublishRoundedIcon />}
+        className={`flex flex-row justify-center gap-1 ${
           selectedFiles.length === 0 || uploading
             ? "bg-gray-100 cursor-not-allowed"
             : "bg-green-500 hover:bg-green-800 text-white"
         } text-md p-2 mt-4`}
       >
         Subir imágenes
-      </button>
+      </Button>
       <ErrorMessage error={error} />
       <h1 className="text-lg mt-8">Imágenes en la base de datos Carrusel</h1>
       <div className="bg-gray-200 mt-4 mx-10 mb-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -57,7 +62,7 @@ const UploadImages = () => {
               />
               <IconButton
                 aria-label="delete"
-                className="absolute top-0 right-0"
+                className="relative top-0 right-0"
                 onClick={() => handleDeleteUploaded(image.id, setUploadedImages)}
               >
                 <DeleteIcon style={{ color: "red" }} />
@@ -70,4 +75,4 @@ const UploadImages = () => {
   );
 };
 
-export default UploadImages;
+export default HomeCarousel;

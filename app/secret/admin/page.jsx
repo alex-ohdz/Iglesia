@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import AdminHome from "@components/adminPage/adminHome";
-import HomeCaruosel from "@components/adminPage/homeCaruosel";
 
 const Admin = () => {
   const router = useRouter();

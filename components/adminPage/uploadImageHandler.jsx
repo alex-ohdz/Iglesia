@@ -2,9 +2,9 @@ import axios from "axios";
 
 const MAX_IMAGE_SIZE = 4 * 1024 * 1024; // 4MB
 
-export const fetchImages = async (section, setUploadedImages) => {
+export const fetchImages = async (setUploadedImages) => {
   try {
-    const response = await axios.get("/api/get-images", { params: { section } });
+    const response = await axios.get("/api/get-images");
     if (response.status === 200) {
       setUploadedImages(response.data);
     } else {
@@ -37,10 +37,10 @@ export const handleDeleteSelected = (index, setSelectedFiles) => {
   setSelectedFiles(prevFiles => prevFiles.filter((_, i) => i !== index));
 };
 
-export const handleDeleteUploaded = async (id, section, setUploadedImages) => {
+export const handleDeleteUploaded = async (id, setUploadedImages) => {
   try {
     const response = await axios.delete("/api/delete-image", {
-      data: { id, section },
+      data: { id },
     });
     if (response.status === 200) {
       setUploadedImages(prevImages => prevImages.filter(image => image.id !== id));
@@ -54,17 +54,16 @@ export const handleDeleteUploaded = async (id, section, setUploadedImages) => {
 
 export const handleUpload = async (
   selectedFiles,
-  section,
   setUploading,
   setUploadProgress,
   setSelectedFiles,
-  fetchImages
+  fetchImages,
+  setUploadedImages // Añadir este parámetro
 ) => {
   const formData = new FormData();
   selectedFiles.forEach(file => {
     formData.append("images", file);
   });
-  formData.append("section", section);
 
   setUploading(true);
   setUploadProgress(0);
@@ -81,7 +80,8 @@ export const handleUpload = async (
 
     if (response.status === 200) {
       setSelectedFiles([]);
-      fetchImages(section, setUploadedImages); // Refetch images after upload
+      // Refetch images after upload
+      fetchImages(setUploadedImages);
     } else {
       console.error("Error subiendo las imágenes");
     }
