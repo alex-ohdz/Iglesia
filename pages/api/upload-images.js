@@ -15,12 +15,19 @@ export const config = {
 };
 
 const handler = async (req, res) => {
-  // Verificar el método de la solicitud
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: `Method ${req.method} not allowed` });
-  }
+  const method = req.method;
 
-  // Configurar multer para manejar la solicitud
+  switch (method) {
+    case "POST":
+      await handlePost(req, res);
+      break;
+    default:
+      res.setHeader("Allow", ["POST"]);
+      res.status(405).end(`Method ${method} Not Allowed`);
+  }
+};
+
+const handlePost = async (req, res) => {
   await new Promise((resolve, reject) => {
     upload.array("images", 10)(req, res, (err) => {
       if (err) {
@@ -31,24 +38,16 @@ const handler = async (req, res) => {
     });
   });
 
-  // Verificar que se han subido archivos
   if (!req.files || req.files.length === 0) {
     return res.status(400).json({ error: "No files uploaded" });
   }
 
-  // Convertir las imágenes a base64 y almacenarlas en la base de datos
   try {
     const images = req.files.map(file => file.buffer.toString("base64"));
-    
     const values = images.map((image, index) => `($${index + 1})`).join(", ");
-<<<<<<< HEAD
-    const queryText = `INSERT INTO home_carousel (data) VALUES ${values} RETURNING *`;
-=======
     const queryText = `INSERT INTO home_carousel (image) VALUES ${values} RETURNING *`;
->>>>>>> parent of 02be71a (carousel)
 
     const result = await query(queryText, images);
-    
     res.status(200).json(result.rows);
   } catch (error) {
     console.error("Error executing query", error);

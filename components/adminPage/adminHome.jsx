@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import UploadImages from "./UploadImages";
+import UploadImage from "./UploadImage";
 
 const AdminHome = () => {
   const [select, setSelect] = useState("home_carousel");
@@ -24,7 +24,7 @@ const AdminHome = () => {
         <option value="workers">Trabajadores</option>
       </select>
       <div className="flex justify-center items-center ">
-        <UploadImages section={select} />
+        <UploadImage section={select} />
       </div>
     </div>
   );

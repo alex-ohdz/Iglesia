@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import ImageInput from "./ImageInput";
 import ImagePreview from "./ImagePreview";
 import ProgressBar from "./ProgressBar";
@@ -11,7 +10,7 @@ import {
   handleDeleteSelected,
   handleDeleteUploaded,
   handleUpload
-} from "./uploadImageHandlers";
+} from "./uploadImageHandler";
 
 const UploadImages = ({ section }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -46,27 +45,28 @@ const UploadImages = ({ section }) => {
       <ErrorMessage error={error} />
       <h1 className="text-lg mt-8">Imágenes en la base de datos</h1>
       <div className="bg-gray-200 mt-4 mx-10 mb-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-        {uploadedImages.map((image, index) => (
-          <div key={index} className="relative h-52">
-            <div className="h-40 bg-blue-400">
-              <img
-                src={`data:image/jpeg;base64,${image.data}`}
-                alt={`uploaded-${index}`}
-                className="w-full h-full object-cover rounded"
-              />
-              <IconButton
-                aria-label="delete"
-                className="absolute top-0 right-0"
-                onClick={() => handleDeleteUploaded(image.id, section, setUploadedImages)}
-              >
-                <DeleteIcon style={{ color: "red" }} />
-              </IconButton>
-            </div>
+      {uploadedImages.map((image, index) => (
+        <div key={index} className="relative h-52">
+          <div className="h-40 bg-blue-400">
+            <img
+              src={`data:image/jpeg;base64,${image.image}`}
+              alt={`uploaded-${index}`}
+              className="w-full h-full object-cover rounded"
+            />
+            <IconButton
+              aria-label="delete"
+              className="absolute top-0 right-0"
+              onClick={() => handleDeleteUploaded(image.id, section, setUploadedImages)}
+            >
+              <DeleteIcon style={{ color: "red" }} />
+            </IconButton>
           </div>
-        ))}
-      </div>
+          
+        </div>
+      ))}
     </div>
-  );
+  </div>
+);
 };
 
 export default UploadImages;
