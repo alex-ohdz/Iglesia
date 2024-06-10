@@ -221,7 +221,7 @@ function UploadImages() {
               <div key={index} className="relative h-52 ">
               <div className="h-40 bg-blue-400">
               <img
-                src={`data:image/jpeg;base64,${image.image}`}
+                src={`data:image/jpeg;base64,${image.data}`}
                 alt={`uploaded-${index}`}
                 className="w-full h-full object-cover rounded"
               />
