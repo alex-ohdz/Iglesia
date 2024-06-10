@@ -41,7 +41,11 @@ const handler = async (req, res) => {
     const images = req.files.map(file => file.buffer.toString("base64"));
     
     const values = images.map((image, index) => `($${index + 1})`).join(", ");
+<<<<<<< HEAD
     const queryText = `INSERT INTO home_carousel (data) VALUES ${values} RETURNING *`;
+=======
+    const queryText = `INSERT INTO home_carousel (image) VALUES ${values} RETURNING *`;
+>>>>>>> parent of 02be71a (carousel)
 
     const result = await query(queryText, images);
     
