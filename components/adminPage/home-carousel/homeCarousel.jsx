@@ -28,24 +28,35 @@ const HomeCarousel = () => {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center w-full">
+    <div className="flex flex-col justify-center items-center w-full relative">
+      <ProgressBar progress={uploadProgress} uploading={uploading} />
       <ImageInput onFilesSelected={(files) => handleFilesSelected(files, selectedFiles, setSelectedFiles, setError)} />
       <ImagePreview
         selectedFiles={selectedFiles}
         onDelete={(index) => handleDeleteSelected(index, setSelectedFiles)}
       />
-      <ProgressBar progress={uploadProgress} uploading={uploading} />
       <Button
         onClick={() => handleUpload(selectedFiles, setUploading, setUploadProgress, setSelectedFiles, fetchImages, setUploadedImages)}
         disabled={selectedFiles.length === 0 || uploading}
         variant="contained"
         component="span"
         startIcon={<PublishRoundedIcon />}
-        className={`flex flex-row justify-center gap-1 ${
-          selectedFiles.length === 0 || uploading
-            ? "bg-gray-100 cursor-not-allowed"
-            : "bg-green-500 hover:bg-green-800 text-white"
-        } text-md p-2 mt-4`}
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          gap: 1,
+          backgroundColor: selectedFiles.length === 0 || uploading ? 'gray' : 'green',
+          cursor: selectedFiles.length === 0 || uploading ? 'not-allowed' : 'pointer',
+          color: 'white',
+          '&:hover': {
+            backgroundColor: selectedFiles.length === 0 || uploading ? 'gray' : 'darkgreen',
+          },
+          textTransform: 'none', // prevent all caps
+          fontSize: '16px',
+          padding: '8px 16px',
+          marginTop: '24px'
+        }}
       >
         Subir imágenes
       </Button>
@@ -62,7 +73,7 @@ const HomeCarousel = () => {
               />
               <IconButton
                 aria-label="delete"
-                className="relative top-0 right-0"
+                className="absolute top-0 right-0"
                 onClick={() => handleDeleteUploaded(image.id, setUploadedImages)}
               >
                 <DeleteIcon style={{ color: "red" }} />

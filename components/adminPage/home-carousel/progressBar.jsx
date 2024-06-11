@@ -14,27 +14,32 @@ const CustomLinearProgress = styled(LinearProgress)({
 });
 
 const ProgressBar = ({ progress, uploading }) => (
-  <Box
-    sx={{
-      width: "100%",
-      my: 2,
-      height: 10, // Aseguramos que el espacio siempre esté reservado
-      position: "relative",
-    }}
-  >
-    <CustomLinearProgress
-      variant="determinate"
-      value={progress}
+  uploading ? (
+    <Box
       sx={{
-        position: "absolute",
+        position: "fixed",
         top: 0,
         left: 0,
         right: 0,
-        opacity: uploading ? 1 : 0,
-        transition: "opacity 0.3s ease-in-out", // Añadimos una transición suave
+        bottom: 0,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "rgba(255, 255, 255, 0.75)",
+        zIndex: 1000,
+        backdropFilter: "blur(5px)",
       }}
-    />
-  </Box>
+    >
+      <CustomLinearProgress
+        variant="determinate"
+        value={progress}
+        sx={{
+          width: "80%",
+          height: 10,
+        }}
+      />
+    </Box>
+  ) : null
 );
 
 export default ProgressBar;

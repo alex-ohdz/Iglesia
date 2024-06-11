@@ -26,7 +26,7 @@ const ImageInput = ({ onFilesSelected }) => {
           variant="contained"
           component="span"
           startIcon={<AddIcon />}
-          className="bg-stone-300 hover:bg-stone-500 text-white"
+          className="bg-blue-600 hover:bg-blue-900 text-white"
         >
           Seleccionar imágenes
         </Button>

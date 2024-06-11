@@ -2,10 +2,10 @@
 import React, { useState, useEffect } from "react";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ImageInput from "./imageInput";
-import ImagePreview from "./imagePreview";
-import ProgressBar from "./progressBar";
-import ErrorMessage from "./errorMessage";
+import ImageInput from "./home-carousel/imageInput";
+import ImagePreview from "./home-carousel/imagePreview";
+import ProgressBar from "./home-carousel/progressBar";
+import ErrorMessage from "./home-carousel/errorMessage";
 import {
   fetchImages,
   handleFilesSelected,

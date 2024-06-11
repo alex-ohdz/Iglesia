@@ -92,12 +92,13 @@ html {
   width: 100%;
 }
 
-.cards{
+.cardsok{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(0px, 320px));
   gap: 30px;
   justify-content: center;
 }
+
 
 .error-container {
   min-height: 1.5rem; /* Ajusta la altura según sea necesario */
