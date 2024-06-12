@@ -5,6 +5,8 @@ import AddIcon from "@mui/icons-material/Add";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 import Cards from "@components/noticias/cards";
 
 const initialActivities = [
@@ -29,6 +31,7 @@ const style = {
   display: "flex",
   flexDirection: "column",
   gap: 2,
+  outline: 'none',
 };
 
 const RecentActivity = () => {
@@ -72,26 +75,37 @@ const RecentActivity = () => {
           onClick={handleOpen}
           variant="contained"
           startIcon={<AddIcon />}
-          sx={{
-            backgroundColor: "blue.500",
-            "&:hover": {
-              backgroundColor: "blue.700",
-            },
-            color: "white",
-            my: 2,
-          }}
+          className="bg-blue-600 hover:bg-blue-900 text-white"
         >
           Añadir Actividad
         </Button>
       </div>
       <Modal
         open={open}
-        onClose={handleClose}
+        onClose={(event, reason) => {
+          if (reason !== "backdropClick") {
+            handleClose();
+          }
+        }}
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
+        disableEscapeKeyDown
+        closeAfterTransition
+        slotProps={{
+          backdrop: {
+            style: {
+              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            },
+          },
+        }}
       >
         <Box sx={style}>
-          <h2 id="modal-title">Nueva Actividad</h2>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <h2 id="modal-title">Nueva Actividad</h2>
+            <IconButton onClick={handleClose}>
+              <CloseIcon />
+            </IconButton>
+          </div>
           <TextField
             label="URL de la imagen"
             type="text"
@@ -130,21 +144,14 @@ const RecentActivity = () => {
           <Button
             onClick={addNewActivity}
             variant="contained"
-            sx={{
-              backgroundColor: "green.500",
-              "&:hover": {
-                backgroundColor: "green.700",
-              },
-              color: "white",
-              mt: 2,
-            }}
+            className="bg-blue-600 hover:bg-blue-900 text-white"
           >
             Confirmar
           </Button>
         </Box>
       </Modal>
       <div className="cardsok pb-10">
-        {activities.map((activity, index) => (
+        {activities.map((activity) => (
           <Cards
             key={activity.id}
             imageUrl={activity.image}

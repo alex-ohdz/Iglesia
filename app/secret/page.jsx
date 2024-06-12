@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import LoginIcon from "@mui/icons-material/Login";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
-import { TextField, InputAdornment } from "@mui/material";
+import { TextField, InputAdornment, Button } from "@mui/material";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
@@ -50,9 +50,9 @@ const AdminLogin = () => {
       <Link href="/" className="absolute left-0" passHref>
         <button
           type="button"
-          className="text-white shadow-lg p-2 bg-gray-500 rounded-r-md text-lg pr-3"
+          className="text-white shadow-lg p-2 bg-gray-500 rounded-r-md text-sm pr-3 tracking-wider"
         >
-          <KeyboardReturnIcon /> Inicio
+          <KeyboardReturnIcon /> INICIO
         </button>
       </Link>
       <div className="flex flex-col text-center items-center border w-96 drop-shadow-lg bg-white">
@@ -96,13 +96,20 @@ const AdminLogin = () => {
             </p>
           </div>
           <div className="flex flex-row justify-center mt-5 gap-6">
-            <button
+            {/* <button
               type="submit"
-              className="flex flex-row space-x-3 p-2 shadow-lg w-full bg-green-600 text-white text-lg justify-center rounded-md hover:bg-green-800"
+              className="flex flex-row space-x-3 p-2 w-full bg-green-600 text-white place-items-center text-sm justify-center rounded-md hover:bg-green-800 tracking-wider"
+            > */}
+            <Button
+              type="submit"
+              variant="contained"
+              startIcon={<LoginIcon />}
+              className="bg-green-600 hover:bg-green-700 text-white w-full"
             >
-              <LoginIcon />
-              <p>Entrar</p>
-            </button>
+              ENTRAR
+            </Button>
+
+            {/* </button> */}
           </div>
         </div>
       </div>
