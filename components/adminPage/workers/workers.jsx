@@ -176,7 +176,7 @@ const Workers = () => {
   return (
     <>
       {uploading && <ProgressBar progress={uploadProgress} uploading={uploading} />}
-      <div className="text-center items-center mx-auto px-4 pb-10">
+      <div className="text-center items-center mx-auto px-4 pb-5">
         <h1 className="font-serif text-3xl py-5 text-amber-800">
           Trabajadores Actuales
         </h1>
@@ -265,8 +265,8 @@ const Workers = () => {
           </Button>
         </Box>
       </Modal>
+      <h1 className="text-center font-serif text-2xl py-5 mt-8">Trabajadores Actuales</h1>
       <div className=" p-5" id="us">
-        <h2 className="text-2xl mb-8 text-center font-serif text-gray-900">Nuestro Equipo</h2>
         <div className="flex flex-wrap justify-center gap-8">
           {workers.map((worker) => (
             <div key={worker.id} className="relative flex flex-col items-center text-center mt-10">

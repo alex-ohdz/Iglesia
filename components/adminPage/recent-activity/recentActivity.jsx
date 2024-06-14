@@ -8,9 +8,9 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Cards from "@components/noticias/cards";
-import { styled } from '@mui/material/styles';
-import axios from 'axios';
-import ProgressBar from '@components/adminPage/home-carousel/progressBar';
+import { styled } from "@mui/material/styles";
+import axios from "axios";
+import ProgressBar from "@components/adminPage/home-carousel/progressBar";
 
 const style = {
   position: "absolute",
@@ -24,11 +24,11 @@ const style = {
   display: "flex",
   flexDirection: "column",
   gap: 2,
-  outline: 'none',
+  outline: "none",
 };
 
-const Input = styled('input')({
-  display: 'none',
+const Input = styled("input")({
+  display: "none",
 });
 
 const RecentActivity = () => {
@@ -48,12 +48,12 @@ const RecentActivity = () => {
   useEffect(() => {
     const fetchActivities = async () => {
       try {
-        const response = await axios.get('/api/getActivities');
+        const response = await axios.get("/api/getActivities");
         if (response.data.success) {
           setActivities(response.data.data);
         }
       } catch (error) {
-        console.error('Error fetching activities', error);
+        console.error("Error fetching activities", error);
       }
     };
 
@@ -108,9 +108,9 @@ const RecentActivity = () => {
 
     setUploading(true);
     try {
-      const response = await axios.post('/api/addActivity', formData, {
+      const response = await axios.post("/api/addActivity", formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
         onUploadProgress: (progressEvent) => {
           const total = progressEvent.total;
@@ -124,7 +124,7 @@ const RecentActivity = () => {
         handleClose();
       }
     } catch (error) {
-      console.error('Error adding activity', error);
+      console.error("Error adding activity", error);
     } finally {
       setUploading(false);
     }
@@ -142,9 +142,9 @@ const RecentActivity = () => {
 
     setUploading(true);
     try {
-      const response = await axios.put('/api/updateActivity', formData, {
+      const response = await axios.put("/api/updateActivity", formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
         onUploadProgress: (progressEvent) => {
           const total = progressEvent.total;
@@ -154,13 +154,15 @@ const RecentActivity = () => {
         },
       });
       if (response.data.success) {
-        setActivities(activities.map(activity =>
-          activity.id === currentActivityId ? response.data.data : activity
-        ));
+        setActivities(
+          activities.map((activity) =>
+            activity.id === currentActivityId ? response.data.data : activity
+          )
+        );
         handleClose();
       }
     } catch (error) {
-      console.error('Error updating activity', error);
+      console.error("Error updating activity", error);
     } finally {
       setUploading(false);
     }
@@ -168,20 +170,22 @@ const RecentActivity = () => {
 
   const deleteActivity = async (id) => {
     try {
-      const response = await axios.delete('/api/deleteActivity', {
+      const response = await axios.delete("/api/deleteActivity", {
         data: { id },
       });
       if (response.data.success) {
-        setActivities(activities.filter(activity => activity.id !== id));
+        setActivities(activities.filter((activity) => activity.id !== id));
       }
     } catch (error) {
-      console.error('Error deleting activity', error);
+      console.error("Error deleting activity", error);
     }
   };
 
   return (
     <>
-      {uploading && <ProgressBar progress={uploadProgress} uploading={uploading} />}
+      {uploading && (
+        <ProgressBar progress={uploadProgress} uploading={uploading} />
+      )}
       <div className="text-center items-center mx-auto px-4 pb-10">
         <h1 className="font-serif text-3xl py-5 text-amber-800">
           Actividades Recientes
@@ -194,6 +198,9 @@ const RecentActivity = () => {
         >
           Añadir Actividad
         </Button>
+        <h1 className="font-serif text-2xl py-1 mt-8">
+          Actividades Recientes
+        </h1>
       </div>
       <Modal
         open={open}
@@ -209,32 +216,44 @@ const RecentActivity = () => {
         slotProps={{
           backdrop: {
             style: {
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
             },
           },
         }}
       >
         <Box sx={style}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h2 id="modal-title">{editMode ? "Editar Actividad" : "Nueva Actividad"}</h2>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <h2 id="modal-title">
+              {editMode ? "Editar Actividad" : "Nueva Actividad"}
+            </h2>
             <IconButton onClick={handleClose}>
               <CloseIcon />
             </IconButton>
           </div>
-          <div 
-            style={{ 
-              display: 'flex', 
-              justifyContent: 'center', 
-              alignItems: 'center', 
-              height: '180px', 
-              backgroundColor: '#f0f0f0', 
-              border: '2px dashed #ccc', 
-              cursor: 'pointer'
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "180px",
+              backgroundColor: "#f0f0f0",
+              border: "2px dashed #ccc",
+              cursor: "pointer",
             }}
-            onClick={() => document.getElementById('image-upload').click()}
+            onClick={() => document.getElementById("image-upload").click()}
           >
             {selectedImage ? (
-              <img src={URL.createObjectURL(selectedImage)} alt="Selected" style={{ maxHeight: '100%', maxWidth: '100%' }} />
+              <img
+                src={URL.createObjectURL(selectedImage)}
+                alt="Selected"
+                style={{ maxHeight: "100%", maxWidth: "100%" }}
+              />
             ) : (
               <span>Haz clic para seleccionar una imagen</span>
             )}
@@ -291,16 +310,16 @@ const RecentActivity = () => {
               text={activity.body}
             />
             <div className="absolute top-2 right-2 flex space-x-2">
-              <Button 
-                variant="contained" 
-                color="info" 
+              <Button
+                variant="contained"
+                color="info"
                 onClick={() => handleOpen(activity)}
               >
                 Editar
               </Button>
-              <Button 
-                variant="contained" 
-                color="warning" 
+              <Button
+                variant="contained"
+                color="warning"
                 onClick={() => deleteActivity(activity.id)}
               >
                 Eliminar

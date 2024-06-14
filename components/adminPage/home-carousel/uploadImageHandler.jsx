@@ -4,7 +4,7 @@ const MAX_IMAGE_SIZE = 4 * 1024 * 1024; // 4MB
 
 export const fetchImages = async (setUploadedImages) => {
   try {
-    const response = await axios.get("/api/get-images");
+    const response = await axios.get("/api/getCarousel");
     if (response.status === 200) {
       setUploadedImages(response.data);
     } else {
@@ -39,7 +39,7 @@ export const handleDeleteSelected = (index, setSelectedFiles) => {
 
 export const handleDeleteUploaded = async (id, setUploadedImages) => {
   try {
-    const response = await axios.delete("/api/delete-image", {
+    const response = await axios.delete("/api/deleteCarousel", {
       data: { id },
     });
     if (response.status === 200) {
@@ -69,7 +69,7 @@ export const handleUpload = async (
   setUploadProgress(0);
 
   try {
-    const response = await axios.post("/api/upload-images", formData, {
+    const response = await axios.post("/api/addCarousel", formData, {
       onUploadProgress: (progressEvent) => {
         const total = progressEvent.total;
         const current = progressEvent.loaded;

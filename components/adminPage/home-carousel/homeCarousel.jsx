@@ -29,6 +29,9 @@ const HomeCarousel = () => {
 
   return (
     <div className="flex flex-col justify-center items-center w-full relative">
+      <h1 className="font-serif text-3xl py-5 text-amber-800">
+      Imágenes en el Carrusel
+        </h1>
       <ProgressBar progress={uploadProgress} uploading={uploading} />
       <ImageInput onFilesSelected={(files) => handleFilesSelected(files, selectedFiles, setSelectedFiles, setError)} />
       <ImagePreview
@@ -61,7 +64,7 @@ const HomeCarousel = () => {
         Subir imágenes
       </Button>
       <ErrorMessage error={error} />
-      <h1 className="text-lg mt-8">Imágenes en la base de datos Carrusel</h1>
+      <h1 className="font-serif text-2xl py-5 mt-8">Imágenes en la base de datos Carrusel</h1>
       <div className="bg-gray-200 mt-4 mx-10 mb-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {uploadedImages.map((image, index) => (
           <div key={index} className="relative h-52">
