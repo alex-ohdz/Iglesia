@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import AdminHome from "@components/adminPage/adminHome";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Admin = () => {
   const router = useRouter();
@@ -21,10 +22,15 @@ const Admin = () => {
   }, [router]);
 
   if (loading) {
-    return <div>Cargando...</div>;
+    return (
+      <div className="flex relative place-content-center top-72">
+      <CircularProgress />
+    </div>
+    );
   }
 
   return (
+  
     <div>
       <AdminHome />
     </div>

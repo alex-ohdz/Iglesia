@@ -95,6 +95,14 @@ const Workers = () => {
     setOpen(false);
   };
 
+  const isFormComplete = () => {
+    return (
+      newWorker.name !== "" &&
+      newWorker.rol !== "" &&
+      selectedImage !== null
+    );
+  };
+
   const addNewWorker = async () => {
     const formData = new FormData();
     formData.append("name", newWorker.name);
@@ -260,6 +268,7 @@ const Workers = () => {
             variant="contained"
             className="bg-blue-600 hover:bg-blue-900 text-white"
             sx={{ mt: 2 }}
+            disabled={!isFormComplete()}
           >
             Confirmar
           </Button>

@@ -99,6 +99,15 @@ const RecentActivity = () => {
     setOpen(false);
   };
 
+  const isFormComplete = () => {
+    return (
+      newActivity.date !== "" &&
+      newActivity.title !== "" &&
+      newActivity.body !== "" &&
+      selectedImage !== null
+    );
+  };
+
   const addNewActivity = async () => {
     const formData = new FormData();
     formData.append("date", newActivity.date);
@@ -198,9 +207,7 @@ const RecentActivity = () => {
         >
           Añadir Actividad
         </Button>
-        <h1 className="font-serif text-2xl py-1 mt-8">
-          Actividades Recientes
-        </h1>
+        <h1 className="font-serif text-2xl py-1 mt-8">Actividades Recientes</h1>
       </div>
       <Modal
         open={open}
@@ -295,6 +302,7 @@ const RecentActivity = () => {
             variant="contained"
             className="bg-blue-600 hover:bg-blue-900 text-white"
             sx={{ mt: 2 }}
+            disabled={!isFormComplete()}
           >
             Confirmar
           </Button>

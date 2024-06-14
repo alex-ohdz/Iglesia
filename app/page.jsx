@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import FooterApp from "@components/footerApp.jsx";
 import Carrousel from "@components/carrousel.jsx";
 import Noticias from "@components/noticias/noticias.jsx";
+import Services from "@components/services";
 
 export default function Home() {
   const [isMobile, setIsMobile] = useState(false);
@@ -34,6 +35,7 @@ export default function Home() {
       <aside className="">
         <BoxText />
         <Noticias />
+        <Services/>
       </aside>
       <section></section>
       <footer>

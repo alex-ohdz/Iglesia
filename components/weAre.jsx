@@ -12,7 +12,7 @@ const teamMembers = [
 const ImageCircle = () => {
   return (
     <div className="bg-amber-100 p-5 anchored-section" id="us">
-      <h2 className="text-2xl mb-8 text-center font-serif text-gray-900">Nuestro Equipo</h2>
+      <h2 className="text-3xl mb-8 text-center font-serif text-gray-600">Nuestro Equipo</h2>
       <div className="flex flex-wrap justify-center gap-8">
         {teamMembers.map((member, index) => (
           <div key={index} className="flex flex-col items-center text-center">
