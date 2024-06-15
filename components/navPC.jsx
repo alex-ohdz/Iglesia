@@ -1,23 +1,51 @@
-import NavText from "@components/navText";
+"use client";
+
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import CssBaseline from "@mui/material/CssBaseline";
+import useScrollTrigger from "@mui/material/useScrollTrigger";
 import Link from "next/link";
 import LangChanger from "./langChanger";
+import NavText from "./navText";
+import { cloneElement } from "react";
 
-const NavPC = ({ isMobile }) => {
+function ElevationScroll(props) {
+  const { children, window } = props;
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 0,
+    target: window ? window() : undefined,
+  });
+
+  return cloneElement(children, {
+    style: {
+      backgroundColor: trigger ? "white" : "transparent",
+      boxShadow: "none",
+    },
+  });
+}
+
+function NavPC({ isMobile }) {
   return (
-    <nav className="flex justify-between items-center py-3 px-5 text-white fixed top-0 left-0 right-0 bg-white z-10 border-b-2 border-black-100">
-      <div>
-        <Link href={"/"}>
-          <h1 className="text-amber-900 font-playfair text-2xl">
-            San Juan Bautista de Remedios
-          </h1>
-        </Link>
-      </div>
-      <div className="flex">
-        <NavText isMobile={isMobile} />
-        <LangChanger />
-      </div>
-    </nav>
+    <>
+      <CssBaseline />
+      <ElevationScroll>
+        <AppBar position="fixed" style={{ boxShadow: "none" }}>
+          <Toolbar>
+            <Link href="/">
+              <h1 className="text-amber-900 font-playfair text-2xl">
+                San Juan Bautista de Remedios
+              </h1>
+            </Link>
+            <div style={{ flexGrow: 1 }} />
+            <NavText isMobile={isMobile} />
+            <LangChanger />
+          </Toolbar>
+        </AppBar>
+      </ElevationScroll>
+      <Toolbar />
+    </>
   );
-};
+}
 
 export default NavPC;
