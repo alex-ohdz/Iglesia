@@ -1,10 +1,12 @@
 import React from 'react';
+import ServiceNavigation from "@components/serviceNavigation"
 
 const Services = () => {
   return (
     <div className="w-full mt-16">
       <div className="flex flex-col">
         <h1 className='text-2xl text-center p-10 font-serif text-amber-900'>Servicios</h1>
+        <ServiceNavigation/>
         <ServiceSection
           title="Bautismos"
 		  ids="bautismos"
