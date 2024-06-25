@@ -94,7 +94,7 @@ html {
 
 .cardsok{
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(0px, 320px));
+  grid-template-columns: repeat(auto-fit, minmax(0px, 256px));
   gap: 30px;
   justify-content: center;
 }

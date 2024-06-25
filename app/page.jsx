@@ -1,12 +1,12 @@
 "use client";
+import { useState, useEffect } from "react";
 import BoxText from "@components/boxText";
 import NavPC from "@components/navPC";
 import NavMobile from "@components/navMobile";
-import { useState, useEffect } from "react";
-import FooterApp from "@components/footerApp.jsx";
-import Carrousel from "@components/carrousel.jsx";
-import Noticias from "@components/noticias/noticias.jsx";
 import Services from "@components/services";
+import FooterApp from "@components/footerApp";
+import Carrousel from "@components/carrousel";
+import Noticias from "@components/noticias/noticias";
 
 export default function Home() {
   const [isMobile, setIsMobile] = useState(false);
@@ -35,9 +35,11 @@ export default function Home() {
       <aside className="">
         <BoxText />
         <Noticias />
-        <Services/>
       </aside>
-      <section></section>
+
+      <section>
+        <Services />
+      </section>
       <footer>
         <FooterApp />
       </footer>
