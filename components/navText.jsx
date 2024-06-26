@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const items = [
   { text: "Nosotros", link: "#us" },
-  { text: "Servicios", link: "/services" },
+  { text: "Servicios", link: "#services" },
   { text: "Contacto", link: "#contact" },
   { text: "Donar", link: "#donar" },
 ];

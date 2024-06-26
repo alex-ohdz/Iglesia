@@ -1,4 +1,3 @@
-import React from 'react';
 
 const teamMembers = [
   { name: "Nombre del Trabajador 1", role: "Cargo o Rol", imageUrl: "https://rickandmortyapi.com/api/character/avatar/290.jpeg" },

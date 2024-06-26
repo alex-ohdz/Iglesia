@@ -23,7 +23,7 @@ const notices = [
 
 const Noticias = () => {
   return (
-    <div className="mx-auto px-4 bg-slate-100 pb-10">
+    <div className="mx-auto px-4 bg-slate-100 pb-10" id="services">
       <h1 className="text-center font-serif text-3xl py-10 text-amber-800">Actividades Recientes</h1>
       <div className="cardsok">
         {notices.map((n, index) => (
