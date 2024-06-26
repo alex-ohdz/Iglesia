@@ -33,11 +33,12 @@ function Services() {
   const selectServices = servicios.find((servicio) => servicio.id === value);
 
   return (
-    <div className="h-96 bg-gray-100">
+    <div className="h-96 mb-10 sm:mb-5">
+      <h1 className="text-center my-7 font-serif text-3xl">Servicios</h1>
       <div className="flex justify-between h-14 w-full">
         <div className="flex justify-center items-center h-full w-1/3">
           <button
-            className={`h-full w-full text-white font-semibold ${value === 1 ? 'bg-blue-500' : 'bg-blue-300 hover:bg-blue-400'}`}
+            className={`h-full w-full text-white font-semibold ${value === 1 ? 'bg-gray-500' : 'bg-gray-700 hover:bg-gray-600'}`}
             onClick={() => handleChange(1)}
             disabled={value === 1}
           >
@@ -46,7 +47,7 @@ function Services() {
         </div>
         <div className="flex justify-center items-center h-full w-1/3">
           <button
-            className={`h-full w-full text-white font-semibold ${value === 2 ? 'bg-green-500' : 'bg-green-300 hover:bg-green-400'}`}
+            className={`h-full w-full text-white font-semibold ${value === 2 ? 'bg-gray-500' : 'bg-gray-700 hover:bg-gray-600'}`}
             onClick={() => handleChange(2)}
             disabled={value === 2}
           >
@@ -55,7 +56,7 @@ function Services() {
         </div>
         <div className="flex justify-center items-center h-full w-1/3">
           <button
-            className={`h-full w-full text-white font-semibold ${value === 3 ? 'bg-red-500' : 'bg-red-300 hover:bg-red-400'}`}
+            className={`h-full w-full text-white font-semibold ${value === 3 ? 'bg-gray-500' : 'bg-gray-700 hover:bg-gray-600'}`}
             onClick={() => handleChange(3)}
             disabled={value === 3}
           >
