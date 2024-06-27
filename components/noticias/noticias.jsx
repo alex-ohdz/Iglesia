@@ -27,7 +27,7 @@ const Noticias = () => {
       <h1 className="text-center font-serif text-3xl py-10 text-amber-800">Actividades Recientes</h1>
       <div className="cardsok">
         {notices.map((n, index) => (
-          <Cards key={index} title={n.title} text={n.text} imageUrl={n.imageUrl} date={n.date}/>
+          <Cards key={index} itemKey={index} title={n.title} text={n.text} imageUrl={n.imageUrl} date={n.date}/>
         ))}
       </div>
     </div>

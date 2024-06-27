@@ -5,7 +5,7 @@ const items = [
   { text: "Nosotros", link: "#us" },
   { text: "Servicios", link: "#services" },
   { text: "Contacto", link: "#contact" },
-  { text: "Donar", link: "#donar" },
+  { text: "Donar", link: "donations" },
 ];
 
 const NavText = ({ isMobile }) => {

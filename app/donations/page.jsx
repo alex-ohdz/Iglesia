@@ -1,103 +1,86 @@
-// export default function Donations() {
-//   return (
-//     <form id="donation-form">
-//       <input
-//         type="text"
-//         id="donor-name"
-//         placeholder="Nombre del donante"
-//         required
-//       />
-//       <input
-//         type="email"
-//         id="donor-email"
-//         placeholder="Correo electrónico"
-//         required
-//       />
-//       <input
-//         type="number"
-//         id="donation-amount"
-//         placeholder="Monto de la donación"
-//         required
-//       />
-//       <div id="card-element">Stripe Elements </div>
-//       <button type="submit">Donar</button>
-//     </form>
-//   );
-// }
-
-// pages/donate.js
-'use client'
+'use client';
 import { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
-import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 const DonateForm = () => {
-  const stripe = useStripe();
-  const elements = useElements();
   const [amount, setAmount] = useState(0);
   const [message, setMessage] = useState('');
+
+  const handleAmountClick = (value) => {
+    setAmount(value);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const response = await fetch('/api/create-payment-intent', {
+    const stripe = await stripePromise;
+
+    const response = await fetch('/api/checkout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ amount: amount * 100 }), // Convertir a centavos
+      body: JSON.stringify({ amount: amount }),
     });
 
-    const { clientSecret } = await response.json();
+    const session = await response.json();
 
-    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: elements.getElement(CardElement),
-        billing_details: {
-          email: document.getElementById('email').value,
-        },
-      },
+    const result = await stripe.redirectToCheckout({
+      sessionId: session.id,
     });
 
-    if (error) {
-      setMessage(`Payment failed: ${error.message}`);
-    } else {
-      setMessage('Payment successful!');
+    if (result.error) {
+      setMessage(result.error.message);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="p-4 bg-gray-100 rounded-md shadow-md">
+      <h2 className="text-2xl font-bold mb-4">Donar</h2>
       <input
         type="email"
         id="email"
         placeholder="Correo electrónico"
         required
+        className="p-2 mb-4 w-full border rounded-md"
       />
-      <input
-        type="number"
-        id="amount"
-        placeholder="Monto de la donación"
-        required
-        onChange={(e) => setAmount(e.target.value)}
-      />
-      <div>
-        <CardElement />
+      <div className="mb-4">
+        <h3 className="text-lg font-semibold mb-2">Selecciona un monto:</h3>
+        <div className="grid grid-cols-5 gap-2">
+          {[5, 10, 15, 20, 25].map((value) => (
+            <button
+              key={value}
+              type="button"
+              className={`p-2 rounded-md border ${amount === value ? 'bg-blue-500 text-white' : 'bg-white text-blue-500'}`}
+              onClick={() => handleAmountClick(value)}
+            >
+              ${value}
+            </button>
+          ))}
+        </div>
       </div>
-      <button type="submit" disabled={!stripe || !elements}>
+      <div className="mb-4">
+        <input
+          type="number"
+          id="amount"
+          placeholder="Monto personalizado"
+          className="p-2 w-full border rounded-md"
+          value={amount}
+          onChange={(e) => setAmount(Number(e.target.value))}
+        />
+      </div>
+      <button type="submit" className="bg-green-500 text-white p-2 rounded-md w-full">
         Donar
       </button>
-      {message && <p>{message}</p>}
+      {message && <p className="mt-4 text-red-500">{message}</p>}
     </form>
   );
 };
 
 const DonatePage = () => (
-  <Elements stripe={stripePromise}>
-    <DonateForm />
-  </Elements>
+  <DonateForm />
 );
 
 export default DonatePage;

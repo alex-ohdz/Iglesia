@@ -5,12 +5,11 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 
-function DialogCard({ open, handleClose, title, date, text, imageUrl, key }) {
+function DialogCard({ open, handleClose, title, date, text, imageUrl }) {
   return (
     <Dialog
       open={open}
       onClose={handleClose}
-      key={key}
       className="flex justify-center"
     >
       <div className="flex flex-col items-center p-3">

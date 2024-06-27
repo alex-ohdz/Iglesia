@@ -3,7 +3,7 @@ import { useState } from "react";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import DialogCard from "./dialog";
 
-const Cards = ({key, title, text, imageUrl, date }) => {
+const Cards = ({ title, text, imageUrl, date, itemKey }) => {
   const [open, setOpen] = useState(false);
 
   const toggleDialog = () => {
@@ -15,7 +15,7 @@ const Cards = ({key, title, text, imageUrl, date }) => {
       <div
         className="bg-white drop-shadow-md rounded-md w-64 transition-transform duration-300 hover:scale-105 hover:shadow-xl"
         onClick={toggleDialog}
-        key={key}
+        key={itemKey}
       >
         <div className="flex flex-col rounded-xl font-merriweather">
           <div className="flex justify-center">
@@ -42,7 +42,6 @@ const Cards = ({key, title, text, imageUrl, date }) => {
         date={date}
         text={text}
         imageUrl={imageUrl}
-        key={key}
       />
     </>
   );
