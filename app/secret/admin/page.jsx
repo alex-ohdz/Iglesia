@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import AdminHome from "@components/adminPage/adminHome";
 import CircularProgress from "@mui/material/CircularProgress";
+import BtnHome from "@components/btnHome";
 
 const Admin = () => {
   const router = useRouter();
@@ -31,9 +32,10 @@ const Admin = () => {
 
   return (
   
-    <div>
+    <>
+      <BtnHome/>
       <AdminHome />
-    </div>
+    </>
   );
 };
 

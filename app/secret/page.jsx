@@ -1,12 +1,11 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import LoginIcon from "@mui/icons-material/Login";
-import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import { TextField, InputAdornment, Button } from "@mui/material";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import BtnHome from "@components/btnHome";
 
 const AdminLogin = () => {
   const [user, setUser] = useState("");
@@ -47,14 +46,15 @@ const AdminLogin = () => {
       <label className="text-3xl text-slate-700 my-14">
         Bienvenido al Sistema de Administración
       </label>
-      <Link href="/" className="absolute left-0" passHref>
+      <BtnHome/>
+      {/* <Link href="/" className="absolute left-0" passHref>
         <button
           type="button"
           className="text-white shadow-lg p-2 bg-gray-500 rounded-r-md text-sm pr-3 tracking-wider"
         >
           <KeyboardReturnIcon /> INICIO
         </button>
-      </Link>
+      </Link> */}
       <div className="flex flex-col text-center items-center border w-96 drop-shadow-lg bg-white">
         <div className="w-72 my-8">
           <label className="text-xl">Administrador</label>
