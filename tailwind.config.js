@@ -13,6 +13,7 @@ module.exports = {
       fontFamily: {
         merriweather: ["Merriweather", "serif"],
         playfair: ["Playfair Display", "serif"],
+        roboto: ["Roboto", "sans-serif"],
       },
       colors: {
         customYellow: '#fad390',

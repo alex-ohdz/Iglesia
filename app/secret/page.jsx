@@ -40,10 +40,10 @@ const AdminLogin = () => {
 
   return (
     <form
-      className="flex flex-col items-center font-serif"
+      className="flex flex-col items-center font-serif mb-10"
       onSubmit={handleLogin}
     >
-      <label className="text-3xl text-slate-700 my-14">
+      <label className="text-3xl text-center text-slate-700 my-14">
         Bienvenido al Sistema de Administración
       </label>
       <BtnHome/>

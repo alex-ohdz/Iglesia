@@ -1,9 +1,23 @@
-import React from 'react'
+import React from "react";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import YouTubeIcon from "@mui/icons-material/YouTube";
+import Link from "next/link";
 
-const socialMedia = () => {
+const SocialMedia = () => {
   return (
-	<div>socialMedia</div>
-  )
-}
+    <div className="flex gap-3 mt-1 ml-[-3px]">
+      <Link href={"asd"}>
+        <InstagramIcon className="text-3xl" />
+      </Link>
+      <Link href={"sdf"}>
+        <FacebookIcon className="text-3xl" />
+      </Link>
+      <Link href={"ad"}>
+        <YouTubeIcon className="text-3xl" />
+      </Link>
+    </div>
+  );
+};
 
-export default socialMedia
+export default SocialMedia;

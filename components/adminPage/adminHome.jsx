@@ -27,7 +27,7 @@ const AdminHome = () => {
   return (
     <>
       <div className="flex flex-col items-center">
-      <h1 className="text-2xl font-semibold text-gray-700 mb-6">Hola, bienvenido a la página de administración</h1>
+      <h1 className="text-2xl font-semibold text-center mt-12 text-gray-700 mb-6">Hola, bienvenido a la página de administración</h1>
       <select
         value={select}
         onChange={handleChange}

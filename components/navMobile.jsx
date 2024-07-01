@@ -12,7 +12,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import Link from "next/link";
 import LangChanger from "./langChanger";
 import NavText from "./navText";
-import { Slide } from "@mui/material";
 
 function ElevationScroll(props) {
   const { children, window } = props;

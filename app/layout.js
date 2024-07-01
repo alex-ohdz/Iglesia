@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "@styles/globals.css";
-// import NextAuthProvider from "./Provider";
+import "@fontsource/roboto";
+
 import Head from "next/head";
 import NavPC from "@components/navPC";
 

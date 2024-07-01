@@ -33,12 +33,12 @@ function Services() {
   const selectServices = servicios.find((servicio) => servicio.id === value);
 
   return (
-    <div className="h-96 mb-10 sm:mb-5">
-      <h1 className="text-center my-7 font-serif text-3xl">Servicios</h1>
+    <div className="font-roboto bg-amber-50">
+      <h1 className="text-center py-6 text-2xl">Servicios</h1>
       <div className="flex justify-between h-14 w-full">
         <div className="flex justify-center items-center h-full w-1/3">
           <button
-            className={`h-full w-full text-white font-semibold ${value === 1 ? 'bg-gray-500' : 'bg-gray-700 hover:bg-gray-600'}`}
+            className={`h-full w-full text-white  ${value === 1 ? 'bg-amber-950 opacity-80' : 'bg-amber-950 hover:bg-950 hover:opacity-60'}`}
             onClick={() => handleChange(1)}
             disabled={value === 1}
           >
@@ -47,7 +47,7 @@ function Services() {
         </div>
         <div className="flex justify-center items-center h-full w-1/3">
           <button
-            className={`h-full w-full text-white font-semibold ${value === 2 ? 'bg-gray-500' : 'bg-gray-700 hover:bg-gray-600'}`}
+            className={`h-full w-full text-white  ${value === 2 ? 'bg-amber-950 opacity-80' : 'bg-amber-950 hover:bg-950 hover:opacity-60'}`}
             onClick={() => handleChange(2)}
             disabled={value === 2}
           >
@@ -56,7 +56,7 @@ function Services() {
         </div>
         <div className="flex justify-center items-center h-full w-1/3">
           <button
-            className={`h-full w-full text-white font-semibold ${value === 3 ? 'bg-gray-500' : 'bg-gray-700 hover:bg-gray-600'}`}
+            className={`h-full w-full text-white  ${value === 3 ? 'bg-amber-950 opacity-80' : 'bg-amber-950 hover:bg-950 hover:opacity-60'}`}
             onClick={() => handleChange(3)}
             disabled={value === 3}
           >
@@ -64,7 +64,7 @@ function Services() {
           </button>
         </div>
       </div>
-      <div className="flex mx-10 my-6 items-center justify-center text-black text-md">
+      <div className="flex mx-10 py-10 items-center justify-center text-black text-md">
         {selectServices.descripcion}
       </div>
     </div>
