@@ -1,19 +1,17 @@
 import Link from "next/link";
-// import LangChanger from "./langChanger";
+import { useTranslation } from "react-i18next";
 
 const items = [
-  { text: "Nosotros", link: "#us" },
-  { text: "Servicios", link: "#services" },
-  { text: "Contacto", link: "#contact" },
-  { text: "Donar", link: "donations" },
+  { key: "us", link: "#us" },
+  { key: "services", link: "#services" },
+  { key: "contact", link: "#contact" },
+  { key: "donations", link: "donations" },
 ];
 
 const NavText = ({ isMobile }) => {
-
-
+  const { t } = useTranslation();
 
   return (
-
     <div className={`flex ${isMobile ? 'flex-row' : 'flex-col'} items-center`}>
       {items.map((item, index) => {
         return (
@@ -22,12 +20,11 @@ const NavText = ({ isMobile }) => {
               href={item.link}
               className="text-amber-800 hover:text-yellow-500 transition-colors duration-300 text-lg font-playfair tracking-wider"
             >
-              {item.text}
+              {t(`navigation.${item.key}`)}
             </Link>
           </div>
         );
       })}
-      {/* <LangChanger /> */}
     </div>
   );
 };

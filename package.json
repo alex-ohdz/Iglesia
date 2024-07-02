@@ -12,6 +12,7 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^5.0.13",
+    "@google-cloud/translate": "^8.3.0",
     "@mui/icons-material": "^5.15.11",
     "@mui/material": "^5.15.11",
     "@stripe/react-stripe-js": "^2.7.1",
@@ -23,11 +24,14 @@
     "cookie": "^0.6.0",
     "dotenv": "^16.4.5",
     "express-session": "^1.18.0",
+    "i18next": "^23.11.5",
+    "i18next-browser-languagedetector": "^8.0.0",
     "multer": "^1.4.5-lts.1",
     "next": "14.1.0",
     "pg": "^8.12.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-i18next": "^14.1.2",
     "stripe": "^16.0.0"
   },
   "devDependencies": {

@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
 import classNames from "classnames";
 
@@ -10,8 +11,9 @@ const flags = [
 ];
 
 const LangChanger = () => {
+  const { i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedFlag, setSelectedFlag] = useState(flags[1]);
+  const [selectedFlag, setSelectedFlag] = useState(flags.find(flag => flag.code === i18n.language) || flags[1]);
   const dropdownRef = useRef(null);
 
   const arrowProp = classNames(
@@ -28,6 +30,7 @@ const LangChanger = () => {
   const handleSelectFlag = (flag) => {
     setSelectedFlag(flag);
     setIsOpen(false);
+    i18n.changeLanguage(flag.code);
   };
 
   useEffect(() => {
