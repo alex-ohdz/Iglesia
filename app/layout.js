@@ -25,7 +25,6 @@ export default function RootLayout({ children }) {
       </Head>
       <html lang="en">
         <body className={inter.className}>
-          <Nav />
           {children}
         </body>
       </html>
