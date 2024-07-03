@@ -1,10 +1,13 @@
-
 {
 	"navigation": {
 	  "us": "Us",
 	  "services": "Services",
 	  "contact": "Contact",
-	  "donations": "Donations"
-	}
+	  "donations": "Donate"
+	},
+	"welcome": "Welcome to Our Community",
+	"image_description": "Image Description",
+	"description": "The Church of San Juan Bautista de Remedios located in San Juan de los Remedios, Villa Clara is considered the oldest church in Cuba. The current church was built in 1692 on the existing structure of a church that was originally built in 1570. The bell tower is a neoclassical design and the interior is baroque. Some of the most important features are the ornate ceiling, the gold leaf, and the cedar altar all carved in wood and laminated in gold by a Remedios artisan of Asian descent Rogelio Attá and places baroque altarpieces and pictorial collection in both naves of the church. It is today the only baroque church interior and exteriorly in Cuba being permanently visited by national and international tourism who come to appreciate its preserved patrimonial assets.",
+	"recent_activities": "Recent Activities"
   }
   

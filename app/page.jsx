@@ -12,7 +12,7 @@ export default function Home() {
   const { t } = useTranslation();
   return (
     <>
-    <Hero/>
+    {/* <Hero/> */}
       <Carrousel />
       <aside>
         <BoxText />

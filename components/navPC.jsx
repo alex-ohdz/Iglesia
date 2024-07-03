@@ -20,7 +20,8 @@ function ElevationScroll(props) {
   return cloneElement(children, {
     style: {
       backgroundColor: trigger ? "white" : "transparent",
-      boxShadow: "none",
+      boxShadow: trigger ? "0px 4px 12px rgba(0, 0, 0, 0.1)" : "none",
+      transition: trigger ? "box-shadow 0.3s ease-in-out" : "none",
     },
   });
 }

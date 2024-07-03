@@ -1,10 +1,13 @@
-
 {
 	"navigation": {
 	  "us": "O nas",
 	  "services": "Usługi",
 	  "contact": "Kontakt",
 	  "donations": "Darowizny"
-	}
+	},
+	"welcome": "Witamy w naszej społeczności",
+	"image_description": "Opis obrazu",
+	"description": "Kościół San Juan Bautista de Remedios położony w San Juan de los Remedios, Villa Clara uważany jest za najstarszy kościół na Kubie. Obecny kościół został zbudowany w 1692 roku na istniejącej strukturze kościoła, który został pierwotnie zbudowany w 1570 roku. Wieża-dzwonnica ma neoklasyczny styl, a wnętrze jest barokowe. Niektóre z najważniejszych cech to ozdobny sufit, złote liście i ołtarz z cedru, wszystkie rzeźbione w drewnie i pokryte złotem przez rzemieślnika z Remedios pochodzenia azjatyckiego Rogelio Attá, który umieszcza barokowe ołtarze i kolekcję obrazów w obu nawach kościoła. Jest to dzisiaj jedyny barokowy kościół wewnętrznie i zewnętrznie na Kubie, który jest stale odwiedzany przez krajowych i międzynarodowych turystów, którzy przyjeżdżają, aby docenić jego zachowane zabytkowe dobra.",
+	"recent_activities": "Najnowsze Działania"
   }
   
