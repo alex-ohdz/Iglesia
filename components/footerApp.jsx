@@ -7,10 +7,10 @@ const FooterApp = () => {
     <>
       <ImageCircle />
       <ContactUs />
-      <p className="flex flex-col p-3 text-center font-playfair bg-gray-800 text-white cursor-default">
+      <p className="flex flex-col sm:flex-row p-3 justify-center text-center font-playfair bg-gray-800 text-white cursor-default">
         <span>
           © 2024 Iglesia de San Bautista de{" "}
-          <Link className="cursor-default" href={"/secret"}>
+          <Link className="cursor-default mr-1" href={"/secret"}>
             Remedios.
           </Link>
         </span>
