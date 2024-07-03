@@ -14,7 +14,7 @@ const BoxText = () => {
       <div className="w-full flex items-center lg:flex-row flex-col md:items-center justify-items-start">
         <div className="flex-shrink-0 h-96 lg:w-96 sm:w-[500px] w-full mb-4">
           <img
-            src="images/prueba3.jpg"
+            src="/images/img1.jpg"
             alt="Descripción de la imagen"
             className="w-full h-full object-cover lg:rounded-r-full rounded-sm"
           />
