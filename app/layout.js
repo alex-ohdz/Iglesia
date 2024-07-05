@@ -2,7 +2,6 @@ import { Inter } from "next/font/google";
 import "@styles/globals.css";
 import "@fontsource/roboto";
 import Head from "next/head";
-import Nav from "@components/nav";
 
 const inter = Inter({ subsets: ["latin"] });
 

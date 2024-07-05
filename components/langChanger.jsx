@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
 import classNames from "classnames";
 
@@ -13,7 +13,9 @@ const flags = [
 const LangChanger = () => {
   const { i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedFlag, setSelectedFlag] = useState(flags.find(flag => flag.code === i18n.language) || flags[1]);
+  const [selectedFlag, setSelectedFlag] = useState(
+    flags.find((flag) => flag.code === i18n.language) || flags[1]
+  );
   const dropdownRef = useRef(null);
 
   const arrowProp = classNames(
@@ -46,20 +48,17 @@ const LangChanger = () => {
   }, [isOpen]);
 
   return (
-    <div className="relative px-4" ref={dropdownRef}>
+    <div className="relative px-1 hover:bg-orange-100" ref={dropdownRef}>
       <button onClick={toggleDropdown} className="flex items-center">
         <img
           src={selectedFlag.imgF}
           alt={selectedFlag.code + " flag"}
           className="w-6 h-6"
         />
-        <KeyboardArrowUpRoundedIcon className={arrowProp} />
+        <KeyboardArrowUpRoundedIcon className={arrowProp}  />
       </button>
       {isOpen && (
-        <div
-          className="absolute z-20 top-full mt-2 right-8 bg-slate-50 shadow-xl rounded-lg"
-          style={{ minWidth: "40px" }}
-        >
+        <div className="flex flex-col absolute z-20 top-6 right-6 bg-orange-100 items-center pt-1">
           {flags
             .filter((flag) => flag.code !== selectedFlag.code)
             .map((flag, index) => (
@@ -67,7 +66,7 @@ const LangChanger = () => {
                 key={index}
                 src={flag.imgF}
                 alt={`${flag.code} flag`}
-                className="w-6 h-6 m-2 cursor-pointer"
+                className="w-6 h-6 m-1 cursor-pointer"
                 onClick={() => handleSelectFlag(flag)}
               />
             ))}
