@@ -5,7 +5,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 // Importa tus archivos de traducción
 import enTranslation from './public/locales/en/translation.json';
 import esTranslation from './public/locales/es/translation.json';
-import poTranslation from "./public/locales/po/translation.json"
+import poTranslation from './public/locales/po/translation.json';
 
 i18n
   .use(LanguageDetector) // Detecta el idioma del navegador del usuario
@@ -26,9 +26,6 @@ i18n
     debug: true, // Desactívalo en producción
     interpolation: {
       escapeValue: false, // React ya se encarga de escapar por defecto
-    },
-    react: {
-      useSuspense: false, // Deshabilita Suspense
     },
   });
 

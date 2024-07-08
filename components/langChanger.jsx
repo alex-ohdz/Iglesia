@@ -14,7 +14,7 @@ const LangChanger = () => {
   const { i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedFlag, setSelectedFlag] = useState(
-    flags.find((flag) => flag.code === i18n.language) || flags[1]
+    () => flags.find((flag) => flag.code === i18n.language) || flags[1]
   );
   const dropdownRef = useRef(null);
 
@@ -29,6 +29,7 @@ const LangChanger = () => {
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+
   const handleSelectFlag = (flag) => {
     setSelectedFlag(flag);
     setIsOpen(false);
@@ -47,18 +48,25 @@ const LangChanger = () => {
     };
   }, [isOpen]);
 
+  useEffect(() => {
+    const currentFlag = flags.find((flag) => flag.code === i18n.language);
+    if (currentFlag && currentFlag.code !== selectedFlag.code) {
+      setSelectedFlag(currentFlag);
+    }
+  }, [i18n.language]);
+
   return (
-    <div className="relative px-1 hover:bg-orange-100" ref={dropdownRef}>
+    <div className={`relative ml-2 p-1 ${isOpen ? "bg-yellow-100" : ""}`} ref={dropdownRef}>
       <button onClick={toggleDropdown} className="flex items-center">
         <img
           src={selectedFlag.imgF}
           alt={selectedFlag.code + " flag"}
           className="w-6 h-6"
         />
-        <KeyboardArrowUpRoundedIcon className={arrowProp}  />
+        <KeyboardArrowUpRoundedIcon className={arrowProp} />
       </button>
       {isOpen && (
-        <div className="flex flex-col absolute z-20 top-6 right-6 bg-orange-100 items-center pt-1">
+        <div className="flex flex-col absolute z-20 top-6 right-6 bg-yellow-100 items-center pt-1">
           {flags
             .filter((flag) => flag.code !== selectedFlag.code)
             .map((flag, index) => (

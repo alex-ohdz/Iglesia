@@ -1,4 +1,5 @@
 "use client";
+import { Suspense } from "react";
 import Hero from "@components/hero";
 import BoxText from "@components/boxText";
 import Nav from "@components/nav";
@@ -12,7 +13,7 @@ import "../i18n";
 export default function Home() {
   const { t } = useTranslation();
   return (
-    <>
+    <Suspense fallback={<div>Loading...</div>}>
       <Nav />
       <Carrousel />
       <aside>
@@ -25,6 +26,6 @@ export default function Home() {
       <footer>
         <FooterApp />
       </footer>
-    </>
+    </Suspense>
   );
 }
