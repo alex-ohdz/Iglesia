@@ -1,9 +1,9 @@
 {
 	"navigation": {
-	  "us": "Us",
-	  "services": "Services",
-	  "contact": "Contact",
-	  "donations": "Donate"
+		"us": "Us",
+		"services": "Services",
+		"contact": "Contact",
+		"donations": "Donate"
 	},
 	"welcome": "Welcome to Our Community",
 	"image_description": "Image Description",
@@ -12,10 +12,9 @@
 	"contact_us": "Contact Us",
 	"hours": "Hours",
 	"weekdays": "Monday to Friday",
-	"saturday": "Saturdays",
-	"sunday": "Sundays",
+	"saturday": "Saturday",
+	"sunday": "Sunday",
 	"info": "Info",
 	"phone": "Phone",
 	"email": "Email"
-  }
-  
+}
