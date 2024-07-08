@@ -15,7 +15,7 @@
     "@mui/icons-material": "^5.15.11",
     "@mui/material": "^5.15.11",
     "@stripe/react-stripe-js": "^2.7.1",
-    "@stripe/stripe-js": "^4.0.0",
+    "@stripe/stripe-js": "^3.5.0",
     "axios": "^1.7.2",
     "bcryptjs": "^2.4.3",
     "classnames": "^2.5.1",

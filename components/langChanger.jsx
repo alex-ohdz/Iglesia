@@ -2,7 +2,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
-import classNames from "classnames";
 
 const flags = [
   { code: "en", imgF: "/icons/flags/en.png" },
@@ -17,14 +16,6 @@ const LangChanger = () => {
     () => flags.find((flag) => flag.code === i18n.language) || flags[1]
   );
   const dropdownRef = useRef(null);
-
-  const arrowProp = classNames(
-    "text-amber-900",
-    "transition-transform duration-200",
-    {
-      "rotate-180": isOpen,
-    }
-  );
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -63,10 +54,10 @@ const LangChanger = () => {
           alt={selectedFlag.code + " flag"}
           className="w-6 h-6"
         />
-        <KeyboardArrowUpRoundedIcon className={arrowProp} />
+        <KeyboardArrowUpRoundedIcon className={`text-amber-900 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
       </button>
       {isOpen && (
-        <div className="flex flex-col absolute z-20 top-6 right-6 bg-yellow-100 items-center pt-1">
+        <div className="flex flex-col mt-2 absolute z-20 top-6 right-6 bg-yellow-100 items-center pt-1">
           {flags
             .filter((flag) => flag.code !== selectedFlag.code)
             .map((flag, index) => (
