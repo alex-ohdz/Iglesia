@@ -1,5 +1,4 @@
 "use client";
-
 import { cloneElement, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -23,8 +22,9 @@ function ElevationScroll(props) {
 
   return cloneElement(children, {
     style: {
-      backgroundColor: trigger ? "white" : "transparent",
-      boxShadow: "none",
+      backgroundColor:"white" ,
+      boxShadow: trigger ? "0px 4px 12px rgba(0, 0, 0, 0.1)" : "none",
+      transition: "box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out",
     },
   });
 }
@@ -85,7 +85,7 @@ function NavMobile({ isMobile }) {
             onClick={() => setIsDrawerOpen(false)}
             sx={{
               "&:hover": {
-                backgroundColor: "transparent",
+                backgroundColor: "white",
               },
             }}
           >

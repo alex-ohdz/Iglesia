@@ -16,7 +16,7 @@ export default function Nav() {
     };
   }, []);
   return (
-    <div className="pb-14">
+    <div>
       {isMobile ? (
         <NavPC isMobile={isMobile} />
       ) : (

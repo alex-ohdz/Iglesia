@@ -1,6 +1,7 @@
 "use client";
 import { useTranslation, Trans } from "react-i18next";
 import useIntersectionObserver from "@hooks/useIntersectionObserver";
+import Loading from "./loading";
 
 const BoxText = () => {
   const { t, i18n } = useTranslation();
@@ -10,7 +11,7 @@ const BoxText = () => {
 
   // Espera a que i18next esté listo
   if (!i18n.isInitialized) {
-    return <div>Loading...</div>;
+    return <Loading/>;
   }
 
   return (

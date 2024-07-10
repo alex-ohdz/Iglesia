@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
-import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
-import ArrowCircleRightOutlinedIcon from "@mui/icons-material/ArrowCircleRightOutlined";
+import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
+import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 
 const slides = [
   { imag: "/images/prueba1.jpg" },
@@ -28,7 +28,7 @@ const Carrousel = () => {
   };
 
   return (
-    <div className=" w-[60%] m-auto mt-auto">
+    <div className=" md:w-[60%] w-full h-auto m-auto">
       <div className="overflow-hidden relative w-full">
         <div
           className={"flex transition ease-out duration-700 w-full h-full"}
@@ -44,9 +44,9 @@ const Carrousel = () => {
         </div>
       </div>
 
-      <div className="flex w-full gap-3 justify-center my-2 items-center text-amber-400">
+      <div className="relative bottom-9 flex w-full gap-3 justify-center items-center text-gray-200">
         <button onClick={prevSlide}>
-          <ArrowCircleLeftOutlinedIcon />
+          < ArrowBackIosNewRoundedIcon className="text-lg"/>
         </button>
         {slides.map((x, i) => {
           return (
@@ -56,13 +56,13 @@ const Carrousel = () => {
                 setCurrent(i);
               }}
               className={`rounded-full w-2 h-2 cursor-pointer ${
-                i == current ? "bg-amber-500" : "bg-amber-200"
+                i == current ? "bg-gray-200" : "bg-gray-500"
               }`}
             ></div>
           );
         })}
         <button onClick={nextSlide}>
-          <ArrowCircleRightOutlinedIcon />
+          <ArrowForwardIosRoundedIcon className="text-lg"/>
         </button>
       </div>
     </div>
