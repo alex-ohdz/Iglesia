@@ -7,6 +7,9 @@
 .anchored-section {
   scroll-margin-top: 55px; /* Altura de la barra de navegación */
 }
+.anchored-section2 {
+  scroll-margin-top: 55px; /* Altura de la barra de navegación */
+}
 .anchored-section::before {
   content: "";
   display: block;

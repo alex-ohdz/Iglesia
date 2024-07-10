@@ -33,7 +33,7 @@ function Services() {
   const selectServices = servicios.find((servicio) => servicio.id === value);
 
   return (
-    <div className="font-roboto bg-amber-50">
+    <div className="font-roboto bg-amber-50 anchored-section2" id="services">
       <h1 className="text-center py-6 text-2xl">Servicios</h1>
       <div className="flex justify-between h-14 w-full">
         <div className="flex justify-center items-center h-full w-1/3">

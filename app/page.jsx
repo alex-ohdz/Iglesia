@@ -7,6 +7,7 @@ import Services from "@components/services";
 import FooterApp from "@components/footerApp";
 import Carrousel from "@components/carrousel";
 import Noticias from "@components/noticias/noticias";
+import ImageCircle from "@components/weAre";
 import { useTranslation } from "react-i18next";
 import "../i18next.config";
 
@@ -29,6 +30,7 @@ export default function Home() {
         <Services />
       </section>
       <footer>
+      <ImageCircle />
         <FooterApp />
       </footer>
     </Suspense>
