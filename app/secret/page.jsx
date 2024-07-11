@@ -47,14 +47,6 @@ const AdminLogin = () => {
         Bienvenido al Sistema de Administración
       </label>
       <BtnHome/>
-      {/* <Link href="/" className="absolute left-0" passHref>
-        <button
-          type="button"
-          className="text-white shadow-lg p-2 bg-gray-500 rounded-r-md text-sm pr-3 tracking-wider"
-        >
-          <KeyboardReturnIcon /> INICIO
-        </button>
-      </Link> */}
       <div className="flex flex-col text-center items-center border w-96 drop-shadow-lg bg-white">
         <div className="w-72 my-8">
           <label className="text-xl">Administrador</label>
@@ -96,10 +88,6 @@ const AdminLogin = () => {
             </p>
           </div>
           <div className="flex flex-row justify-center mt-5 gap-6">
-            {/* <button
-              type="submit"
-              className="flex flex-row space-x-3 p-2 w-full bg-green-600 text-white place-items-center text-sm justify-center rounded-md hover:bg-green-800 tracking-wider"
-            > */}
             <Button
               type="submit"
               variant="contained"
@@ -108,8 +96,6 @@ const AdminLogin = () => {
             >
               ENTRAR
             </Button>
-
-            {/* </button> */}
           </div>
         </div>
       </div>

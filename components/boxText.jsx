@@ -4,7 +4,7 @@ import useIntersectionObserver from "@hooks/useIntersectionObserver";
 import Loading from "./loading";
 
 const BoxText = () => {
-  const { t, i18n } = useTranslation();
+  const {  i18n } = useTranslation();
   const [ref, isVisible] = useIntersectionObserver({
     threshold: 0.1,
   });
@@ -23,7 +23,7 @@ const BoxText = () => {
         <div className="flex-shrink-0 h-96 lg:w-96 sm:w-[500px] w-full mb-4">
           <img
             src="/images/img1.jpg"
-            alt={t("image_description")}
+            alt={"image_description"}
             className="w-full h-full object-cover lg:rounded-r-full rounded-sm"
           />
         </div>

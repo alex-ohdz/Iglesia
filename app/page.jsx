@@ -1,6 +1,5 @@
 "use client";
 import { Suspense } from "react";
-import Hero from "@components/hero";
 import BoxText from "@components/boxText";
 import Nav from "@components/nav";
 import Services from "@components/services";

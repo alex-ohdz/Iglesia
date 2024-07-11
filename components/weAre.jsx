@@ -1,4 +1,5 @@
-
+'use client'
+import { useTranslation } from 'react-i18next'
 const teamMembers = [
   { name: "Nombre del Trabajador 1", role: "Cargo o Rol", imageUrl: "https://rickandmortyapi.com/api/character/avatar/290.jpeg" },
   { name: "Nombre del Trabajador 2", role: "Cargo o Rol", imageUrl: "https://rickandmortyapi.com/api/character/avatar/450.jpeg" },
@@ -9,9 +10,10 @@ const teamMembers = [
 ];
 
 const ImageCircle = () => {
+  const { t } = useTranslation();
   return (
     <div className="bg-amber-100 p-5 anchored-section" id="us">
-      <h2 className="text-3xl mb-8 text-center font-serif text-gray-600">Nuestro Equipo</h2>
+      <h2 className="text-3xl mb-8 text-center font-serif text-gray-600">{t(`Nuestro Equipo`)}</h2>
       <div className="flex flex-wrap justify-center gap-8">
         {teamMembers.map((member, index) => (
           <div key={index} className="flex flex-col items-center text-center">

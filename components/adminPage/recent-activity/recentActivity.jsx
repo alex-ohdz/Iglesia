@@ -319,6 +319,7 @@ const RecentActivity = () => {
             />
             <div className="absolute top-2 right-2 flex space-x-2">
               <Button
+              className="bg-blue-600 hover:bg-blue-900 text-white"
                 variant="contained"
                 color="info"
                 onClick={() => handleOpen(activity)}
@@ -326,6 +327,7 @@ const RecentActivity = () => {
                 Editar
               </Button>
               <Button
+              className="bg-red-600 hover:bg-red-900 text-white"
                 variant="contained"
                 color="warning"
                 onClick={() => deleteActivity(activity.id)}

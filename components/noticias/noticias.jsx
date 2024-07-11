@@ -1,4 +1,6 @@
+'use client'
 import Cards from "./cards";
+import { useTranslation } from "react-i18next";
 
 const notices = [
   {
@@ -22,9 +24,10 @@ const notices = [
 ];
 
 const Noticias = () => {
+  const { t } = useTranslation();
   return (
     <div className="mx-auto px-4 bg-yellow-200 pb-10">
-      <h1 className="text-center font-serif text-3xl py-10 text-amber-800">Actividades Recientes</h1>
+      <h1 className="text-center font-serif text-3xl py-10 text-amber-800">{t(`Actividades Recientes`)}</h1>
       <div className="cardsok">
         {notices.map((n, index) => (
           <Cards key={index} itemKey={index} title={n.title} text={n.text} imageUrl={n.imageUrl} date={n.date}/>

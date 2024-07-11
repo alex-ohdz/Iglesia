@@ -7,9 +7,9 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import { styled } from '@mui/material/styles';
-import axios from 'axios';
-import ProgressBar from '@components/adminPage/home-carousel/progressBar';
+import { styled } from "@mui/material/styles";
+import axios from "axios";
+import ProgressBar from "@components/adminPage/home-carousel/progressBar";
 
 const style = {
   position: "absolute",
@@ -23,11 +23,11 @@ const style = {
   display: "flex",
   flexDirection: "column",
   gap: 2,
-  outline: 'none',
+  outline: "none",
 };
 
-const Input = styled('input')({
-  display: 'none',
+const Input = styled("input")({
+  display: "none",
 });
 
 const Workers = () => {
@@ -46,12 +46,12 @@ const Workers = () => {
   useEffect(() => {
     const fetchWorkers = async () => {
       try {
-        const response = await axios.get('/api/getWorkers');
+        const response = await axios.get("/api/getWorkers");
         if (response.data.success) {
           setWorkers(response.data.data);
         }
       } catch (error) {
-        console.error('Error fetching workers', error);
+        console.error("Error fetching workers", error);
       }
     };
 
@@ -97,9 +97,7 @@ const Workers = () => {
 
   const isFormComplete = () => {
     return (
-      newWorker.name !== "" &&
-      newWorker.rol !== "" &&
-      selectedImage !== null
+      newWorker.name !== "" && newWorker.rol !== "" && selectedImage !== null
     );
   };
 
@@ -111,9 +109,9 @@ const Workers = () => {
 
     setUploading(true);
     try {
-      const response = await axios.post('/api/addWorker', formData, {
+      const response = await axios.post("/api/addWorker", formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
         onUploadProgress: (progressEvent) => {
           const total = progressEvent.total;
@@ -127,7 +125,7 @@ const Workers = () => {
         handleClose();
       }
     } catch (error) {
-      console.error('Error adding worker', error);
+      console.error("Error adding worker", error);
     } finally {
       setUploading(false);
     }
@@ -144,9 +142,9 @@ const Workers = () => {
 
     setUploading(true);
     try {
-      const response = await axios.put('/api/updateWorker', formData, {
+      const response = await axios.put("/api/updateWorker", formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
         onUploadProgress: (progressEvent) => {
           const total = progressEvent.total;
@@ -156,13 +154,15 @@ const Workers = () => {
         },
       });
       if (response.data.success) {
-        setWorkers(workers.map(worker =>
-          worker.id === currentWorkerId ? response.data.data : worker
-        ));
+        setWorkers(
+          workers.map((worker) =>
+            worker.id === currentWorkerId ? response.data.data : worker
+          )
+        );
         handleClose();
       }
     } catch (error) {
-      console.error('Error updating worker', error);
+      console.error("Error updating worker", error);
     } finally {
       setUploading(false);
     }
@@ -170,20 +170,22 @@ const Workers = () => {
 
   const deleteWorker = async (id) => {
     try {
-      const response = await axios.delete('/api/deleteWorker', {
+      const response = await axios.delete("/api/deleteWorker", {
         data: { id },
       });
       if (response.data.success) {
-        setWorkers(workers.filter(worker => worker.id !== id));
+        setWorkers(workers.filter((worker) => worker.id !== id));
       }
     } catch (error) {
-      console.error('Error deleting worker', error);
+      console.error("Error deleting worker", error);
     }
   };
 
   return (
     <>
-      {uploading && <ProgressBar progress={uploadProgress} uploading={uploading} />}
+      {uploading && (
+        <ProgressBar progress={uploadProgress} uploading={uploading} />
+      )}
       <div className="text-center items-center mx-auto px-4 pb-5">
         <h1 className="font-serif text-3xl py-5 text-amber-800">
           Trabajadores Actuales
@@ -211,32 +213,44 @@ const Workers = () => {
         slotProps={{
           backdrop: {
             style: {
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
             },
           },
         }}
       >
         <Box sx={style}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h2 id="modal-rol">{editMode ? "Editar Trabajador" : "Nuevo Trabajador"}</h2>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <h2 id="modal-rol">
+              {editMode ? "Editar Trabajador" : "Nuevo Trabajador"}
+            </h2>
             <IconButton onClick={handleClose}>
               <CloseIcon />
             </IconButton>
           </div>
-          <div 
-            style={{ 
-              display: 'flex', 
-              justifyContent: 'center', 
-              alignItems: 'center', 
-              height: '180px', 
-              backgroundColor: '#f0f0f0', 
-              border: '2px dashed #ccc', 
-              cursor: 'pointer'
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "180px",
+              backgroundColor: "#f0f0f0",
+              border: "2px dashed #ccc",
+              cursor: "pointer",
             }}
-            onClick={() => document.getElementById('image-upload').click()}
+            onClick={() => document.getElementById("image-upload").click()}
           >
             {selectedImage ? (
-              <img src={URL.createObjectURL(selectedImage)} alt="Selected" style={{ maxHeight: '100%', maxWidth: '100%' }} />
+              <img
+                src={URL.createObjectURL(selectedImage)}
+                alt="Selected"
+                style={{ maxHeight: "100%", maxWidth: "100%" }}
+              />
             ) : (
               <span>Haz clic para seleccionar una imagen</span>
             )}
@@ -274,11 +288,16 @@ const Workers = () => {
           </Button>
         </Box>
       </Modal>
-      <h1 className="text-center font-serif text-2xl py-5 mt-8">Trabajadores Actuales</h1>
+      <h1 className="text-center font-serif text-2xl py-5 mt-8">
+        Trabajadores Actuales
+      </h1>
       <div className=" p-5" id="us">
         <div className="flex flex-wrap justify-center gap-8">
           {workers.map((worker) => (
-            <div key={worker.id} className="relative flex flex-col items-center text-center mt-10">
+            <div
+              key={worker.id}
+              className="relative flex flex-col items-center text-center mt-10"
+            >
               <img
                 src={`data:image/jpeg;base64,${worker.image}`}
                 alt={`Imagen de ${worker.name}`}
@@ -287,16 +306,18 @@ const Workers = () => {
               <p className="mt-4 font-semibold text-gray-800">{worker.name}</p>
               <p className="text-sm text-gray-600">{worker.rol}</p>
               <div className="relative bottom-52 left-2 flex space-x-2">
-                <Button 
-                  variant="contained" 
-                  color="info" 
+                <Button
+                  className="bg-blue-600 hover:bg-blue-900 text-white"
+                  variant="contained"
+                  color="info"
                   onClick={() => handleOpen(worker)}
                 >
                   Editar
                 </Button>
-                <Button 
-                  variant="contained" 
-                  color="warning" 
+                <Button
+                  className="bg-red-600 hover:bg-red-900 text-white"
+                  variant="contained"
+                  color="warning"
                   onClick={() => deleteWorker(worker.id)}
                 >
                   Eliminar

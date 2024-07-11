@@ -29,6 +29,7 @@ export default async function handler(req, res) {
         }
 
         req.session.user = { id: user.id, username: user.username };
+        await req.session.save();
 
         res.status(200).json({ message: 'Inicio de sesión exitoso' });
       } catch (error) {

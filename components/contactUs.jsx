@@ -13,7 +13,7 @@ const ContactUs = () => {
           </h1>
         </div>
         <div className="flex flex-col md:flex-row items-center place-content-center gap-3 p-3 lg:gap-28 font-roboto">
-          <div className="p-10 w-96 h-80" id="contact">
+          <div className="p-10 w-[390px] h-80" id="contact">
             <h2 className="font-semibold">
               <Trans i18nKey="hours">Horarios</Trans>:
             </h2>

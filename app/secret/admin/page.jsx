@@ -11,7 +11,7 @@ const Admin = () => {
 
   useEffect(() => {
     const checkAuth = async () => {
-      const response = await fetch("/api/check-auth");
+      const response = await fetch("/api/session");
       if (response.ok) {
         setLoading(false);
       } else {
@@ -23,15 +23,12 @@ const Admin = () => {
   }, [router]);
 
   if (loading) {
-    return (
-    <Loading/>
-    );
+    return <Loading />;
   }
 
   return (
-  
     <>
-      <BtnHome/>
+      <BtnHome />
       <AdminHome />
     </>
   );
