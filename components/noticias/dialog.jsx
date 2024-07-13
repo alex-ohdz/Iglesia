@@ -13,7 +13,13 @@ function DialogCard({ open, handleClose, title, date, text, imageUrl }) {
       className="flex justify-center"
     >
       <div className="flex flex-col items-center p-3">
-        <img src={imageUrl} className="h-56 w-64 rounded-t-sm" alt={title} />
+        <div className="overflow-hidden rounded-t-sm w-64 h-40">
+          <img 
+            src={imageUrl} 
+            alt={title} 
+            className="object-cover w-full h-full"
+          />
+        </div>
         <DialogTitle className="text-center w-full font-serif ">
           {title}
         </DialogTitle>

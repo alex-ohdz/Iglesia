@@ -11,15 +11,13 @@ const FooterApp = () => {
     return <Loading />;
   }
 
-  const secretToken = process.env.NEXT_PUBLIC_SECRET_TOKEN;
-
   return (
     <div className="anchored-section2" id="contact">
       <ContactUs />
       <p className="flex flex-col sm:flex-row p-3 justify-center text-center font-playfair bg-gray-800 text-white cursor-default">
         <span>
           © 2024 Iglesia de San Bautista de{" "}
-          <Link className="cursor-default mr-1" href={`/secret?token=${secretToken}`}>
+          <Link className="cursor-default mr-1" href="/secret">
             Remedios.
           </Link>
         </span>

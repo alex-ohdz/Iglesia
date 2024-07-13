@@ -1,36 +1,34 @@
-'use client'
+'use client';
+import { useState, useEffect } from "react";
 import Cards from "./cards";
 import { useTranslation } from "react-i18next";
 
-const notices = [
-  {
-    title: "Nombre del Trabajador 1",
-    text: "Cargo o Rol",
-    imageUrl: "https://rickandmortyapi.com/api/character/avatar/290.jpeg",
-    date:"20 de febrero"
-  },
-  {
-    title: "Nombre del Trabajador 2",
-    text: "orem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam, repellendus quas quasi dolore, cumque voluptas magni ab iusto perspiciatis alias nostrum optio? Cupiditate consectetur perspiciatis beatae ducimus voluptatum, iusto sint?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus nostrum nemo explicabo dolores ipsa voluptate facere, obcaecati, incidunt voluptatibus sunt, aut amet eligendi dolore illo ex porro possimus adipisci!",
-    imageUrl: "https://rickandmortyapi.com/api/character/avatar/450.jpeg",
-    date:"20 de febrero"
-  },
-  {
-    title: "Nombre del Trabajador 3",
-    text: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Architecto harum cupiditate pariatur magni magnam illum consequuntur sapiente quis saepe, dolores repudiandae et ea repellat sequi, quo voluptatem qui rem veniam?Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facilis voluptatum labore doloribus quasi inventore neque earum dignissimos porro, incidunt suscipit repellendus dicta quas esse consectetur, assumenda accusantium nam, eum exercitationem?",
-    imageUrl: "https://rickandmortyapi.com/api/character/avatar/291.jpeg",
-    date:"20 de febrero"
-  }
-];
-
 const Noticias = () => {
   const { t } = useTranslation();
+  const [notices, setNotices] = useState([]);
+
+  useEffect(() => {
+    const fetchNotices = async () => {
+      try {
+        const response = await fetch('/api/getActivities');
+        const data = await response.json();
+        if (data.success) {
+          setNotices(data.data);
+        }
+      } catch (error) {
+        console.error('Error fetching notices', error);
+      }
+    };
+
+    fetchNotices();
+  }, []);
+
   return (
     <div className="mx-auto px-4 bg-yellow-200 pb-10">
       <h1 className="text-center font-serif text-3xl py-10 text-amber-800">{t(`Actividades Recientes`)}</h1>
       <div className="cardsok">
         {notices.map((n, index) => (
-          <Cards key={index} itemKey={index} title={n.title} text={n.text} imageUrl={n.imageUrl} date={n.date}/>
+          <Cards key={index} itemKey={index} title={n.title} text={n.body} imageUrl={`data:image/jpeg;base64,${n.image}`} date={n.date}/>
         ))}
       </div>
     </div>
