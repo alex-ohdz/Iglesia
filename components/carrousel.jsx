@@ -39,8 +39,8 @@ const Carrousel = () => {
   };
 
   return (
-    <div className="md:w-[60%] w-full m-auto">
-      <div className="overflow-hidden relative w-full h-[350px] sm:h-[450px] md:h-[480px] lg:h-[530px]">
+    <div className="w-full">
+      <div className="overflow-hidden relative w-full h-[400px] sm:h-[450px] md:h-[480px] lg:h-[530px]">
         <div
           className="flex transition ease-out duration-700 w-full h-full"
           style={{
@@ -48,8 +48,8 @@ const Carrousel = () => {
           }}
         >
           {slides.map((s, i) => (
-            <div className="w-full h-full flex-shrink-0" key={i}>
-              <img src={s.imag} className="w-full h-full object-cover" />
+            <div className="flex justify-center w-full h-full flex-shrink-0" key={i}>
+              <img src={s.imag} className="w-auto h-full object-cover" />
             </div>
           ))}
         </div>
