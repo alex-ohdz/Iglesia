@@ -33,14 +33,14 @@ export default async function handler(req, res) {
 
         res.status(200).json({ message: 'Inicio de sesión exitoso' });
       } catch (error) {
-        console.error('Error executing query:', error);
+        console.error('Error ejecutando la consulta:', error);
         res.status(500).json({ error: 'Error del servidor' });
       }
     } else {
       res.status(405).json({ error: `Método ${req.method} no permitido` });
     }
   } catch (err) {
-    console.error('Session Middleware Error:', err);
+    console.error('Error del Middleware de Sesión:', err);
     res.status(500).json({ error: 'Error del servidor' });
   }
 }
