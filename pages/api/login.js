@@ -23,13 +23,18 @@ export default async function handler(req, res) {
 
         const user = result.rows[0];
         const isMatch = await bcrypt.compare(password, user.password);
-        
+
         if (!isMatch) {
           return res.status(401).json({ error: 'Credenciales inválidas' });
         }
 
         req.session.user = { id: user.id, username: user.username };
-        await req.session.save();
+        await new Promise((resolve, reject) => {
+          req.session.save((err) => {
+            if (err) return reject(err);
+            resolve();
+          });
+        });
 
         res.status(200).json({ message: 'Inicio de sesión exitoso' });
       } catch (error) {
