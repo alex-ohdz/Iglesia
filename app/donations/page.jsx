@@ -82,10 +82,11 @@ const DonateForm = () => {
   };
 
   return (
-    <><BtnHome/>
+    <div className="bg-gray-200 h-screen shadow-md">
+      <BtnHome/>
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col justify-center items-center p-4 bg-gray-200 h-screen rounded-md shadow-md"
+      className="flex flex-col justify-center items-center rounded-md mt-48"
     >
       
       <h2 className="text-2xl text-center font-bold mb-4">Donar</h2>
@@ -159,7 +160,7 @@ const DonateForm = () => {
       </div>
       {message && <p className="mt-4 text-red-500">{message}</p>}
     </form>
-    </>
+    </div>
   );
 };
 
