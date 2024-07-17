@@ -1,18 +1,19 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 
 const Carrousel = () => {
   const [slides, setSlides] = useState([]);
   const [current, setCurrent] = useState(0);
+  const slideRefs = useRef([]);
 
   useEffect(() => {
     const fetchImages = async () => {
       try {
         const response = await fetch('/api/getCarousel');
         const data = await response.json();
-        const images = data.map(row => ({ imag: `data:image/jpeg;base64,${row.image}` }));
+        const images = data.map((row, index) => ({ imag: `data:image/jpeg;base64,${row.image}`, loaded: index === 0 }));
         setSlides(images);
       } catch (error) {
         console.error('Error fetching images', error);
@@ -21,6 +22,39 @@ const Carrousel = () => {
 
     fetchImages();
   }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const { target } = entry;
+          const index = target.dataset.index;
+          setSlides(prevSlides => {
+            const newSlides = [...prevSlides];
+            newSlides[index].loaded = true;
+            return newSlides;
+          });
+          observer.unobserve(target);
+        }
+      });
+    }, { root: null, rootMargin: '0px', threshold: 0.1 });
+
+    slideRefs.current.forEach(slide => {
+      if (slide) {
+        observer.observe(slide);
+      }
+    });
+
+    return () => {
+      if (observer) {
+        slideRefs.current.forEach(slide => {
+          if (slide) {
+            observer.unobserve(slide);
+          }
+        });
+      }
+    };
+  }, [slides]);
 
   useEffect(() => {
     const interv = setInterval(() => {
@@ -48,8 +82,19 @@ const Carrousel = () => {
           }}
         >
           {slides.map((s, i) => (
-            <div className="flex justify-center w-full h-full flex-shrink-0" key={i}>
-              <img src={s.imag} className="w-auto h-full object-cover" />
+            <div
+              className="flex justify-center w-full h-full flex-shrink-0"
+              key={i}
+              ref={el => (slideRefs.current[i] = el)}
+              data-index={i}
+            >
+              {s.loaded ? (
+                <img src={s.imag} className="w-auto h-full object-cover" />
+              ) : (
+                <div className="w-auto h-full bg-gray-200 flex items-center justify-center">
+                  <span>Cargando...</span>
+                </div>
+              )}
             </div>
           ))}
         </div>

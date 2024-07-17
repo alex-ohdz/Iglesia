@@ -1,19 +1,13 @@
 import React from "react";
-import LinearProgress from "@mui/material/LinearProgress";
+import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 
-const CustomLinearProgress = styled(LinearProgress)({
-  height: 10, // Ajusta la altura de la barra de progreso
-  borderRadius: 5,
-  backgroundColor: "#ffffff", // Color de fondo de la barra de progreso
-  "& .MuiLinearProgress-bar": {
-    borderRadius: 5,
-    backgroundColor: "#68d391", // Color de la barra de progreso
-  },
+const CustomCircularProgress = styled(CircularProgress)({
+  color: "#68d391", // Color de la barra de progreso
 });
 
-const ProgressBar = ({ progress, uploading }) => (
+const ProgressBar = ({ uploading }) => (
   uploading ? (
     <Box
       sx={{
@@ -30,14 +24,7 @@ const ProgressBar = ({ progress, uploading }) => (
         backdropFilter: "blur(5px)",
       }}
     >
-      <CustomLinearProgress
-        variant="determinate"
-        value={progress}
-        sx={{
-          width: "80%",
-          height: 10,
-        }}
-      />
+      <CustomCircularProgress />
     </Box>
   ) : null
 );

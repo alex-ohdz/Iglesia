@@ -55,28 +55,20 @@ export const handleDeleteUploaded = async (id, setUploadedImages) => {
 export const handleUpload = async (
   selectedFiles,
   setUploading,
-  setUploadProgress,
   setSelectedFiles,
   fetchImages,
-  setUploadedImages // Añadir este parámetro
+  setUploadedImages,
+  setOptimizing // Añadir este parámetro si se utiliza
 ) => {
   const formData = new FormData();
-  selectedFiles.forEach(file => {
+  (Array.isArray(selectedFiles) ? selectedFiles : []).forEach(file => {
     formData.append("images", file);
   });
 
   setUploading(true);
-  setUploadProgress(0);
 
   try {
-    const response = await axios.post("/api/addCarousel", formData, {
-      onUploadProgress: (progressEvent) => {
-        const total = progressEvent.total;
-        const current = progressEvent.loaded;
-        const percentCompleted = Math.round((current / total) * 100);
-        setUploadProgress(percentCompleted);
-      },
-    });
+    const response = await axios.post("/api/addCarousel", formData);
 
     if (response.status === 200) {
       setSelectedFiles([]);

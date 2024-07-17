@@ -2,13 +2,13 @@
 import ContactUs from "./contactUs";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import Loading from "./loading";
+import ProgressBar from "./adminPage/home-carousel/progressBar";
 
 const FooterApp = () => {
   const { t, i18n } = useTranslation();
 
   if (!i18n.isInitialized) {
-    return <Loading />;
+    return <ProgressBar/>;
   }
 
   return (

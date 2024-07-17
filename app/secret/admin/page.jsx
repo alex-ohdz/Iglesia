@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import AdminHome from "@components/adminPage/adminHome";
 import BtnHome from "@components/btnHome";
-import Loading from "@components/loading";
+import ProgressBar from "@components/adminPage/home-carousel/progressBar";
 
 const Admin = () => {
   const router = useRouter();
@@ -23,7 +23,7 @@ const Admin = () => {
   }, [router]);
 
   if (loading) {
-    return <Loading />;
+    return <ProgressBar/>;
   }
 
   return (

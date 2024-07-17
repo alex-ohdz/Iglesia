@@ -9,16 +9,17 @@ import Noticias from "@components/noticias/noticias";
 import ImageCircle from "@components/weAre";
 import { useTranslation } from "react-i18next";
 import "../i18next.config";
+import ProgressBar from "@components/adminPage/home-carousel/progressBar";
 
 export default function Home() {
   const { t, i18n } = useTranslation();
 
   if (!i18n.isInitialized) {
-    return <div>Loading...</div>;
+    return <ProgressBar/>;
   }
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<ProgressBar/>}>
       <Nav />
       <Carrousel />
       <aside>
