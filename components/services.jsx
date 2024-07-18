@@ -40,7 +40,7 @@ function Services() {
       <div className="flex justify-between h-14 w-full">
         <div className="flex justify-center items-center h-full w-1/3">
           <button
-            className={`h-full w-full text-white  ${value === 1 ? 'bg-amber-950 opacity-80' : 'bg-amber-950 hover:bg-950 hover:opacity-60'}`}
+            className={`h-full w-full text-white  ${value === 1 ? 'bg-yellow-900 ' : 'bg-gray-400 hover:opacity-90'}`}
             onClick={() => handleChange(1)}
             disabled={value === 1}
           >
@@ -49,7 +49,7 @@ function Services() {
         </div>
         <div className="flex justify-center items-center h-full w-1/3">
           <button
-            className={`h-full w-full text-white  ${value === 2 ? 'bg-amber-950 opacity-80' : 'bg-amber-950 hover:bg-950 hover:opacity-60'}`}
+            className={`h-full w-full text-white  ${value === 2 ? 'bg-yellow-900 ' : 'bg-gray-400 hover:opacity-90'}`}
             onClick={() => handleChange(2)}
             disabled={value === 2}
           >
@@ -58,7 +58,7 @@ function Services() {
         </div>
         <div className="flex justify-center items-center h-full w-1/3">
           <button
-            className={`h-full w-full text-white  ${value === 3 ? 'bg-amber-950 opacity-80' : 'bg-amber-950 hover:bg-950 hover:opacity-60'}`}
+            className={`h-full w-full text-white  ${value === 3 ? 'bg-yellow-900 ' : 'bg-gray-400 hover:opacity-90'}`}
             onClick={() => handleChange(3)}
             disabled={value === 3}
           >

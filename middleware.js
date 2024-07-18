@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { isMobileDevice } from './utils/device';
 
 export async function middleware(req) {
   const url = req.nextUrl.clone();
@@ -25,9 +26,16 @@ export async function middleware(req) {
     }
   }
 
-  return NextResponse.next();
+  // Detect if the device is mobile
+  const userAgent = req.headers.get('user-agent') || '';
+  const isMobile = isMobileDevice(userAgent);
+
+  const response = NextResponse.next();
+  response.headers.set('x-is-mobile', isMobile.toString());
+
+  return response;
 }
 
 export const config = {
-  matcher: '/secret/:path*',
+  matcher: '/:path*',
 };
