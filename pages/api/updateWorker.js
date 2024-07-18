@@ -1,6 +1,5 @@
 import multer from "multer";
 import { query } from "@/lib/db";
-import optimizeImage from "@/lib/imageOptimizer"; // Asegúrate de tener esta importación
 
 const upload = multer({ storage: multer.memoryStorage() });
 
@@ -24,13 +23,12 @@ const handler = async (req, res) => {
     const image = req.file;
 
     try {
-      let updateQuery = "UPDATE workers SET name = $1, rol = $2";
+      let updateQuery =
+        "UPDATE workers SET name = $1, rol = $2";
       let values = [name, rol];
 
       if (image) {
-        // Optimizar la imagen
-        const optimizedBuffer = await optimizeImage(image.buffer);
-        const imageBase64 = optimizedBuffer.toString("base64");
+        const imageBase64 = image.buffer.toString("base64");
         updateQuery += ", image = $3 WHERE id = $4 RETURNING *";
         values = [...values, imageBase64, id];
       } else {

@@ -19,6 +19,7 @@ import {
 const HomeCarousel = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [uploadedImages, setUploadedImages] = useState([]);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
 
@@ -26,29 +27,19 @@ const HomeCarousel = () => {
     fetchImages(setUploadedImages);
   }, []);
 
-  const moveImage = (index, direction) => {
-    const newIndex = index + direction;
-    if (newIndex < 0 || newIndex >= selectedFiles.length) return;
-    const newFiles = [...selectedFiles];
-    const [movedFile] = newFiles.splice(index, 1);
-    newFiles.splice(newIndex, 0, movedFile);
-    setSelectedFiles(newFiles);
-  };
-
   return (
     <div className="flex flex-col justify-center items-center w-full relative">
       <h1 className="font-serif text-3xl py-5 text-amber-800">
-        Imágenes en el Carrusel
-      </h1>
-      <ProgressBar uploading={uploading} />
+      Imágenes en el Carrusel
+        </h1>
+      <ProgressBar progress={uploadProgress} uploading={uploading} />
       <ImageInput onFilesSelected={(files) => handleFilesSelected(files, selectedFiles, setSelectedFiles, setError)} />
       <ImagePreview
-        selectedFiles={Array.isArray(selectedFiles) ? selectedFiles : []}
+        selectedFiles={selectedFiles}
         onDelete={(index) => handleDeleteSelected(index, setSelectedFiles)}
-        moveImage={moveImage}
       />
       <Button
-        onClick={() => handleUpload(selectedFiles, setUploading, setSelectedFiles, fetchImages, setUploadedImages)}
+        onClick={() => handleUpload(selectedFiles, setUploading, setUploadProgress, setSelectedFiles, fetchImages, setUploadedImages)}
         disabled={selectedFiles.length === 0 || uploading}
         variant="contained"
         component="span"
@@ -75,7 +66,7 @@ const HomeCarousel = () => {
       <ErrorMessage error={error} />
       <h1 className="font-serif text-2xl py-5 mt-8">Imágenes en la base de datos Carrusel</h1>
       <div className="bg-gray-200 mt-4 mx-10 mb-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-        {Array.isArray(uploadedImages) && uploadedImages.map((image, index) => (
+        {uploadedImages.map((image, index) => (
           <div key={index} className="relative h-52">
             <div className="h-40 bg-blue-400">
               <img

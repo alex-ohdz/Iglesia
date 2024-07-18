@@ -6,7 +6,6 @@ import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRound
 const Carrousel = () => {
   const [slides, setSlides] = useState([]);
   const [current, setCurrent] = useState(0);
-  const slideRefs = useRef([]);
 
   useEffect(() => {
     const fetchImagesAndCount = async () => {
@@ -86,8 +85,8 @@ const Carrousel = () => {
               {s.loaded ? (
                 <img src={s.imag} className="w-auto h-full object-cover" />
               ) : (
-                <div className="w-auto h-full bg-gray-200 flex items-center justify-center animate-pulse">
-                  <div className="w-full h-full bg-gray-300"></div>
+                <div className="w-auto h-full bg-gray-200 flex items-center justify-center">
+                  <span>Cargando...</span>
                 </div>
               )}
             </div>

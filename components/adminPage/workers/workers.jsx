@@ -184,7 +184,7 @@ const Workers = () => {
   return (
     <>
       {uploading && (
-        <ProgressBar uploading={uploading}/>
+        <ProgressBar progress={uploadProgress} uploading={uploading} />
       )}
       <div className="text-center items-center mx-auto px-4 pb-5">
         <h1 className="font-serif text-3xl py-5 text-amber-800">

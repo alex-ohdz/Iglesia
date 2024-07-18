@@ -1,6 +1,5 @@
-import multer from 'multer';
+import multer from "multer";
 import { query } from "@/lib/db";
-import optimizeImage from "@/lib/imageOptimizer";
 
 // Configurar multer para almacenar las imágenes en memoria
 const upload = multer({
@@ -44,17 +43,11 @@ const handlePost = async (req, res) => {
   }
 
   try {
-    const optimizedImages = await Promise.all(
-      req.files.map(async (file) => {
-        const optimizedBuffer = await optimizeImage(file.buffer);
-        return optimizedBuffer.toString("base64");
-      })
-    );
-
-    const values = optimizedImages.map((_, index) => `($${index + 1})`).join(", ");
+    const images = req.files.map(file => file.buffer.toString("base64"));
+    const values = images.map((image, index) => `($${index + 1})`).join(", ");
     const queryText = `INSERT INTO home_carousel (image) VALUES ${values} RETURNING *`;
 
-    const result = await query(queryText, optimizedImages);
+    const result = await query(queryText, images);
     res.status(200).json(result.rows);
   } catch (error) {
     console.error("Error executing query", error);

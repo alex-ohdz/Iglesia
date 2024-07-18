@@ -1,6 +1,5 @@
 import multer from "multer";
 import { query } from "@/lib/db";
-import optimizeImage from "@/lib/imageOptimizer";
 
 const upload = multer({
   storage: multer.memoryStorage(),
@@ -34,9 +33,7 @@ const handler = async (req, res) => {
           .json({ success: false, error: "No image provided" });
       }
 
-      // Optimizar la imagen
-      const optimizedBuffer = await optimizeImage(image.buffer);
-      const imageBase64 = optimizedBuffer.toString("base64");
+      const imageBase64 = image.buffer.toString("base64");
 
       const result = await query(
         "INSERT INTO workers (name, rol, image) VALUES ($1, $2, $3) RETURNING *",
