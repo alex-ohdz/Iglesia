@@ -30,13 +30,7 @@ export default async function handler(req, res) {
 
       res.status(200).json({ id: session.id });
     } catch (error) {
-      if (error.type === 'StripeInvalidRequestError' || error.type === 'StripeAPIError') {
-        // Errores graves que justifican redirección a cancel
-        res.status(500).json({ redirect: 'cancel', error: error.message });
-      } else {
-        // Otros errores que pueden ser manejados en el frontend
-        res.status(500).json({ error: error.message });
-      }
+      res.status(500).json({ error: error.message });
     }
   } else {
     res.setHeader('Allow', 'POST');
