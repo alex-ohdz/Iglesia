@@ -1,4 +1,3 @@
-// app/page.jsx
 "use client";
 import { Suspense } from "react";
 import BoxText from "@components/boxText";
@@ -15,11 +14,12 @@ export default function Home() {
   const { t, i18n } = useTranslation();
 
   if (!i18n.isInitialized) {
-    return <ProgressBar />;
+    return <ProgressBar/>;
   }
 
   return (
-    <Suspense fallback={<ProgressBar />}>
+    <Suspense fallback={<ProgressBar/>}>
+      <Nav />
       <Carrousel />
       <aside>
         <BoxText />
@@ -29,7 +29,7 @@ export default function Home() {
         <Services />
       </section>
       <footer>
-        <ImageCircle />
+      <ImageCircle />
         <FooterApp />
       </footer>
     </Suspense>

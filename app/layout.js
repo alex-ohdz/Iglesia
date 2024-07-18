@@ -2,8 +2,6 @@ import { Inter } from "next/font/google";
 import "@styles/globals.css";
 import "@fontsource/roboto";
 import Head from "next/head";
-import Nav from "@components/nav";
-
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,26 +11,19 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  const isMobile = typeof window !== "undefined" && window?.navigator?.userAgent
-    ? window.navigator.userAgent
-      .toLowerCase()
-      .includes('mobi')
-    : false;
-
   return (
     <>
       {/* Developed by alexoh */}
       <Head>
-        <meta charSet="UTF-8" />
+        <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta
-          httpEquiv="Content-Security-Policy"
+          http-equiv="Content-Security-Policy"
           content="default-src 'self'; script-src 'self'"
         />
       </Head>
       <html lang="en">
         <body className={inter.className}>
-          <Nav initialIsMobile={isMobile} />
           {children}
         </body>
       </html>

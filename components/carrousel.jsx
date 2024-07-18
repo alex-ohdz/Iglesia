@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 
@@ -8,46 +8,51 @@ const Carrousel = () => {
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
-    const fetchImagesAndCount = async () => {
+    const fetchImages = async () => {
       try {
-        const countResponse = await fetch('/api/getCarouselCount');
-        const countData = await countResponse.json();
-        const placeholders = Array.from({ length: countData.count }, (_, index) => ({ imag: '', loaded: false }));
-
-        const imageResponse = await fetch('/api/getCarousel');
-        const imageData = await imageResponse.json();
-        const images = imageData.map((row, index) => ({ imag: `data:image/jpeg;base64,${row.image}`, loaded: false }));
-
-        // Update placeholders with actual images
-        images.forEach((image, index) => {
-          placeholders[index] = image;
-        });
-
-        setSlides(placeholders);
+        const response = await fetch('/api/getCarousel');
+        const data = await response.json();
+        const images = data.map((row, index) => ({ imag: `data:image/jpeg;base64,${row.image}`, loaded: index === 0 }));
+        setSlides(images);
       } catch (error) {
-        console.error('Error fetching images or count', error);
+        console.error('Error fetching images', error);
       }
     };
 
-    fetchImagesAndCount();
+    fetchImages();
   }, []);
 
   useEffect(() => {
-    const loadImages = async () => {
-      for (let i = 0; i < slides.length; i++) {
-        const img = new Image();
-        img.src = slides[i].imag;
-        img.onload = () => {
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const { target } = entry;
+          const index = target.dataset.index;
           setSlides(prevSlides => {
             const newSlides = [...prevSlides];
-            newSlides[i].loaded = true;
+            newSlides[index].loaded = true;
             return newSlides;
           });
-        };
+          observer.unobserve(target);
+        }
+      });
+    }, { root: null, rootMargin: '0px', threshold: 0.1 });
+
+    slideRefs.current.forEach(slide => {
+      if (slide) {
+        observer.observe(slide);
+      }
+    });
+
+    return () => {
+      if (observer) {
+        slideRefs.current.forEach(slide => {
+          if (slide) {
+            observer.unobserve(slide);
+          }
+        });
       }
     };
-
-    loadImages();
   }, [slides]);
 
   useEffect(() => {
@@ -67,7 +72,7 @@ const Carrousel = () => {
   };
 
   return (
-    <div className="w-full ">
+    <div className="w-full">
       <div className="overflow-hidden relative w-full h-[400px] sm:h-[450px] md:h-[480px] lg:h-[530px]">
         <div
           className="flex transition ease-out duration-700 w-full h-full"

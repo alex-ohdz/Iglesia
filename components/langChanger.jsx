@@ -4,9 +4,9 @@ import { useTranslation } from "react-i18next";
 import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
 
 const flags = [
-  { code: "en", imgF: "/icons/flags/en.webp" },
-  { code: "es", imgF: "/icons/flags/es.webp" },
-  { code: "po", imgF: "/icons/flags/po.webp" },
+  { code: "en", imgF: "/icons/flags/en.png" },
+  { code: "es", imgF: "/icons/flags/es.png" },
+  { code: "po", imgF: "/icons/flags/po.png" },
 ];
 
 const LangChanger = () => {
