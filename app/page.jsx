@@ -7,6 +7,7 @@ import FooterApp from "@components/footerApp";
 import Carrousel from "@components/carrousel";
 import Noticias from "@components/noticias/noticias";
 import ImageCircle from "@components/weAre";
+import ProgressBar from "@components/adminPage/home-carousel/progressBar";
 import { useTranslation } from "react-i18next";
 import "../i18next.config";
 

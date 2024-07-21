@@ -1,19 +1,27 @@
 "use client";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 
 const Carrousel = () => {
   const [slides, setSlides] = useState([]);
   const [current, setCurrent] = useState(0);
+  const slideRefs = useRef([]);
 
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await fetch('/api/getCarousel');
-        const data = await response.json();
-        const images = data.map((row, index) => ({ imag: `data:image/jpeg;base64,${row.image}`, loaded: index === 0 }));
-        setSlides(images);
+        let cachedSlides = localStorage.getItem('carouselSlides');
+        if (cachedSlides) {
+          cachedSlides = JSON.parse(cachedSlides);
+          setSlides(cachedSlides);
+        } else {
+          const response = await fetch('/api/getCarousel');
+          const data = await response.json();
+          const images = data.map((row, index) => ({ imag: `data:image/jpeg;base64,${row.image}`, loaded: index === 0 }));
+          setSlides(images);
+          localStorage.setItem('carouselSlides', JSON.stringify(images));
+        }
       } catch (error) {
         console.error('Error fetching images', error);
       }
