@@ -2,12 +2,12 @@
 import { useState, useEffect } from "react";
 import NavPC from "@components/navPC";
 import NavMobile from "@components/navMobile";
-export default function Nav({ initialIsMobile }) {
-  const [isMobile, setIsMobile] = useState(initialIsMobile);
+export default function Nav() {
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     function handleResize() {
-      setIsMobile(window.innerWidth <= 800);
+      setIsMobile(window.innerWidth > 800);
     }
     window.addEventListener("resize", handleResize);
     handleResize();
@@ -18,9 +18,9 @@ export default function Nav({ initialIsMobile }) {
   return (
     <div>
       {isMobile ? (
-        <NavMobile isMobile={isMobile} />
-      ) : (
         <NavPC isMobile={isMobile} />
+      ) : (
+        <NavMobile isMobile={isMobile} />
       )}
     </div>
   );

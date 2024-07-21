@@ -1,4 +1,3 @@
-// app/page.jsx
 "use client";
 import { Suspense } from "react";
 import BoxText from "@components/boxText";
@@ -10,17 +9,17 @@ import Noticias from "@components/noticias/noticias";
 import ImageCircle from "@components/weAre";
 import { useTranslation } from "react-i18next";
 import "../i18next.config";
-import ProgressBar from "@components/adminPage/home-carousel/progressBar";
 
 export default function Home() {
   const { t, i18n } = useTranslation();
 
   if (!i18n.isInitialized) {
-    return <ProgressBar />;
+    return <ProgressBar/>;
   }
 
   return (
-    <Suspense fallback={<ProgressBar />}>
+    <Suspense fallback={<ProgressBar/>}>
+      <Nav />
       <Carrousel />
       <aside>
         <BoxText />
@@ -30,7 +29,7 @@ export default function Home() {
         <Services />
       </section>
       <footer>
-        <ImageCircle />
+      <ImageCircle />
         <FooterApp />
       </footer>
     </Suspense>

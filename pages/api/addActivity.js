@@ -1,6 +1,5 @@
 import multer from 'multer';
 import { query } from "@/lib/db";
-import optimizeImage from "@/lib/imageOptimizer";
 
 // Configurar multer para almacenar las imágenes en memoria
 const upload = multer({
@@ -35,9 +34,8 @@ const handler = async (req, res) => {
         return res.status(400).json({ success: false, error: 'No image provided' });
       }
 
-      // Optimizar la imagen
-      const optimizedBuffer = await optimizeImage(image.buffer);
-      const imageBase64 = optimizedBuffer.toString('base64');
+      // Convertir la imagen a Base64
+      const imageBase64 = image.buffer.toString('base64');
 
       // Insertar los datos en la base de datos
       const result = await query(

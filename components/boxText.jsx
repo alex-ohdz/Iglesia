@@ -1,7 +1,7 @@
 "use client";
 import { useTranslation, Trans } from "react-i18next";
 import useIntersectionObserver from "@hooks/useIntersectionObserver";
-import ProgressBar from "./adminPage/home-carousel/progressBar";
+import Loading from "./loading";
 
 const BoxText = () => {
   const {  i18n } = useTranslation();
@@ -11,7 +11,7 @@ const BoxText = () => {
 
   // Espera a que i18next esté listo
   if (!i18n.isInitialized) {
-    return <ProgressBar/>;
+    return <Loading/>;
   }
 
   return (
