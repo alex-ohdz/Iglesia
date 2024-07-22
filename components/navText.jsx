@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useTranslation } from "react-i18next";
 
 const items = [
   { key: "us", link: "#us" },
@@ -20,7 +19,7 @@ const NavText = ({ isMobile }) => {
               href={item.link}
               className="text-amber-800 hover:text-yellow-500 transition-colors duration-300 text-lg font-playfair tracking-wider"
             >
-              {t(`navigation.${item.key}`)}
+              {item.key}
             </Link>
           </div>
         );

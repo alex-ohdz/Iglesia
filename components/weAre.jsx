@@ -1,23 +1,21 @@
-'use client';
-import { useTranslation } from 'react-i18next';
-import { useState, useEffect } from 'react';
+"use client";
+import { useState, useEffect } from "react";
 
 const ImageCircle = () => {
-  const { t } = useTranslation();
   const [teamMembers, setTeamMembers] = useState([]);
 
   useEffect(() => {
     const fetchWorkers = async () => {
       try {
-        const response = await fetch('/api/getWorkers');
+        const response = await fetch("/api/getWorkers");
         const data = await response.json();
         if (data.success) {
           setTeamMembers(data.data);
         } else {
-          console.error('Error fetching workers:', data.error);
+          console.error("Error fetching workers:", data.error);
         }
       } catch (error) {
-        console.error('Error fetching workers:', error);
+        console.error("Error fetching workers:", error);
       }
     };
 
@@ -26,7 +24,9 @@ const ImageCircle = () => {
 
   return (
     <div className="bg-amber-100 p-5 anchored-section" id="us">
-      <h2 className="text-3xl mb-8 text-center font-serif text-gray-600">{t('Nuestro Equipo')}</h2>
+      <h2 className="text-3xl mb-8 text-center font-serif text-gray-600">
+        Nuestro Equipo'
+      </h2>
       <div className="flex flex-wrap justify-center gap-8">
         {teamMembers.map((member, index) => (
           <div key={index} className="flex flex-col items-center text-center">
@@ -42,6 +42,6 @@ const ImageCircle = () => {
       </div>
     </div>
   );
-}
+};
 
 export default ImageCircle;

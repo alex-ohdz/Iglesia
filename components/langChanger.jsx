@@ -1,6 +1,5 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { useTranslation } from "react-i18next";
 import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
 
 const flags = [
@@ -10,11 +9,8 @@ const flags = [
 ];
 
 const LangChanger = () => {
-  const { i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedFlag, setSelectedFlag] = useState(
-    () => flags.find((flag) => flag.code === i18n.language) || flags[1]
-  );
+  const [selectedFlag, setSelectedFlag] = useState(flags[1]);
   const dropdownRef = useRef(null);
 
   const toggleDropdown = () => {
@@ -24,7 +20,6 @@ const LangChanger = () => {
   const handleSelectFlag = (flag) => {
     setSelectedFlag(flag);
     setIsOpen(false);
-    i18n.changeLanguage(flag.code);
   };
 
   useEffect(() => {
@@ -38,13 +33,6 @@ const LangChanger = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen]);
-
-  useEffect(() => {
-    const currentFlag = flags.find((flag) => flag.code === i18n.language);
-    if (currentFlag && currentFlag.code !== selectedFlag.code) {
-      setSelectedFlag(currentFlag);
-    }
-  }, [i18n.language]);
 
   return (
     <div className={`relative ml-2 p-1 ${isOpen ? "bg-yellow-100" : ""}`} ref={dropdownRef}>

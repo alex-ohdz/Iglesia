@@ -1,15 +1,7 @@
-"use client";
 import ContactUs from "./contactUs";
-import Link from "next/link";
-import { useTranslation } from "react-i18next";
-import Loading from "./loading";
+import Link from "next/link";  
 
 const FooterApp = () => {
-  const { t, i18n } = useTranslation();
-
-  if (!i18n.isInitialized) {
-    return <Loading />;
-  }
 
   return (
     <div className="anchored-section2" id="contact">
@@ -21,7 +13,7 @@ const FooterApp = () => {
             Remedios.
           </Link>
         </span>
-        <span>{t("Todos los derechos reservados.")}</span>
+        <span>Todos los derechos reservados/</span>
         {/* Developed by Dmigoya and alex-ohdz */}
       </p>
     </div>

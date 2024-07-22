@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 
 // Definición de los servicios
 const servicios = [
@@ -25,7 +24,6 @@ const servicios = [
 ];
 
 function Services() {
-  const { t } = useTranslation();
   const [value, setValue] = useState(1);
 
   const handleChange = (id) => {
@@ -36,7 +34,7 @@ function Services() {
 
   return (
     <div className="font-roboto bg-amber-50 anchored-section2" id="services">
-      <h1 className="text-center py-6 text-2xl">{t(`Servicios`)}</h1>
+      <h1 className="text-center py-6 text-2xl">Servicios</h1>
       <div className="flex justify-between h-14 w-full">
         <div className="flex justify-center items-center h-full w-1/3">
           <button

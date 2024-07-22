@@ -1,10 +1,8 @@
 'use client';
 import { useState, useEffect } from "react";
 import Cards from "./cards";
-import { useTranslation } from "react-i18next";
 
 const Noticias = () => {
-  const { t } = useTranslation();
   const [notices, setNotices] = useState([]);
 
   useEffect(() => {
@@ -25,7 +23,7 @@ const Noticias = () => {
 
   return (
     <div className="mx-auto px-4 bg-yellow-200 pb-10">
-      <h1 className="text-center font-serif text-3xl py-10 text-amber-800">{t(`Actividades Recientes`)}</h1>
+      <h1 className="text-center font-serif text-3xl py-10 text-amber-800">Actividades Recientes</h1>
       <div className="cardsok">
         {notices.map((n, index) => (
           <Cards key={index} itemKey={index} title={n.title} text={n.body} imageUrl={`data:image/jpeg;base64,${n.image}`} date={n.date}/>
