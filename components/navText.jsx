@@ -8,7 +8,6 @@ const items = [
 ];
 
 const NavText = ({ isMobile }) => {
-  const { t } = useTranslation();
 
   return (
     <div className={`flex ${isMobile ? 'flex-row' : 'flex-col'} items-center`}>
