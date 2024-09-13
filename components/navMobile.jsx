@@ -12,6 +12,7 @@ import Link from "next/link";
 import LangChanger from "./langChanger";
 import NavText from "./navText";
 
+
 function ElevationScroll(props) {
   const { children, window } = props;
   const trigger = useScrollTrigger({

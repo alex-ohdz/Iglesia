@@ -10,6 +10,7 @@ import NavText from "./navText";
 import { cloneElement } from "react";
 import { useTranslations } from "next-intl";
 
+
 function ElevationScroll(props) {
   const { children, window } = props;
   const trigger = useScrollTrigger({
