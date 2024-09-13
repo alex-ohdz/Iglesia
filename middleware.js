@@ -1,9 +1,17 @@
 import { NextResponse } from 'next/server';
+import createMiddleware from 'next-intl/middleware';
 
+// Crear el middleware de i18n
+const i18nMiddleware = createMiddleware({
+  locales: ['en', 'es', 'po'],  // Lista de locales soportados: inglés, español, polaco
+  defaultLocale: 'es',  // Local por defecto es español
+});
+
+// Combinar la autenticación con el middleware de i18n
 export async function middleware(req) {
   const url = req.nextUrl.clone();
 
-  // Check session for all /secret/* routes except /secret itself
+  // Verificar sesión para todas las rutas /secret/* excepto /secret
   if (url.pathname.startsWith('/secret/') && url.pathname !== '/secret') {
     const cookie = req.headers.get('cookie');
     const res = await fetch(`${url.origin}/api/session`, {
@@ -25,9 +33,11 @@ export async function middleware(req) {
     }
   }
 
-  return NextResponse.next();
+  // Ejecutar el middleware de i18n después de la autenticación
+  return i18nMiddleware(req);
 }
 
 export const config = {
-  matcher: '/secret/:path*',
+  // Definir el matcher que combine ambas configuraciones
+  matcher: ['/secret/:path*', '/', '/(en|es|po)/:path*'],
 };

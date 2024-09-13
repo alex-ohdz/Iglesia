@@ -8,6 +8,7 @@ import Link from "next/link";
 import LangChanger from "./langChanger";
 import NavText from "./navText";
 import { cloneElement } from "react";
+import { useTranslations } from "next-intl";
 
 function ElevationScroll(props) {
   const { children, window } = props;
@@ -19,7 +20,7 @@ function ElevationScroll(props) {
 
   return cloneElement(children, {
     style: {
-      backgroundColor:"white" ,
+      backgroundColor: "white",
       boxShadow: trigger ? "0px 4px 12px rgba(0, 0, 0, 0.1)" : "none",
       transition: trigger ? "box-shadow 0.3s ease-in-out" : "none",
     },
@@ -27,6 +28,8 @@ function ElevationScroll(props) {
 }
 
 function NavPC({ isMobile }) {
+  const t = useTranslations("nav"); // Obtiene las traducciones aquí
+
   return (
     <>
       <CssBaseline />

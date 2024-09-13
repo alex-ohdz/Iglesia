@@ -1,11 +1,7 @@
-export default {
-	async rewrites() {
-	  return [
-		{
-		  source: '/secret/:path*',
-		  destination: '/secret/:path*',
-		},
-	  ];
-	},
-  };
-  
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = createNextIntlPlugin();
+
+const nextConfig = {};
+
+export default withNextIntl(nextConfig);
