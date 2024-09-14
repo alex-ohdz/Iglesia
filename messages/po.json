@@ -4,6 +4,33 @@
 	  "services": "Usługi",
 	  "contact": "Kontakt",
 	  "donations": "Darowizna"
-	}
+	},
+	"boxText": {
+	  "title": "Witamy w naszej społeczności",
+	  "content": "Kościół San Juan Bautista de Remedios, położony w San Juan de los Remedios, Villa Clara, jest uważany za najstarszy kościół na Kubie. Obecny kościół został zbudowany w 1692 roku na strukturze kościoła, który pierwotnie został zbudowany w 1570 roku. Wieża-dzwonnica ma neoklasyczny design, a wnętrze jest barokowe. Do najważniejszych cech należą ozdobny sufit, złocenie i ołtarz z cedru, wszystko wyrzeźbione w drewnie i pokryte złotem przez Rogelio Attá, rzemieślnika z Remedios o azjatyckim pochodzeniu, który również umieścił barokowe ołtarze i kolekcję obrazów w obu nawach kościoła. Dziś jest to jedyny kościół na Kubie, który jest barokowy zarówno wewnątrz, jak i na zewnątrz, i jest stale odwiedzany przez turystów krajowych i międzynarodowych, którzy przyjeżdżają, aby podziwiać jego zachowane dziedzictwo."
+	},
+	"noticias": {
+    "title": "Ostatnia Aktywność"
+  },
+  "services":{
+		"title": "Usługi",
+		"baptism": {
+      "title": "Chrzest",
+      "description": "Ceremonia chrztu jest ważnym wydarzeniem w życiu duchowym rodziny i dziecka. Nasza usługa chrztu jest zaprojektowana, aby uczynić ten moment niezapomnianym i świętym, zapewniając spersonalizowane doświadczenie, które odzwierciedla przekonania i życzenia rodziny. Od planowania po wykonanie, dbamy o każdy szczegół, aby ceremonia była piękna, pełna szacunku i zgodna z twoimi oczekiwaniami."
+    },
+    "wedding": {
+      "title": "Ślub",
+      "description": "Wierzymy, że twój dzień ślubu powinien być tak wyjątkowy jak twoja miłość. Dzięki naszej usłudze ślubnej pomagamy stworzyć niezapomnianą uroczystość, która doskonale odzwierciedli twoją relację. Od wymarzonych miejsc po wspaniałe dekoracje, nasz zespół jest oddany realizacji twoich wizji, zapewniając, że każdy aspekt twojego ślubu będzie doskonały, niezależnie od tego, jak duży czy mały."
+    },
+    "example3": {
+      "title": "Przykład 3",
+      "description": "Przykład 3 oferuje szereg usług zaprojektowanych w celu zaspokojenia twoich specyficznych potrzeb. Niezależnie od tego, czy chcesz rozwijać swoją firmę, poprawić swoje samopoczucie osobiste, czy świętować kamień milowy, nasz dedykowany zespół jest tutaj, aby ci pomóc. Dzięki spersonalizowanemu podejściu i starannej uwadze na szczegóły, staramy się przekroczyć twoje oczekiwania i zapewnić wyjątkowe wyniki."
+    }
+	},
+	"footer": {
+    "contact": "Skontaktuj się z nami",
+    "copyright": "Kościół San Juan Bautista de",
+    "allRightsReserved": "Wszelkie prawa zastrzeżone."
+  }
   }
   

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import NavPC from "@components/navPC";
 import NavMobile from "@components/navMobile";
 
-export default function Nav({t}) {
+export default function Nav() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {

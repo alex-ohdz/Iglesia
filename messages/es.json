@@ -4,6 +4,34 @@
 	  "services": "Servicios",
 	  "contact": "Contacto",
 	  "donations": "Donar"
-	}
+	},
+	"boxText": {
+	  "title": "Bienvenidos a Nuestra Comunidad",
+	  "content": "La Iglesia de San Juan Bautista de Remedios, ubicada en San Juan de los Remedios, Villa Clara, se le atribuye ser la iglesia más antigua de Cuba. La iglesia actual fue construida en 1692 sobre la estructura existente de una iglesia que fue construida originalmente en 1570. La torre-campanario es un diseño neoclásico y el interior es barroco. Algunas de las características más importantes son el techo ornamentado, el pan de oro y el altar de cedro cubierto, todo tallado en madera y laminado en oro, realizado por un artesano remediano de descendencia asiática, Rogelio Attá, y que coloca retablos barrocos y una colección pictórica en ambas naves de la iglesia. Es hoy la única iglesia barroca interior y exteriormente en Cuba, siendo visitada permanentemente por turismo nacional e internacional que acuden a apreciar sus bienes conservados patrimoniales."
+	},
+	"noticias": {
+    "title": "Actividad Reciente"
+  },
+  "services":{
+		"title": "Servicios",
+		"baptism": {
+      "title": "Bautismo",
+      "description": "La ceremonia de bautismo es un evento significativo en la vida espiritual de la familia y el infante. Nuestro servicio de bautismo está diseñado para hacer de este momento algo memorable y sagrado, proporcionando una experiencia personalizada que refleje las creencias y deseos de la familia. Desde la planificación hasta la ejecución, cuidamos cada detalle para asegurar que la ceremonia sea hermosa, respetuosa y acorde a tus expectativas."
+    },
+    "wedding": {
+      "title": "Boda",
+      "description": "Creemos que tu día de boda debe ser tan único como tu amor. Con nuestro servicio de casamientos, te ayudamos a crear una celebración inolvidable que capture perfectamente tu relación. Desde lugares de ensueño hasta decoraciones de ensueño, nuestro equipo está dedicado a convertir tus visiones en realidad, asegurando que cada aspecto de tu boda sea perfecto, sin importar lo grande o pequeño que sea."
+    },
+    "example3": {
+      "title": "Ejemplo 3",
+      "description": "Ejemplo 3 ofrece una gama de servicios diseñados para satisfacer tus necesidades específicas. Ya sea que estés buscando expandir tu negocio, mejorar tu bienestar personal o celebrar un hito, nuestro equipo dedicado está aquí para apoyarte. Con un enfoque personalizado y una atención meticulosa al detalle, nos esforzamos por superar tus expectativas y proporcionarte resultados excepcionales."
+    }
+	},
+	"footer": {
+    "contact": "Contáctenos",
+    "copyright": "Iglesia de San Juan Bautista de",
+    "allRightsReserved": "Todos los derechos reservados."
+  }
+
   }
   

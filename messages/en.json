@@ -4,6 +4,33 @@
 	  "services": "Services",
 	  "contact": "Contact",
 	  "donations": "Donate"
-	}
+	},
+	"boxText": {
+	  "title": "Welcome to Our Community",
+	  "content": "The Church of San Juan Bautista de Remedios, located in San Juan de los Remedios, Villa Clara, is considered to be the oldest church in Cuba. The current church was built in 1692 on the structure of a church that was originally built in 1570. The bell tower is of neoclassical design, and the interior is baroque. Some of the most important features are the ornate ceiling, the gold leaf, and the cedar altar, all carved in wood and laminated in gold by Rogelio Attá, an artisan from Remedios of Asian descent, who also added baroque altarpieces and a pictorial collection in both naves of the church. Today, it is the only church in Cuba that is baroque both inside and out, and it is visited permanently by national and international tourists who come to appreciate its preserved heritage."
+	},
+	"noticias":{
+		"title": "Recent Activity"
+	},
+	"services":{
+		"title": "Services",
+		"baptism": {
+      "title": "Baptism",
+      "description": "The baptism ceremony is a significant event in the spiritual life of the family and the infant. Our baptism service is designed to make this moment memorable and sacred, providing a personalized experience that reflects the family's beliefs and wishes. From planning to execution, we take care of every detail to ensure the ceremony is beautiful, respectful, and in line with your expectations."
+    },
+    "wedding": {
+      "title": "Wedding",
+      "description": "We believe that your wedding day should be as unique as your love. With our wedding service, we help you create an unforgettable celebration that perfectly captures your relationship. From dream venues to stunning decorations, our team is dedicated to bringing your visions to life, ensuring that every aspect of your wedding is perfect, no matter how big or small."
+    },
+    "example3": {
+      "title": "Example 3",
+      "description": "Example 3 offers a range of services designed to meet your specific needs. Whether you're looking to expand your business, enhance your personal well-being, or celebrate a milestone, our dedicated team is here to support you. With a personalized approach and meticulous attention to detail, we strive to exceed your expectations and provide exceptional results."
+    }
+	},
+	"footer": {
+    "contact": "Contact Us",
+    "copyright": "Church of San Juan Bautista de",
+    "allRightsReserved": "All rights reserved."
+  }
   }
   

@@ -1,4 +1,7 @@
 "use client";
+
+import { useLocale } from 'next-intl';
+import { useTransition } from 'react';
 import { useState, useRef, useEffect } from "react";
 import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
 
@@ -9,8 +12,12 @@ const flags = [
 ];
 
 const LangChanger = () => {
+  const [isPending, startTransition] = useTransition();
+  const currentLocale = useLocale(); // Obtiene el idioma actual
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedFlag, setSelectedFlag] = useState(flags[1]);
+  const [selectedFlag, setSelectedFlag] = useState(
+    flags.find(flag => flag.code === currentLocale) || flags[1] // Selecciona la bandera correspondiente al idioma actual
+  );
   const dropdownRef = useRef(null);
 
   const toggleDropdown = () => {
@@ -20,6 +27,11 @@ const LangChanger = () => {
   const handleSelectFlag = (flag) => {
     setSelectedFlag(flag);
     setIsOpen(false);
+
+    // Cambiar el idioma al seleccionar la bandera
+    startTransition(() => {
+      window.location.href = `/${flag.code}`; // Cambia la página al idioma seleccionado
+    });
   };
 
   useEffect(() => {
@@ -54,7 +66,7 @@ const LangChanger = () => {
                 src={flag.imgF}
                 alt={`${flag.code} flag`}
                 className="w-6 h-6 m-1 cursor-pointer"
-                onClick={() => handleSelectFlag(flag)}
+                onClick={() => handleSelectFlag(flag)} // Cambiar idioma al hacer clic
               />
             ))}
         </div>
