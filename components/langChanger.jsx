@@ -47,17 +47,17 @@ const LangChanger = () => {
   }, [isOpen]);
 
   return (
-    <div className={`relative ml-2 p-1 ${isOpen ? "bg-yellow-100" : ""}`} ref={dropdownRef}>
+    <div className={`relative ml-2 p-3 ${isOpen ? "bg-transparent" : ""}`} ref={dropdownRef}>
       <button onClick={toggleDropdown} className="flex items-center">
         <img
           src={selectedFlag.imgF}
           alt={selectedFlag.code + " flag"}
           className="w-6 h-6"
         />
-        <KeyboardArrowUpRoundedIcon className={`text-amber-900 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
+        <KeyboardArrowUpRoundedIcon className={`text-amber-900 transition-transform duration-200 ${isOpen ? "rotate-180 " : ""}`} />
       </button>
       {isOpen && (
-        <div className="flex flex-col mt-2 absolute z-20 top-6 right-6 bg-yellow-100 items-center pt-1">
+        <div className="flex flex-col mt-2 absolute z-20 top-8 right-[30px] bg-current items-center">
           {flags
             .filter((flag) => flag.code !== selectedFlag.code)
             .map((flag, index) => (

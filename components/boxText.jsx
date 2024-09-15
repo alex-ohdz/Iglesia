@@ -11,7 +11,7 @@ const BoxText = () => {
   return (
     <div className="py-7 flex flex-col items-center bg-amber-50 text-amber-900">
       <h1 className="text-3xl font-serif mb-6 text-center">
-        {t('title')} {/* Traducción dinámica del título */}
+        {t('title')} 
       </h1>
       <div className="w-full flex items-center lg:flex-row flex-col md:items-center justify-items-start">
         <div className="flex-shrink-0 h-96 lg:w-96 sm:w-[500px] w-full mb-4">
@@ -27,7 +27,7 @@ const BoxText = () => {
             isVisible ? "visible" : ""
           }`}
         >
-          {t('content')} {/* Traducción dinámica del contenido */}
+          {t('content')} 
         </p>
       </div>
     </div>

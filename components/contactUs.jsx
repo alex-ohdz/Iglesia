@@ -5,8 +5,8 @@ const ContactUs = () => {
   return (
     <>
       <div className="bg-amber-200 text-stone-700 px-5">
-        <div className="text-center py-5">
-          <h1 className="font-roboto text-2xl text-stone-600">
+        <div className="text-center py-8">
+          <h1 className="text-3xl font-serif text-center text-amber-900">
           Contáctanos
           </h1>
         </div>

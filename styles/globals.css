@@ -13,7 +13,7 @@
 .anchored-section::before {
   content: "";
   display: block;
-  height: 60px; /* Altura de la barra de navegación */
+  height: 40px; /* Altura de la barra de navegación */
   margin-top: -60px;
 }
 

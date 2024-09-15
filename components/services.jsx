@@ -31,8 +31,8 @@ function Services() {
   const selectServices = servicios[value];
 
   return (
-    <div className="font-roboto bg-amber-50 anchored-section2" id="services">
-      <h1 className="text-center py-6 text-2xl">{t('title')}</h1>
+    <div className="font-roboto bg-amber-50 anchored-section2 mb-14" id="services">
+      <h1 className="text-3xl font-serif text-center py-8 text-amber-900">{t('title')}</h1>
       <div className="flex justify-between h-14 w-full">
         <div className="flex justify-center items-center h-full w-1/3">
           <button
