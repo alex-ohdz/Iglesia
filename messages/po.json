@@ -1,9 +1,9 @@
 {
 	"nav": {
-	  "us": "O nas",
+	  "us": "O",
 	  "services": "Usługi",
 	  "contact": "Kontakt",
-	  "donations": "Darowizna"
+	  "donations": "Gice"
 	},
 	"boxText": {
 	  "title": "Witamy w naszej społeczności",
@@ -27,10 +27,36 @@
       "description": "Przykład 3 oferuje szereg usług zaprojektowanych w celu zaspokojenia twoich specyficznych potrzeb. Niezależnie od tego, czy chcesz rozwijać swoją firmę, poprawić swoje samopoczucie osobiste, czy świętować kamień milowy, nasz dedykowany zespół jest tutaj, aby ci pomóc. Dzięki spersonalizowanemu podejściu i starannej uwadze na szczegóły, staramy się przekroczyć twoje oczekiwania i zapewnić wyjątkowe wyniki."
     }
 	},
+    "contact": {
+      "title": "Skontaktuj się z nami",
+      "hoursTitle": "Godziny otwarcia",
+      "weekday": "Poniedziałek - piątek",
+      "saturday": "Sobota",
+      "sunday": "Niedziela",
+      "infoTitle": "Informacje",
+      "phone": "Telefon",
+      "email": "E-mail"
+},
 	"footer": {
     "contact": "Skontaktuj się z nami",
     "copyright": "Kościół San Juan Bautista de",
     "allRightsReserved": "Wszelkie prawa zastrzeżone."
+  },
+  
+    "donations": {
+      "title": "Złóż darowiznę",
+      "amount": "Wybierz kwotę",
+      "customAmount": "Własna kwota",
+      "paymentMethod": "Wybierz, jak chcesz wesprzeć",
+      "stripe": "Stripe",
+      "tropipay": "TropiPay",
+      "donateButton": "Złóż darowiznę",
+      "errorMessage": "Wystąpił błąd. Spróbuj ponownie.",
+      "successMessage": "Dziękujemy za Twoją darowiznę!"
+    },
+    "btn": {
+      "home": "Strona główna"
   }
+  
   }
   

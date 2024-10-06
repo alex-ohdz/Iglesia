@@ -1,4 +1,5 @@
 "use client";
+import { useTranslations } from "next-intl";
 import { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import Box from "@mui/material/Box";
@@ -6,27 +7,23 @@ import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
 import BtnHome from "@components/btnHome";
 
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-);
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 const DonateForm = () => {
+  const t = useTranslations("donations");
   const [amount, setAmount] = useState(0);
   const [message, setMessage] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("1"); // Set default value to "1"
+  const [paymentMethod, setPaymentMethod] = useState("1");
 
   useEffect(() => {
-    // Function to reset states
     const resetStates = () => {
       setAmount(0);
       setMessage("");
       setPaymentMethod("1");
     };
 
-    // Reset states on mount
     resetStates();
 
-    // Reset states and reload page on browser back/forward navigation
     const handlePopState = () => {
       resetStates();
       location.reload();
@@ -34,7 +31,6 @@ const DonateForm = () => {
 
     window.addEventListener("popstate", handlePopState);
 
-    // Cleanup event listener on unmount
     return () => {
       window.removeEventListener("popstate", handlePopState);
     };
@@ -82,87 +78,89 @@ const DonateForm = () => {
   };
 
   return (
-    <><BtnHome/>
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col justify-center items-center p-4 bg-gray-200 h-screen rounded-md shadow-md"
-    >
-      
-      <h2 className="text-2xl text-center font-bold mb-4">Donar</h2>
-      <Box sx={{ minWidth: 265, mb: 3 }}>
-        <FormControl fullWidth>
-          <NativeSelect
-            value={paymentMethod}
-            onChange={(e) => setPaymentMethod(e.target.value)}
-            inputProps={{
-              name: "paymentMethod",
-              id: "uncontrolled-native",
-            }}
-          >
-            <option value="1" disabled>
-              Seleccione un método de pago
-            </option>
-            <option value="stripe">Stripe</option>
-            <option value="tropipay">TropiPay</option>
-          </NativeSelect>
-        </FormControl>
-      </Box>
-      {paymentMethod === "stripe" && (
-        <>
-          <div className="mb-4">
-            <h3 className="text-lg font-semibold mb-2 text-center">
-              Selecciona un monto:
-            </h3>
-            <div className="grid grid-cols-2 justify-center gap-2">
-              {[5, 10, 15, 20, 25, 30].map((value) => (
-                <button
-                  key={value}
-                  type="button"
-                  className={`p-1 w-32 h-10 rounded-md border ${
-                    amount === value
-                      ? "bg-blue-500 text-white"
-                      : "bg-white text-blue-500"
-                  }`}
-                  onClick={() => handleAmountClick(value)}
-                >
-                  ${value}
-                </button>
-              ))}
+    <>
+      <BtnHome />
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col justify-center items-center p-4 bg-gray-200 h-screen rounded-md shadow-md"
+      >
+        <h2 className="text-2xl text-center font-bold mb-4">{t("title")}</h2>
+        <Box sx={{ minWidth: 265, mb: 3 }}>
+          <FormControl fullWidth>
+            <NativeSelect
+              value={paymentMethod}
+              onChange={(e) => setPaymentMethod(e.target.value)}
+              inputProps={{
+                name: "paymentMethod",
+                id: "uncontrolled-native",
+              }}
+            >
+              <option value="1" disabled>
+                {t("paymentMethod")}
+              </option>
+              <option value="stripe">Stripe</option>
+              <option value="tropipay">TropiPay</option>
+            </NativeSelect>
+          </FormControl>
+        </Box>
+
+        {paymentMethod === "stripe" && (
+          <>
+            <div className="mb-4">
+              <h3 className="text-lg font-semibold mb-2 text-center">
+                {t("amount")}
+              </h3>
+              <div className="grid grid-cols-2 justify-center gap-2">
+                {[5, 10, 15, 20, 25, 30].map((value) => (
+                  <button
+                    key={value}
+                    type="button"
+                    className={`p-1 w-32 h-10 rounded-md border ${
+                      amount === value
+                        ? "bg-blue-500 text-white"
+                        : "bg-white text-blue-500"
+                    }`}
+                    onClick={() => handleAmountClick(value)}
+                  >
+                    ${value}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
-          <div className="flex mb-4 justify-center">
-            <input
-              type="number"
-              id="amount"
-              name="amount"
-              placeholder="Monto personalizado"
-              className="p-2 w-[265px] border rounded-md"
-              value={amount}
-              onChange={handleAmountChange}
-              required
-            />
-          </div>
-        </>
-      )}
-      <div className="flex flex-col gap-y-5 justify-center items-center">
-        <button
-          type="submit"
-          className={`flex font-serif font-semibold p-2 gap-3 rounded-md w-[265px] justify-center shadow-md text-white ${
-            paymentMethod === "1"
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-amber-600 "
-          }`}
-          disabled={paymentMethod === "1"}
-        >
-          Donar
-        </button>
-      </div>
-      {message && <p className="mt-4 text-red-500">{message}</p>}
-    </form>
+            <div className="flex mb-4 justify-center">
+              <input
+                type="number"
+                id="amount"
+                name="amount"
+                placeholder={t("customAmount")}
+                className="p-2 w-[265px] border rounded-md"
+                value={amount}
+                onChange={handleAmountChange}
+                required
+              />
+            </div>
+          </>
+        )}
+
+        <div className="flex flex-col gap-y-5 justify-center items-center">
+          <button
+            type="submit"
+            className={`flex font-serif font-semibold p-2 gap-3 rounded-md w-[265px] justify-center shadow-md text-white ${
+              paymentMethod === "1"
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-amber-600"
+            }`}
+            disabled={paymentMethod === "1"}
+          >
+            {t("donateButton")}
+          </button>
+        </div>
+        {message && <p className="mt-4 text-red-500">{message}</p>}
+      </form>
     </>
   );
 };
 
-const DonatePage = () => <DonateForm />;
+export default DonateForm;
 
-export default DonatePage;
+

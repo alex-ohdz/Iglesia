@@ -1,9 +1,9 @@
 {
 	"nav": {
-	  "us": "About Us",
+	  "us": "About",
 	  "services": "Services",
 	  "contact": "Contact",
-	  "donations": "Donate"
+	  "donations": "Give"
 	},
 	"boxText": {
 	  "title": "Welcome to Our Community",
@@ -26,11 +26,38 @@
       "title": "Example 3",
       "description": "Example 3 offers a range of services designed to meet your specific needs. Whether you're looking to expand your business, enhance your personal well-being, or celebrate a milestone, our dedicated team is here to support you. With a personalized approach and meticulous attention to detail, we strive to exceed your expectations and provide exceptional results."
     }
-	},
+	},"contact": {
+    "title": "Contact Us",
+    "hoursTitle": "Hours",
+    "weekday": "Monday to Friday",
+    "saturday": "Saturdays",
+    "sunday": "Sundays",
+    "infoTitle": "Info",
+    "phone": "Phone",
+    "email": "Email"
+  },
 	"footer": {
     "contact": "Contact Us",
     "copyright": "Church of San Juan Bautista de",
     "allRightsReserved": "All rights reserved."
+	
+  },
+	"donations": {
+	  "title": "Make a Donation",
+	  "amount": "Select an amount",
+	  "customAmount": "Custom amount",
+	  "paymentMethod": "Choose how you wish to contribute",
+	  "stripe": "Stripe",
+	  "tropipay": "TropiPay",
+	  "donateButton": "Donate",
+	  "errorMessage": "An error occurred. Please try again.",
+	  "successMessage": "Thank you for your donation!"
+	},
+	"btn": {
+     "home": "Home"
+    }
+	
   }
-  }
+  
+  
   

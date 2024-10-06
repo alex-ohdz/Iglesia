@@ -27,11 +27,35 @@
       "description": "Ejemplo 3 ofrece una gama de servicios diseñados para satisfacer tus necesidades específicas. Ya sea que estés buscando expandir tu negocio, mejorar tu bienestar personal o celebrar un hito, nuestro equipo dedicado está aquí para apoyarte. Con un enfoque personalizado y una atención meticulosa al detalle, nos esforzamos por superar tus expectativas y proporcionarte resultados excepcionales."
     }
 	},
+    "contact": {
+      "title": "Contáctanos",
+      "hoursTitle": "Horarios",
+      "weekday": "Lunes a Viernes",
+      "saturday": "Sábados",
+      "sunday": "Domingos",
+      "infoTitle": "Info",
+      "phone": "Teléfono",
+      "email": "Correo"
+    },
 	"footer": {
     "contact": "Contáctenos",
     "copyright": "Iglesia de San Juan Bautista de",
     "allRightsReserved": "Todos los derechos reservados."
+  },
+  
+    "donations": {
+      "title": "Hacer una Donación",
+      "amount": "Selecciona un monto",
+      "customAmount": "Monto personalizado",
+      "paymentMethod": "Elige cómo deseas contribuir",
+      "stripe": "Stripe",
+      "tropipay": "TropiPay",
+      "donateButton": "Donar",
+      "errorMessage": "Ocurrió un error. Por favor, inténtelo de nuevo.",
+      "successMessage": "¡Gracias por tu donación!" 
+  },
+    "btn": {
+     "home": "Inicio"
   }
-
   }
   
