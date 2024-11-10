@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 
-const password = 'admin';
+const password = "$2a$10$m0SE55OTUCIDVevBB5wqA.YLn8COcSYom/yxg9YJtMdVYnZYRBHAq";
 
 const generateHash = async (password) => {
   try {
@@ -13,6 +13,8 @@ const generateHash = async (password) => {
 };
 
 generateHash(password);
+
+// $2a$10$m0SE55OTUCIDVevBB5wqA.YLn8COcSYom/yxg9YJtMdVYnZYRBHAq
 
 
 //   ,
