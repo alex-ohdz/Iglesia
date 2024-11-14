@@ -7,7 +7,8 @@ export default async function handler(req, res) {
 
   try {
     const result = await query("SELECT * FROM carrousel");
-    res.status(200).json(result.rows);
+    console.log("Full result:", result); // Verifica qué devuelve realmente
+    res.status(200).json(result.rows || []); // Asegúrate de que sea un array
   } catch (error) {
     console.error("Error fetching images", error);
     res.status(500).json({ error: "Error fetching images" });

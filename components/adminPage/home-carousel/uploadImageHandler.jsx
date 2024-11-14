@@ -1,12 +1,11 @@
-import axios from "axios";
-
 const MAX_IMAGE_SIZE = 4 * 1024 * 1024; // 4MB
 
 export const fetchImages = async (setUploadedImages) => {
   try {
-    const response = await axios.get("/api/getCarousel");
-    if (response.status === 200) {
-      setUploadedImages(response.data);
+    const response = await fetch("/api/getCarousel");
+    if (response.ok) {
+      const data = await response.json();
+      setUploadedImages(data);
     } else {
       console.error("Error fetching images");
     }
@@ -39,10 +38,15 @@ export const handleDeleteSelected = (index, setSelectedFiles) => {
 
 export const handleDeleteUploaded = async (id, setUploadedImages) => {
   try {
-    const response = await axios.delete("/api/deleteCarousel", {
-      data: { id },
+    const response = await fetch("/api/deleteCarousel", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id }),
     });
-    if (response.status === 200) {
+
+    if (response.ok) {
       setUploadedImages(prevImages => prevImages.filter(image => image.id !== id));
     } else {
       console.error("Error deleting image");
@@ -58,7 +62,7 @@ export const handleUpload = async (
   setUploadProgress,
   setSelectedFiles,
   fetchImages,
-  setUploadedImages // Añadir este parámetro
+  setUploadedImages
 ) => {
   const formData = new FormData();
   selectedFiles.forEach(file => {
@@ -69,18 +73,13 @@ export const handleUpload = async (
   setUploadProgress(0);
 
   try {
-    const response = await axios.post("/api/addCarousel", formData, {
-      onUploadProgress: (progressEvent) => {
-        const total = progressEvent.total;
-        const current = progressEvent.loaded;
-        const percentCompleted = Math.round((current / total) * 100);
-        setUploadProgress(percentCompleted);
-      },
+    const response = await fetch("/api/addCarousel", {
+      method: "POST",
+      body: formData,
     });
 
-    if (response.status === 200) {
+    if (response.ok) {
       setSelectedFiles([]);
-      // Refetch images after upload
       fetchImages(setUploadedImages);
     } else {
       console.error("Error subiendo las imágenes");
