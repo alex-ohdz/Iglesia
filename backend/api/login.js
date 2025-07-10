@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
-import sessionMiddleware from '@/lib/session';
-import { query } from "@/lib/db";  // Asegúrate de que la función query esté bien definida en db.js
+import sessionMiddleware from '../lib/session';
+import { query } from "../lib/db";  // Asegúrate de que la función query esté bien definida en db.js
 
 export default async function handler(req, res) {
   try {

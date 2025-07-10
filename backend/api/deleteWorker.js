@@ -1,4 +1,4 @@
-import { query } from "@/lib/db";
+import { query } from "../lib/db";
 
 export const config = {
   api: {
@@ -14,10 +14,10 @@ const handler = async (req, res) => {
   const { id } = req.body;
 
   try {
-    const result = await query('DELETE FROM recent_activity WHERE id = $1 RETURNING *', [id]);
+    const result = await query('DELETE FROM workers WHERE id = $1 RETURNING *', [id]);
 
     if (result.rowCount === 0) {
-      return res.status(404).json({ success: false, error: 'Activity not found' });
+      return res.status(404).json({ success: false, error: 'Worker not found' });
     }
 
     res.status(200).json({ success: true, data: result.rows[0] });

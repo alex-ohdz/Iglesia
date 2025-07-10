@@ -1,7 +1,7 @@
 import multer from "multer";
 import path from "path";
 import fs from "fs";
-import { query } from "@/lib/db"; // Importa la función query para interactuar con la base de datos
+import { query } from "../lib/db"; // Importa la función query para interactuar con la base de datos
 
 // Configurar multer para almacenar las imágenes en memoria
 const upload = multer({

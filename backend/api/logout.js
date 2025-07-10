@@ -1,4 +1,4 @@
-import sessionMiddleware from '@/lib/session';
+import sessionMiddleware from '../lib/session';
 
 export default async function handler(req, res) {
   await new Promise((resolve, reject) => {

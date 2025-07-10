@@ -1,5 +1,5 @@
 import multer from "multer";
-import { query } from "@/lib/db";
+import { query } from "../lib/db";
 
 const upload = multer({
   storage: multer.memoryStorage(),

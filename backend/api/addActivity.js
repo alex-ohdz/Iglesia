@@ -1,5 +1,5 @@
 import multer from 'multer';
-import { query } from "@/lib/db";
+import { query } from "../lib/db";
 
 // Configurar multer para almacenar las imágenes en memoria
 const upload = multer({
