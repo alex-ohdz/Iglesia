@@ -1,14 +1,13 @@
 import Link from "next/link";
-import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
+import { ChevronLeftIcon } from "@components/icons";
+
 export default function BtnHome() {
   return (
-    <Link href="/" className="absolute left-0" passHref>
-      <button
-        type="button"
-        className="text-white shadow-lg p-2 bg-gray-500 rounded-r-md text-sm pr-3 tracking-wider"
-      >
-        <KeyboardReturnIcon /> INICIO
-      </button>
+    <Link href="/" className="absolute left-0">
+      <span className="flex items-center gap-2 rounded-r-md bg-gray-500 px-3 py-2 text-sm font-semibold uppercase tracking-wide text-white shadow-lg transition hover:bg-gray-600">
+        <ChevronLeftIcon className="h-4 w-4" />
+        Inicio
+      </span>
     </Link>
   );
 }

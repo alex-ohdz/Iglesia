@@ -1,35 +1,9 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import Button from "@mui/material/Button";
-import AddIcon from "@mui/icons-material/Add";
-import Modal from "@mui/material/Modal";
-import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
+import React, { useState, useEffect, useRef } from "react";
+import { PlusIcon, XMarkIcon } from "@components/icons";
 import Cards from "@components/noticias/cards";
-import { styled } from "@mui/material/styles";
 import axios from "axios";
 import ProgressBar from "@components/adminPage/home-carousel/progressBar";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 4,
-  display: "flex",
-  flexDirection: "column",
-  gap: 2,
-  outline: "none",
-};
-
-const Input = styled("input")({
-  display: "none",
-});
 
 const RecentActivity = () => {
   const [activities, setActivities] = useState([]);
@@ -40,10 +14,11 @@ const RecentActivity = () => {
     title: "",
     body: "",
   });
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
-  const [currentActivityId, setCurrentActivityId] = useState(null);
+  const [currentActivityId, setCurrentActivityId] = useState<number | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const fetchActivities = async () => {
@@ -71,6 +46,10 @@ const RecentActivity = () => {
     }
   };
 
+  const openFileDialog = () => {
+    fileInputRef.current?.click();
+  };
+
   const handleOpen = (activity = null) => {
     if (activity) {
       setNewActivity({
@@ -79,6 +58,9 @@ const RecentActivity = () => {
         body: activity.body,
       });
       setSelectedImage(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
       setCurrentActivityId(activity.id);
       setEditMode(true);
     } else {
@@ -88,6 +70,9 @@ const RecentActivity = () => {
         body: "",
       });
       setSelectedImage(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
       setCurrentActivityId(null);
       setEditMode(false);
     }
@@ -96,6 +81,9 @@ const RecentActivity = () => {
 
   const handleClose = () => {
     setSelectedImage(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
     setOpen(false);
   };
 
@@ -113,7 +101,9 @@ const RecentActivity = () => {
     formData.append("date", newActivity.date);
     formData.append("title", newActivity.title);
     formData.append("body", newActivity.body);
-    formData.append("image", selectedImage);
+    if (selectedImage) {
+      formData.append("image", selectedImage);
+    }
 
     setUploading(true);
     try {
@@ -122,9 +112,9 @@ const RecentActivity = () => {
           "Content-Type": "multipart/form-data",
         },
         onUploadProgress: (progressEvent) => {
-          const total = progressEvent.total;
+          const total = progressEvent.total || 0;
           const current = progressEvent.loaded;
-          const percentCompleted = Math.round((current / total) * 100);
+          const percentCompleted = total ? Math.round((current / total) * 100) : 0;
           setUploadProgress(percentCompleted);
         },
       });
@@ -140,8 +130,11 @@ const RecentActivity = () => {
   };
 
   const updateActivity = async () => {
+    if (currentActivityId === null) {
+      return;
+    }
     const formData = new FormData();
-    formData.append("id", currentActivityId);
+    formData.append("id", String(currentActivityId));
     formData.append("date", newActivity.date);
     formData.append("title", newActivity.title);
     formData.append("body", newActivity.body);
@@ -156,9 +149,9 @@ const RecentActivity = () => {
           "Content-Type": "multipart/form-data",
         },
         onUploadProgress: (progressEvent) => {
-          const total = progressEvent.total;
+          const total = progressEvent.total || 0;
           const current = progressEvent.loaded;
-          const percentCompleted = Math.round((current / total) * 100);
+          const percentCompleted = total ? Math.round((current / total) * 100) : 0;
           setUploadProgress(percentCompleted);
         },
       });
@@ -199,115 +192,92 @@ const RecentActivity = () => {
         <h1 className="font-serif text-3xl py-5 text-amber-800">
           Actividades Recientes
         </h1>
-        <Button
+        <button
+          type="button"
           onClick={() => handleOpen()}
-          variant="contained"
-          startIcon={<AddIcon />}
-          className="bg-blue-600 hover:bg-blue-900 text-white"
+          className="flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 font-semibold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
         >
-          Añadir Actividad
-        </Button>
-        <h1 className="font-serif text-2xl py-1 mt-8">Actividades Recientes</h1>
+          <PlusIcon className="h-5 w-5" /> Añadir Actividad
+        </button>
+        <h2 className="font-serif text-2xl py-1 mt-8">Actividades Recientes</h2>
       </div>
-      <Modal
-        open={open}
-        onClose={(event, reason) => {
-          if (reason !== "backdropClick") {
-            handleClose();
-          }
-        }}
-        aria-labelledby="modal-title"
-        aria-describedby="modal-description"
-        disableEscapeKeyDown
-        closeAfterTransition
-        slotProps={{
-          backdrop: {
-            style: {
-              backgroundColor: "rgba(0, 0, 0, 0.5)",
-            },
-          },
-        }}
-      >
-        <Box sx={style}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <h2 id="modal-title">
-              {editMode ? "Editar Actividad" : "Nueva Actividad"}
-            </h2>
-            <IconButton onClick={handleClose}>
-              <CloseIcon />
-            </IconButton>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "180px",
-              backgroundColor: "#f0f0f0",
-              border: "2px dashed #ccc",
-              cursor: "pointer",
-            }}
-            onClick={() => document.getElementById("image-upload").click()}
-          >
-            {selectedImage ? (
-              <img
-                src={URL.createObjectURL(selectedImage)}
-                alt="Selected"
-                style={{ maxHeight: "100%", maxWidth: "100%" }}
+
+      {open && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+          <div className="w-full max-w-lg rounded-md bg-white p-6 shadow-xl" role="dialog" aria-modal="true">
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg font-semibold text-gray-800">
+                {editMode ? "Editar Actividad" : "Nueva Actividad"}
+              </h2>
+              <button
+                type="button"
+                onClick={handleClose}
+                className="rounded-md p-1 text-gray-500 transition hover:bg-gray-100"
+                aria-label="Cerrar"
+              >
+                <XMarkIcon className="h-5 w-5" />
+              </button>
+            </div>
+            <div className="mt-4 flex flex-col gap-4">
+              <div
+                className="flex h-44 cursor-pointer items-center justify-center rounded-md border-2 border-dashed border-gray-300 bg-gray-100 p-4 text-center text-sm text-gray-600"
+                onClick={openFileDialog}
+              >
+                {selectedImage ? (
+                  <img
+                    src={URL.createObjectURL(selectedImage)}
+                    alt="Selected"
+                    className="h-full w-full object-contain"
+                  />
+                ) : (
+                  <span>Haz clic para seleccionar una imagen</span>
+                )}
+              </div>
+              <input
+                ref={fileInputRef}
+                accept="image/*"
+                id="activity-image-upload"
+                type="file"
+                className="hidden"
+                onChange={handleImageChange}
               />
-            ) : (
-              <span>Haz clic para seleccionar una imagen</span>
-            )}
+              <input
+                type="text"
+                name="date"
+                value={newActivity.date}
+                onChange={handleChange}
+                placeholder="Fecha"
+                className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+              />
+              <input
+                type="text"
+                name="title"
+                value={newActivity.title}
+                onChange={handleChange}
+                placeholder="Título"
+                className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+              />
+              <textarea
+                name="body"
+                value={newActivity.body}
+                onChange={handleChange}
+                placeholder="Cuerpo"
+                rows={4}
+                className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+              />
+              <button
+                type="button"
+                onClick={editMode ? updateActivity : addNewActivity}
+                disabled={!isFormComplete()}
+                className="rounded-md bg-blue-600 px-4 py-2 font-semibold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-blue-300"
+              >
+                Confirmar
+              </button>
+            </div>
           </div>
-          <Input
-            accept="image/*"
-            id="image-upload"
-            type="file"
-            onChange={handleImageChange}
-          />
-          <TextField
-            label="Fecha"
-            type="text"
-            name="date"
-            value={newActivity.date}
-            onChange={handleChange}
-            fullWidth
-          />
-          <TextField
-            label="Título"
-            type="text"
-            name="title"
-            value={newActivity.title}
-            onChange={handleChange}
-            fullWidth
-          />
-          <TextField
-            label="Cuerpo"
-            type="text"
-            name="body"
-            value={newActivity.body}
-            onChange={handleChange}
-            fullWidth
-            multiline
-            rows={4}
-          />
-          <Button
-            onClick={editMode ? updateActivity : addNewActivity}
-            variant="contained"
-            className="bg-blue-600 hover:bg-blue-900 text-white"
-            sx={{ mt: 2 }}
-            disabled={!isFormComplete()}
-          >
-            Confirmar
-          </Button>
-        </Box>
-      </Modal>
+        </div>
+      )}
+
       <div className="cardsok pb-10">
         {activities.map((activity) => (
           <div key={activity.id} className="relative">
@@ -318,22 +288,20 @@ const RecentActivity = () => {
               text={activity.body}
             />
             <div className="absolute top-2 right-2 flex space-x-2">
-              <Button
-              className="bg-blue-600 hover:bg-blue-900 text-white"
-                variant="contained"
-                color="info"
+              <button
+                type="button"
+                className="rounded-md bg-blue-600 px-3 py-1 text-sm font-semibold text-white transition hover:bg-blue-700"
                 onClick={() => handleOpen(activity)}
               >
                 Editar
-              </Button>
-              <Button
-              className="bg-red-600 hover:bg-red-900 text-white"
-                variant="contained"
-                color="warning"
+              </button>
+              <button
+                type="button"
+                className="rounded-md bg-red-600 px-3 py-1 text-sm font-semibold text-white transition hover:bg-red-700"
                 onClick={() => deleteActivity(activity.id)}
               >
                 Eliminar
-              </Button>
+              </button>
             </div>
           </div>
         ))}

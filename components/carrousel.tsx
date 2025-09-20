@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
-import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import { ChevronLeftIcon, ChevronRightIcon } from "@components/icons";
 
 const Carrousel = () => {
   const [slides, setSlides] = useState([]);
@@ -24,18 +23,17 @@ const Carrousel = () => {
 
   useEffect(() => {
     const interv = setInterval(() => {
-      nextSlide();
+      setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
     }, 10000);
     return () => clearInterval(interv);
-  }, [current]);
+  }, [slides.length]);
 
   const prevSlide = () => {
-    if (current === 0) setCurrent(slides.length - 1);
-    else setCurrent(current - 1);
+    setCurrent((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
   };
 
   const nextSlide = () => {
-    current === slides.length - 1 ? setCurrent(0) : setCurrent(current + 1);
+    setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
   };
 
   return (
@@ -49,15 +47,20 @@ const Carrousel = () => {
         >
           {slides.map((s, i) => (
             <div className="flex justify-center w-full h-full flex-shrink-0" key={i}>
-              <img src={s.imag} className="w-auto h-full object-cover" />
+              <img src={s.imag} className="w-auto h-full object-cover" alt={`Imagen del carrusel ${i + 1}`} />
             </div>
           ))}
         </div>
       </div>
 
       <div className="relative bottom-9 flex w-full gap-3 justify-center items-center text-gray-200">
-        <button onClick={prevSlide}>
-          <ArrowBackIosNewRoundedIcon className="text-lg" />
+        <button
+          type="button"
+          onClick={prevSlide}
+          aria-label="Anterior"
+          className="rounded-full bg-black/40 p-1 text-gray-100 transition hover:bg-black/60"
+        >
+          <ChevronLeftIcon className="h-5 w-5" />
         </button>
         {slides.map((x, i) => (
           <div
@@ -68,8 +71,13 @@ const Carrousel = () => {
             className={`rounded-full w-2 h-2 cursor-pointer ${i === current ? "bg-gray-200" : "bg-gray-500"}`}
           ></div>
         ))}
-        <button onClick={nextSlide}>
-          <ArrowForwardIosRoundedIcon className="text-lg" />
+        <button
+          type="button"
+          onClick={nextSlide}
+          aria-label="Siguiente"
+          className="rounded-full bg-black/40 p-1 text-gray-100 transition hover:bg-black/60"
+        >
+          <ChevronRightIcon className="h-5 w-5" />
         </button>
       </div>
     </div>

@@ -1,39 +1,47 @@
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogActions from "@mui/material/DialogActions";
-import Button from "@mui/material/Button";
+interface DialogCardProps {
+  open: boolean;
+  handleClose: () => void;
+  title: string;
+  date: string;
+  text: string;
+  imageUrl: string;
+}
 
-function DialogCard({ open, handleClose, title, date, text, imageUrl }) {
+function DialogCard({ open, handleClose, title, date, text, imageUrl }: DialogCardProps) {
+  if (!open) return null;
+
   return (
-    <Dialog
-      open={open}
-      onClose={handleClose}
-      className="flex justify-center"
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="dialog-title"
+      onClick={handleClose}
     >
-      <div className="flex flex-col items-center p-3">
-        <div className="overflow-hidden rounded-t-sm w-64 h-40">
-          <img 
-            src={imageUrl} 
-            alt={title} 
-            className="object-cover w-full h-full"
-          />
+      <div
+        className="flex w-full max-w-md flex-col items-center overflow-hidden rounded-md bg-white shadow-lg"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="h-48 w-full overflow-hidden">
+          <img src={imageUrl} alt={title} className="h-full w-full object-cover" />
         </div>
-        <DialogTitle className="text-center w-full font-serif ">
-          {title}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText className="font-sans text-center text-gray-800 mb-4">{date}</DialogContentText>
-          <DialogContentText className="font-sans">{text}</DialogContentText>
-        </DialogContent>
-        <DialogActions className="flex w-full justify-end">
-          <Button onClick={handleClose} color="primary" className="font-serif">
-            Cerrar
-          </Button>
-        </DialogActions>
+        <div className="flex w-full flex-col gap-3 px-6 py-4 text-center">
+          <h2 id="dialog-title" className="font-serif text-xl text-gray-900">
+            {title}
+          </h2>
+          <p className="text-sm text-gray-600">{date}</p>
+          <p className="text-sm leading-relaxed text-gray-700">{text}</p>
+          <div className="mt-4 flex justify-end">
+            <button
+              onClick={handleClose}
+              className="rounded-md bg-amber-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
       </div>
-    </Dialog>
+    </div>
   );
 }
 

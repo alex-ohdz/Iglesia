@@ -1,99 +1,76 @@
 "use client";
-import { cloneElement, useState } from "react";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import CssBaseline from "@mui/material/CssBaseline";
-import useScrollTrigger from "@mui/material/useScrollTrigger";
-import IconButton from "@mui/material/IconButton";
-import Drawer from "@mui/material/Drawer";
-import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { Bars3Icon, XMarkIcon } from "@components/icons";
 import LangChanger from "./langChanger";
 import NavText from "./navText";
 
-function ElevationScroll(props) {
-  const { children, window } = props;
-  const trigger = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 0,
-    target: window ? window() : undefined,
-  });
-
-  return cloneElement(children, {
-    style: {
-      backgroundColor:"white" ,
-      boxShadow: trigger ? "0px 4px 12px rgba(0, 0, 0, 0.1)" : "none",
-      transition: "box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out",
-    },
-  });
-}
-
 function NavMobile({ isMobile }) {
+  const [scrolled, setScrolled] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 0);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const toggleDrawer = () => setIsDrawerOpen((prev) => !prev);
+  const closeDrawer = () => setIsDrawerOpen(false);
 
   return (
     <>
-      <CssBaseline />
-      <ElevationScroll>
-        <AppBar position="fixed" style={{ boxShadow: "none" }}>
-          <Toolbar>
-            <Link href="/">
-              <h1 className="text-amber-900 font-playfair text-2xl">
-                San Juan Bautista de Remedios
-              </h1>
-            </Link>
-            <div style={{ flexGrow: 1 }} />
-            <LangChanger />
-            <IconButton
-              onClick={() => setIsDrawerOpen(!isDrawerOpen)}
-              sx={{
-                "&:hover": {
-                  backgroundColor: "transparent",
-                },
-              }}
-            >
-              <MenuIcon
-                style={{ fontSize: "30px", background: "white" }}
-                className="iconClose"
-              />
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-      </ElevationScroll>
-      <Toolbar />
-      <Drawer
-        anchor="right"
-        open={isDrawerOpen}
-        onClose={() => setIsDrawerOpen(false)}
-        PaperProps={{
-          sx: {
-            width: "250px",
-            background: "white",
-            boxShadow: "none",
-          },
-        }}
-        transitionDuration={300} // Adjust duration for smoother animation
+      <header
+        className={`fixed top-0 z-50 w-full bg-white transition-shadow duration-300 ${
+          scrolled ? "shadow-md" : "shadow-none"
+        }`}
       >
-        <div
-          role="presentation"
-          onClick={() => setIsDrawerOpen(false)}
-          onKeyDown={() => setIsDrawerOpen(false)}
-          style={{ width: 250 }}
-        >
-          <IconButton
-            onClick={() => setIsDrawerOpen(false)}
-            sx={{
-              "&:hover": {
-                backgroundColor: "white",
-              },
-            }}
-          >
-            <CloseIcon style={{ fontSize: "30px", background: "white" }} />
-          </IconButton>
-          <NavText isMobile={isMobile} />
+        <div className="flex items-center justify-between px-4 py-3">
+          <Link href="/">
+            <h1 className="text-amber-900 font-playfair text-lg">
+              San Juan Bautista de Remedios
+            </h1>
+          </Link>
+          <div className="flex items-center gap-3">
+            <LangChanger />
+            <button
+              type="button"
+              onClick={toggleDrawer}
+              aria-label="Abrir menú"
+              className="rounded-md p-2 text-amber-900 transition hover:bg-amber-100"
+            >
+              <Bars3Icon className="h-7 w-7" />
+            </button>
+          </div>
         </div>
-      </Drawer>
+      </header>
+      <div className="h-16" />
+      {isDrawerOpen && (
+        <div className="fixed inset-0 z-40 flex">
+          <div
+            className="absolute inset-0 bg-black/40"
+            onClick={closeDrawer}
+            aria-hidden="true"
+          />
+          <aside className="relative ml-auto flex h-full w-64 flex-col bg-white p-4 shadow-lg transition-transform">
+            <button
+              type="button"
+              onClick={closeDrawer}
+              aria-label="Cerrar menú"
+              className="self-end rounded-md p-2 text-amber-900 transition hover:bg-amber-100"
+            >
+              <XMarkIcon className="h-6 w-6" />
+            </button>
+            <nav className="mt-4">
+              <NavText isMobile={isMobile} />
+            </nav>
+          </aside>
+        </div>
+      )}
     </>
   );
 }
