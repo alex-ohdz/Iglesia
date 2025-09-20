@@ -2,19 +2,50 @@
 import { useState, useEffect } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@components/icons";
 
+type CarouselResponse = {
+  success?: boolean;
+  data?: Array<{
+    image?: string;
+    image_url?: string;
+    imageUrl?: string;
+  }>;
+};
+
+type Slide = {
+  imag: string;
+};
+
 const Carrousel = () => {
-  const [slides, setSlides] = useState([]);
+  const [slides, setSlides] = useState<Slide[]>([]);
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await fetch('/api/getCarousel');
-        const data = await response.json();
-        const images = data.map(row => ({ imag: `data:image/jpeg;base64,${row.image}` }));
+        const response = await fetch("/api/getCarousel");
+        const payload: CarouselResponse = await response.json();
+        const entries = Array.isArray(payload.data) ? payload.data : [];
+        const images = entries
+          .map((row) => {
+            if (row.image) {
+              const prefixed = row.image.startsWith("data:")
+                ? row.image
+                : `data:image/jpeg;base64,${row.image}`;
+              return { imag: prefixed };
+            }
+
+            const source = row.image_url ?? row.imageUrl;
+            if (source) {
+              return { imag: source };
+            }
+
+            return null;
+          })
+          .filter((value): value is Slide => value !== null);
+
         setSlides(images);
       } catch (error) {
-        console.error('Error fetching images', error);
+        console.error("Error fetching images", error);
       }
     };
 
@@ -22,6 +53,10 @@ const Carrousel = () => {
   }, []);
 
   useEffect(() => {
+    if (slides.length === 0) {
+      return;
+    }
+
     const interv = setInterval(() => {
       setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
     }, 10000);
