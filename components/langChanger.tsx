@@ -1,7 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
+import { ChevronUpIcon } from "@components/icons";
 
 const flags = [
   { code: "en", imgF: "/icons/flags/en.png" },
@@ -15,7 +15,8 @@ const LangChanger = () => {
   const [selectedFlag, setSelectedFlag] = useState(
     () => flags.find((flag) => flag.code === i18n.language) || flags[1]
   );
-  const dropdownRef = useRef(null);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const fileId = selectedFlag.code;
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -28,8 +29,8 @@ const LangChanger = () => {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     };
@@ -37,37 +38,45 @@ const LangChanger = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isOpen]);
+  }, []);
 
   useEffect(() => {
     const currentFlag = flags.find((flag) => flag.code === i18n.language);
     if (currentFlag && currentFlag.code !== selectedFlag.code) {
       setSelectedFlag(currentFlag);
     }
-  }, [i18n.language]);
+  }, [i18n.language, selectedFlag.code]);
 
   return (
-    <div className={`relative ml-2 p-1 ${isOpen ? "bg-yellow-100" : ""}`} ref={dropdownRef}>
-      <button onClick={toggleDropdown} className="flex items-center">
+    <div
+      ref={dropdownRef}
+      className={`relative ml-2 rounded-md p-1 transition ${isOpen ? "bg-yellow-100" : ""}`}
+    >
+      <button onClick={toggleDropdown} className="flex items-center gap-1">
         <img
           src={selectedFlag.imgF}
-          alt={selectedFlag.code + " flag"}
-          className="w-6 h-6"
+          alt={`${selectedFlag.code} flag`}
+          className="h-6 w-6"
         />
-        <KeyboardArrowUpRoundedIcon className={`text-amber-900 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
+        <ChevronUpIcon
+          className={`h-4 w-4 text-amber-900 transition-transform duration-200 ${
+            isOpen ? "rotate-180" : ""
+          }`}
+        />
       </button>
       {isOpen && (
-        <div className="flex flex-col mt-2 absolute z-20 top-6 right-6 bg-yellow-100 items-center pt-1">
+        <div className="absolute right-0 top-8 z-20 flex flex-col items-center gap-1 rounded-md bg-yellow-100 p-2 shadow-md">
           {flags
             .filter((flag) => flag.code !== selectedFlag.code)
-            .map((flag, index) => (
-              <img
-                key={index}
-                src={flag.imgF}
-                alt={`${flag.code} flag`}
-                className="w-6 h-6 m-1 cursor-pointer"
+            .map((flag) => (
+              <button
+                key={`${fileId}-${flag.code}`}
+                type="button"
                 onClick={() => handleSelectFlag(flag)}
-              />
+                className="rounded-md p-1 transition hover:bg-yellow-200"
+              >
+                <img src={flag.imgF} alt={`${flag.code} flag`} className="h-6 w-6" />
+              </button>
             ))}
         </div>
       )}

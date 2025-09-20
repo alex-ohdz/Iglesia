@@ -1,50 +1,43 @@
 "use client";
 
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import CssBaseline from "@mui/material/CssBaseline";
-import useScrollTrigger from "@mui/material/useScrollTrigger";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import LangChanger from "./langChanger";
 import NavText from "./navText";
-import { cloneElement } from "react";
-
-function ElevationScroll(props) {
-  const { children, window } = props;
-  const trigger = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 0,
-    target: window ? window() : undefined,
-  });
-
-  return cloneElement(children, {
-    style: {
-      backgroundColor:"white" ,
-      boxShadow: trigger ? "0px 4px 12px rgba(0, 0, 0, 0.1)" : "none",
-      transition: trigger ? "box-shadow 0.3s ease-in-out" : "none",
-    },
-  });
-}
 
 function NavPC({ isMobile }) {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 0);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <>
-      <CssBaseline />
-      <ElevationScroll>
-        <AppBar position="fixed" style={{ boxShadow: "none" }}>
-          <Toolbar>
-            <Link href="/">
-              <h1 className="text-amber-900 font-playfair text-2xl">
-                San Juan Bautista de Remedios
-              </h1>
-            </Link>
-            <div style={{ flexGrow: 1 }} />
+      <header
+        className={`fixed top-0 z-50 w-full bg-white transition-shadow duration-300 ${
+          scrolled ? "shadow-md" : "shadow-none"
+        }`}
+      >
+        <div className="mx-auto flex max-w-6xl items-center px-4 py-3 md:px-8">
+          <Link href="/">
+            <h1 className="text-amber-900 font-playfair text-lg sm:text-xl md:text-2xl">
+              San Juan Bautista de Remedios
+            </h1>
+          </Link>
+          <div className="flex flex-1 items-center justify-end gap-6">
             <NavText isMobile={isMobile} />
             <LangChanger />
-          </Toolbar>
-        </AppBar>
-      </ElevationScroll>
-      <Toolbar />
+          </div>
+        </div>
+      </header>
+      <div className="h-16" />
     </>
   );
 }

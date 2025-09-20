@@ -1,9 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
-import Box from "@mui/material/Box";
-import FormControl from "@mui/material/FormControl";
-import NativeSelect from "@mui/material/NativeSelect";
 import BtnHome from "@components/btnHome";
 
 const stripePromise = loadStripe(
@@ -88,25 +85,25 @@ const DonateForm = () => {
       className="flex flex-col justify-center items-center p-4 bg-gray-200 h-screen rounded-md shadow-md"
     >
       
-      <h2 className="text-2xl text-center font-bold mb-4">Donar</h2>
-      <Box sx={{ minWidth: 265, mb: 3 }}>
-        <FormControl fullWidth>
-          <NativeSelect
-            value={paymentMethod}
-            onChange={(e) => setPaymentMethod(e.target.value)}
-            inputProps={{
-              name: "paymentMethod",
-              id: "uncontrolled-native",
-            }}
-          >
-            <option value="1" disabled>
-              Seleccione un método de pago
-            </option>
-            <option value="stripe">Stripe</option>
-            <option value="tropipay">TropiPay</option>
-          </NativeSelect>
-        </FormControl>
-      </Box>
+      <h2 className="mb-4 text-center text-2xl font-bold">Donar</h2>
+      <div className="mb-3 w-[265px]">
+        <label htmlFor="paymentMethod" className="sr-only">
+          Método de pago
+        </label>
+        <select
+          id="paymentMethod"
+          name="paymentMethod"
+          value={paymentMethod}
+          onChange={(e) => setPaymentMethod(e.target.value)}
+          className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+        >
+          <option value="1" disabled>
+            Seleccione un método de pago
+          </option>
+          <option value="stripe">Stripe</option>
+          <option value="tropipay">TropiPay</option>
+        </select>
+      </div>
       {paymentMethod === "stripe" && (
         <>
           <div className="mb-4">

@@ -1,40 +1,43 @@
 import React from "react";
-import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { ChevronLeftIcon, ChevronRightIcon, TrashIcon } from "@components/icons";
 
 const ImagePreview = ({ selectedFiles, onDelete, moveImage }) => (
-  <div className="bg-green-100 mt-4 mx-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+  <div className="bg-green-100 mt-4 mx-10 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
     {selectedFiles.map((file, index) => (
       <div key={index} className="relative h-52">
         <div className="h-40">
           <img
             src={URL.createObjectURL(file)}
             alt={`preview-${index}`}
-            className="w-full h-full object-cover rounded"
+            className="h-full w-full rounded object-cover"
           />
-          <div className="flex justify-between mt-2">
-            <IconButton
-              aria-label="move-left"
+          <div className="mt-2 flex items-center justify-between">
+            <button
+              type="button"
+              aria-label="Mover a la izquierda"
               onClick={() => moveImage(index, -1)}
               disabled={index === 0}
+              className="rounded-md p-1 text-gray-700 transition hover:bg-gray-200 disabled:cursor-not-allowed disabled:text-gray-400"
             >
-              <ArrowBackIcon style={{ color: index === 0 ? "gray" : "black" }} />
-            </IconButton>
-            <IconButton
-              aria-label="delete"
+              <ChevronLeftIcon className="h-5 w-5" />
+            </button>
+            <button
+              type="button"
+              aria-label="Eliminar imagen"
               onClick={() => onDelete(index)}
+              className="rounded-md p-1 text-red-600 transition hover:bg-red-100"
             >
-              <DeleteIcon style={{ color: "red" }} />
-            </IconButton>
-            <IconButton
-              aria-label="move-right"
+              <TrashIcon className="h-5 w-5" />
+            </button>
+            <button
+              type="button"
+              aria-label="Mover a la derecha"
               onClick={() => moveImage(index, 1)}
               disabled={index === selectedFiles.length - 1}
+              className="rounded-md p-1 text-gray-700 transition hover:bg-gray-200 disabled:cursor-not-allowed disabled:text-gray-400"
             >
-              <ArrowForwardIcon style={{ color: index === selectedFiles.length - 1 ? "gray" : "black" }} />
-            </IconButton>
+              <ChevronRightIcon className="h-5 w-5" />
+            </button>
           </div>
         </div>
       </div>

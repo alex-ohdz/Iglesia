@@ -1,45 +1,24 @@
 import React from "react";
-import LinearProgress from "@mui/material/LinearProgress";
-import Box from "@mui/material/Box";
-import { styled } from "@mui/material/styles";
 
-const CustomLinearProgress = styled(LinearProgress)({
-  height: 10, // Ajusta la altura de la barra de progreso
-  borderRadius: 5,
-  backgroundColor: "#ffffff", // Color de fondo de la barra de progreso
-  "& .MuiLinearProgress-bar": {
-    borderRadius: 5,
-    backgroundColor: "#68d391", // Color de la barra de progreso
-  },
-});
+const ProgressBar = ({ progress, uploading }) => {
+  if (!uploading) {
+    return null;
+  }
 
-const ProgressBar = ({ progress, uploading }) => (
-  uploading ? (
-    <Box
-      sx={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "rgba(255, 255, 255, 0.75)",
-        zIndex: 1500,
-        backdropFilter: "blur(5px)",
-      }}
-    >
-      <CustomLinearProgress
-        variant="determinate"
-        value={progress}
-        sx={{
-          width: "80%",
-          height: 10,
-        }}
-      />
-    </Box>
-  ) : null
-);
+  const safeProgress = Math.min(Math.max(progress, 0), 100);
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/75 backdrop-blur-sm">
+      <div className="w-4/5 max-w-md rounded-full bg-white p-2 shadow-lg">
+        <div className="h-3 w-full rounded-full bg-gray-200">
+          <div
+            className="h-full rounded-full bg-green-400 transition-all duration-200"
+            style={{ width: `${safeProgress}%` }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default ProgressBar;

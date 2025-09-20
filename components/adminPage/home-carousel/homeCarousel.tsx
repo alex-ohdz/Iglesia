@@ -1,9 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import IconButton from "@mui/material/IconButton";
-import Button from "@mui/material/Button";
-import PublishRoundedIcon from "@mui/icons-material/PublishRounded";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { ArrowUpTrayIcon, TrashIcon } from "@components/icons";
 import ImageInput from "./imageInput";
 import ImagePreview from "./imagePreview";
 import ProgressBar from "./progressBar";
@@ -30,39 +27,32 @@ const HomeCarousel = () => {
   return (
     <div className="flex flex-col justify-center items-center w-full relative">
       <h1 className="font-serif text-3xl py-5 text-amber-800">
-      Imágenes en el Carrusel
-        </h1>
+        Imágenes en el Carrusel
+      </h1>
       <ProgressBar progress={uploadProgress} uploading={uploading} />
       <ImageInput onFilesSelected={(files) => handleFilesSelected(files, selectedFiles, setSelectedFiles, setError)} />
       <ImagePreview
         selectedFiles={selectedFiles}
         onDelete={(index) => handleDeleteSelected(index, setSelectedFiles)}
       />
-      <Button
-        onClick={() => handleUpload(selectedFiles, setUploading, setUploadProgress, setSelectedFiles, fetchImages, setUploadedImages)}
+      <button
+        type="button"
+        onClick={() =>
+          handleUpload(
+            selectedFiles,
+            setUploading,
+            setUploadProgress,
+            setSelectedFiles,
+            fetchImages,
+            setUploadedImages
+          )
+        }
         disabled={selectedFiles.length === 0 || uploading}
-        variant="contained"
-        component="span"
-        startIcon={<PublishRoundedIcon />}
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'center',
-          gap: 1,
-          backgroundColor: selectedFiles.length === 0 || uploading ? 'gray' : 'green',
-          cursor: selectedFiles.length === 0 || uploading ? 'not-allowed' : 'pointer',
-          color: 'white',
-          '&:hover': {
-            backgroundColor: selectedFiles.length === 0 || uploading ? 'gray' : 'darkgreen',
-          },
-          textTransform: 'none', // prevent all caps
-          fontSize: '16px',
-          padding: '8px 16px',
-          marginTop: '24px'
-        }}
+        className="mt-6 flex items-center gap-2 rounded-md bg-green-600 px-4 py-2 text-white transition hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-gray-400"
       >
+        <ArrowUpTrayIcon className="h-5 w-5" />
         Subir imágenes
-      </Button>
+      </button>
       <ErrorMessage error={error} />
       <h1 className="font-serif text-2xl py-5 mt-8">Imágenes en la base de datos Carrusel</h1>
       <div className="bg-gray-200 mt-4 mx-10 mb-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -74,13 +64,14 @@ const HomeCarousel = () => {
                 alt={`uploaded-${index}`}
                 className="w-full h-full object-cover rounded"
               />
-              <IconButton
-                aria-label="delete"
-                className="absolute top-0 right-0"
+              <button
+                type="button"
+                aria-label="Eliminar imagen"
+                className="absolute right-2 top-2 rounded-full bg-white/90 p-1 text-red-600 shadow transition hover:bg-red-100"
                 onClick={() => handleDeleteUploaded(image.id, setUploadedImages)}
               >
-                <DeleteIcon style={{ color: "red" }} />
-              </IconButton>
+                <TrashIcon className="h-5 w-5" />
+              </button>
             </div>
           </div>
         ))}
