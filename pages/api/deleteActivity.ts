@@ -1,4 +1,5 @@
-import { query } from "@/lib/db";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { removeActivity } from "@backend/services/activities";
 
 export const config = {
   api: {
@@ -6,24 +7,26 @@ export const config = {
   },
 };
 
-const handler = async (req, res) => {
-  if (req.method !== 'DELETE') {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  if (req.method !== "DELETE") {
     return res.status(405).json({ error: `Method ${req.method} not allowed` });
   }
 
-  const { id } = req.body;
+  const { id } = req.body as { id: number };
 
   try {
-    const result = await query('DELETE FROM recent_activity WHERE id = $1 RETURNING *', [id]);
+    const activity = await removeActivity(Number(id));
 
-    if (result.rowCount === 0) {
-      return res.status(404).json({ success: false, error: 'Activity not found' });
+    if (!activity) {
+      return res
+        .status(404)
+        .json({ success: false, error: "Activity not found" });
     }
 
-    res.status(200).json({ success: true, data: result.rows[0] });
+    res.status(200).json({ success: true, data: activity });
   } catch (error) {
-    console.error('Error deleting data', error);
-    res.status(500).json({ success: false, error: 'Error deleting data' });
+    console.error("Error deleting data", error);
+    res.status(500).json({ success: false, error: "Error deleting data" });
   }
 };
 

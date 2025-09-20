@@ -19,9 +19,13 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@*": [
-        "./*"
-      ]
+      "@/*": ["src/frontend/*"],
+      "@components/*": ["src/frontend/components/*"],
+      "@hooks/*": ["src/frontend/hooks/*"],
+      "@styles/*": ["src/frontend/styles/*"],
+      "@frontend/*": ["src/frontend/*"],
+      "@backend/*": ["src/backend/*"],
+      "@/lib/*": ["src/backend/lib/*"]
     },
     "incremental": true,
     "plugins": [

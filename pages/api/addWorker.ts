@@ -1,5 +1,6 @@
+import type { NextApiRequest, NextApiResponse } from "next";
 import multer from "multer";
-import { query } from "@/lib/db";
+import { createWorker } from "@backend/services/workers";
 
 const upload = multer({
   storage: multer.memoryStorage(),
@@ -11,11 +12,11 @@ export const config = {
   },
 };
 
-const handler = async (req, res) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
     try {
-      await new Promise((resolve, reject) => {
-        upload.single("image")(req, res, (err) => {
+      await new Promise<void>((resolve, reject) => {
+        upload.single("image")(req as any, res as any, (err: unknown) => {
           if (err) {
             reject(err);
           } else {
@@ -24,8 +25,8 @@ const handler = async (req, res) => {
         });
       });
 
-      const { name, rol } = req.body;
-      const image = req.file;
+      const { name, rol } = req.body as { name: string; rol: string };
+      const image = (req as any).file as Express.Multer.File | undefined;
 
       if (!image) {
         return res
@@ -33,14 +34,13 @@ const handler = async (req, res) => {
           .json({ success: false, error: "No image provided" });
       }
 
-      const imageBase64 = image.buffer.toString("base64");
+      const worker = await createWorker({
+        name,
+        rol,
+        imageBase64: image.buffer.toString("base64"),
+      });
 
-      const result = await query(
-        "INSERT INTO workers (name, rol, image) VALUES ($1, $2, $3) RETURNING *",
-        [name, rol, imageBase64]
-      );
-
-      res.status(200).json({ success: true, data: result.rows[0] });
+      res.status(200).json({ success: true, data: worker });
     } catch (error) {
       console.error("Error inserting data", error);
       res.status(500).json({ success: false, error: "Error inserting data" });
