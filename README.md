@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Iglesia
 
-## Getting Started
+Este proyecto utiliza [Next.js](https://nextjs.org/) para la capa de frontend y agrupa la lógica del backend en módulos reutilizables. Toda la aplicación vive dentro del directorio `src`, que ahora se divide en dos áreas bien diferenciadas:
 
-First, run the development server:
+- `src/frontend`: contiene la aplicación de Next.js, componentes, estilos, hooks y la configuración de internacionalización.
+- `src/backend`: reúne la lógica de negocio, utilidades de base de datos, gestión de sesiones, servicios de autenticación y operaciones que consumen las rutas API.
+
+La carpeta `src/app` actúa como un puente que expone las rutas del App Router de Next.js y delega la implementación en los módulos ubicados en `src/frontend/app`.
+
+## Comandos disponibles
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm dev       # Inicia el servidor de desarrollo
+pnpm build     # Genera la build de producción
+pnpm start     # Sirve la build generada
+pnpm lint      # Ejecuta las comprobaciones de linting
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Estructura principal
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```
+src/
+├── app/                  # Reexporta las rutas del App Router
+├── frontend/             # Componentes, estilos y páginas del frontend
+│   ├── app/
+│   ├── components/
+│   ├── hooks/
+│   ├── i18next.config.js
+│   └── styles/
+└── backend/              # Servicios y utilidades de backend
+    ├── lib/              # Conexión a la base de datos y middleware de sesión
+    ├── services/         # Casos de uso de negocio para actividades, carrusel, etc.
+    ├── types/            # Tipos compartidos entre API y servicios
+    ├── utils/            # Utilidades de apoyo (por ejemplo, manejo de sesiones)
+    └── scripts/          # Scripts auxiliares (hash de contraseñas, generador de secretos)
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Las rutas de la API (`pages/api`) son responsables únicamente de recibir las solicitudes HTTP y delegar el trabajo en los servicios ubicados en `src/backend/services`.
 
-## Learn More
+## Desarrollo
 
-To learn more about Next.js, take a look at the following resources:
+Para comenzar a trabajar, instala las dependencias y levanta el servidor de desarrollo:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+pnpm install
+pnpm dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Visita [http://localhost:3000](http://localhost:3000) para ver la aplicación en ejecución. Cualquier cambio dentro de `src/frontend` se refleja automáticamente gracias al hot-reload de Next.js.
 
-## Deploy on Vercel
+## Despliegue
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Consulta la [documentación oficial de Next.js](https://nextjs.org/docs/deployment) para conocer las diferentes estrategias de despliegue disponibles.

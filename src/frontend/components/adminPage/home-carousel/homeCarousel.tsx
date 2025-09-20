@@ -10,12 +10,13 @@ import {
   handleFilesSelected,
   handleDeleteSelected,
   handleDeleteUploaded,
-  handleUpload
+  handleUpload,
+  type CarouselItem,
 } from "./uploadImageHandler";
 
 const HomeCarousel = () => {
-  const [selectedFiles, setSelectedFiles] = useState([]);
-  const [uploadedImages, setUploadedImages] = useState([]);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [uploadedImages, setUploadedImages] = useState<CarouselItem[]>([]);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
@@ -24,13 +25,28 @@ const HomeCarousel = () => {
     fetchImages(setUploadedImages);
   }, []);
 
+  const resolveImageSrc = (image: CarouselItem) => {
+    if (image.image) {
+      return image.image.startsWith("data:")
+        ? image.image
+        : `data:image/jpeg;base64,${image.image}`;
+    }
+
+    const url = image.image_url ?? image.imageUrl;
+    return url ?? "";
+  };
+
   return (
     <div className="flex flex-col justify-center items-center w-full relative">
       <h1 className="font-serif text-3xl py-5 text-amber-800">
         Imágenes en el Carrusel
       </h1>
       <ProgressBar progress={uploadProgress} uploading={uploading} />
-      <ImageInput onFilesSelected={(files) => handleFilesSelected(files, selectedFiles, setSelectedFiles, setError)} />
+      <ImageInput
+        onFilesSelected={(files) =>
+          handleFilesSelected(files, selectedFiles, setSelectedFiles, setError)
+        }
+      />
       <ImagePreview
         selectedFiles={selectedFiles}
         onDelete={(index) => handleDeleteSelected(index, setSelectedFiles)}
@@ -60,7 +76,7 @@ const HomeCarousel = () => {
           <div key={index} className="relative h-52">
             <div className="h-40 bg-blue-400">
               <img
-                src={`data:image/jpeg;base64,${image.image}`} 
+                src={resolveImageSrc(image)}
                 alt={`uploaded-${index}`}
                 className="w-full h-full object-cover rounded"
               />

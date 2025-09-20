@@ -1,19 +1,20 @@
-import sessionMiddleware from '@/lib/session';
+import type { NextApiResponse } from "next";
+import type { SessionRequest } from "@backend/types/session";
+import { clearUserSession } from "@backend/services/auth";
+import { withSession } from "@backend/utils/session";
 
-export default async function handler(req, res) {
-  await new Promise((resolve, reject) => {
-    sessionMiddleware(req, res, (err) => {
-      if (err) return reject(err);
-      resolve();
-    });
-  });
+export default async function handler(req: SessionRequest, res: NextApiResponse) {
+  try {
+    await withSession(req, res);
 
-  if (req.method === 'POST') {
-    if (req.session) {
-      delete req.session.user;
+    if (req.method !== "POST") {
+      return res.status(405).json({ error: `Método ${req.method} no permitido` });
     }
-    res.status(200).json({ message: 'Logout exitoso' });
-  } else {
-    res.status(405).json({ error: `Método ${req.method} no permitido` });
+
+    await clearUserSession(req);
+    res.status(200).json({ message: "Logout exitoso" });
+  } catch (error) {
+    console.error("Error en logout:", error);
+    res.status(500).json({ error: "Error del servidor" });
   }
 }

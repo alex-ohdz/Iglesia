@@ -1,24 +1,22 @@
-import multer from 'multer';
-import { query } from "@/lib/db";
+import type { NextApiRequest, NextApiResponse } from "next";
+import multer from "multer";
+import { createActivity } from "@backend/services/activities";
 
-// Configurar multer para almacenar las imágenes en memoria
 const upload = multer({
   storage: multer.memoryStorage(),
 });
 
-// Middleware para manejar la subida de una imagen
 export const config = {
   api: {
-    bodyParser: false, // Deshabilitar el analizador de cuerpo predeterminado de Next.js
+    bodyParser: false,
   },
 };
 
-const handler = async (req, res) => {
-  if (req.method === 'POST') {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  if (req.method === "POST") {
     try {
-      // Procesar la solicitud de carga de imagen
-      await new Promise((resolve, reject) => {
-        upload.single('image')(req, res, (err) => {
+      await new Promise<void>((resolve, reject) => {
+        upload.single("image")(req as any, res as any, (err: unknown) => {
           if (err) {
             reject(err);
           } else {
@@ -27,29 +25,31 @@ const handler = async (req, res) => {
         });
       });
 
-      const { date, title, body } = req.body;
-      const image = req.file;
+      const { date, title, body } = req.body as {
+        date: string;
+        title: string;
+        body: string;
+      };
+      const image = (req as any).file as Express.Multer.File | undefined;
 
       if (!image) {
-        return res.status(400).json({ success: false, error: 'No image provided' });
+        return res.status(400).json({ success: false, error: "No image provided" });
       }
 
-      // Convertir la imagen a Base64
-      const imageBase64 = image.buffer.toString('base64');
+      const activity = await createActivity({
+        date,
+        title,
+        body,
+        imageBase64: image.buffer.toString("base64"),
+      });
 
-      // Insertar los datos en la base de datos
-      const result = await query(
-        'INSERT INTO recent_activity (date, title, body, image) VALUES ($1, $2, $3, $4) RETURNING *',
-        [date, title, body, imageBase64]
-      );
-
-      res.status(200).json({ success: true, data: result.rows[0] });
+      res.status(200).json({ success: true, data: activity });
     } catch (error) {
-      console.error('Error inserting data', error);
-      res.status(500).json({ success: false, error: 'Error inserting data' });
+      console.error("Error inserting data", error);
+      res.status(500).json({ success: false, error: "Error inserting data" });
     }
   } else {
-    res.setHeader('Allow', ['POST']);
+    res.setHeader("Allow", ["POST"]);
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 };
