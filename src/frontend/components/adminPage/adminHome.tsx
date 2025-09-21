@@ -3,13 +3,16 @@ import { useState } from "react";
 import RecentActivity from "./recent-activity/recentActivity";
 import Workers from "./workers/workers";
 import HomeCarousel from "./home-carousel/homeCarousel";
+import AdminNavbar from "./adminNavbar";
+
+const sections = [
+  { id: "home_carousel", label: "Carrusel" },
+  { id: "recent_activity", label: "Noticias" },
+  { id: "workers", label: "Trabajadores" },
+];
 
 const AdminHome = () => {
   const [select, setSelect] = useState("home_carousel");
-
-  const handleChange = (e) => {
-    setSelect(e.target.value);
-  };
 
   const renderComponent = () => {
     switch (select) {
@@ -25,24 +28,27 @@ const AdminHome = () => {
   };
 
   return (
-    <>
-      <div className="flex flex-col items-center">
-      <h1 className="text-2xl font-semibold text-center mt-12 text-gray-700 mb-6">Hola, bienvenido a la página de administración</h1>
-      <select
-        value={select}
-        onChange={handleChange}
-        id="table"
-        className="text-lg border-2 border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out p-2 mb-5"
-        required
-      >
-        
-        <option value="home_carousel">Carrusel</option>
-        <option value="recent_activity">Noticias</option>
-        <option value="workers">Trabajadores</option>
-      </select>
-      </div>
-        {renderComponent()}
-        </>
+    <div className="flex min-h-screen flex-col bg-slate-100">
+      <AdminNavbar
+        sections={sections}
+        currentSection={select}
+        onSectionChange={setSelect}
+      />
+      <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-8 px-4 py-10">
+        <section className="rounded-2xl bg-white p-6 shadow-lg">
+          <h2 className="text-2xl font-semibold text-sanctuaryBrick">
+            Hola, bienvenido a la página de administración
+          </h2>
+          <p className="mt-2 text-sm text-slate-600">
+            Utiliza el menú superior para gestionar el carrusel de inicio, las
+            noticias destacadas y al equipo de trabajo.
+          </p>
+        </section>
+        <section className="rounded-2xl bg-white p-4 shadow-lg">
+          {renderComponent()}
+        </section>
+      </main>
+    </div>
   );
 };
 
