@@ -11,15 +11,20 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        merriweather: ["Merriweather", "serif"],
-        playfair: ["Playfair Display", "serif"],
-        roboto: ["Roboto", "sans-serif"],
+        body: ["var(--font-body)", "serif"],
+        display: ["var(--font-display)", "serif"],
+        serif: ["var(--font-body)", "serif"],
+        sans: ["var(--font-body)", "serif"],
       },
       colors: {
-        customYellow: '#fad390',
-        customOrange:'#fcb07e',
-        customBlue:"#3581b8",
-        customGray:'#dee2d6'
+        sanctuary: {
+          cream: "#FFF5E1",
+          stone: "#E4CCAB",
+          gold: "#F1D08A",
+          terracotta: "#C65B3A",
+          sky: "#8AAEC4",
+          shadow: "#5A4736",
+        },
       },
     },
   },
