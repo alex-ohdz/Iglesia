@@ -5,6 +5,7 @@ import {
   grantAdminSessionAccess,
   grantAdminTemporaryAccess,
 } from "@frontend/utils/adminAccess";
+import { sanitizeTextInput } from "@frontend/utils/sanitize";
 import {
   ArrowRightOnRectangleIcon,
   LockClosedIcon,
@@ -75,7 +76,7 @@ const AdminLogin = () => {
                 <UserIcon className="absolute left-3 h-5 w-5 text-slate-400" />
                 <input
                   id="userName"
-                  onChange={(e) => setUser(e.target.value)}
+                  onChange={(e) => setUser(sanitizeTextInput(e.target.value))}
                   type="text"
                   placeholder="Usuario"
                   className="w-full rounded-md border border-slate-300 bg-slate-100 py-3 pl-11 pr-3 text-sm text-slate-700 transition focus:border-sanctuaryTerracotta focus:outline-none focus:ring-1 focus:ring-sanctuaryTerracotta"
@@ -85,7 +86,7 @@ const AdminLogin = () => {
                 <LockClosedIcon className="absolute left-3 h-5 w-5 text-slate-400" />
                 <input
                   id="pass"
-                  onChange={(e) => setPass(e.target.value)}
+                  onChange={(e) => setPass(sanitizeTextInput(e.target.value))}
                   type="password"
                   placeholder="Contraseña"
                   className="w-full rounded-md border border-slate-300 bg-slate-100 py-3 pl-11 pr-3 text-sm text-slate-700 transition focus:border-sanctuaryTerracotta focus:outline-none focus:ring-1 focus:ring-sanctuaryTerracotta"

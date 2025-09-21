@@ -2,6 +2,10 @@
 import { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import PageShell from "@components/pageShell";
+import {
+  sanitizeNumericInput,
+  sanitizeSelectInput,
+} from "@frontend/utils/sanitize";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
@@ -42,7 +46,8 @@ const DonateForm = () => {
   };
 
   const handleAmountChange = (e) => {
-    const value = Number(e.target.value);
+    const sanitizedValue = sanitizeNumericInput(e.target.value);
+    const value = Number(sanitizedValue);
     if (value < 0) {
       setAmount(0);
     } else {
@@ -97,7 +102,11 @@ const DonateForm = () => {
           id="paymentMethod"
           name="paymentMethod"
           value={paymentMethod}
-          onChange={(e) => setPaymentMethod(e.target.value)}
+          onChange={(e) =>
+            setPaymentMethod(
+              sanitizeSelectInput(e.target.value, ["1", "stripe", "tropipay"], "1")
+            )
+          }
           className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-sanctuaryTerracotta focus:outline-none focus:ring-1 focus:ring-sanctuaryTerracotta"
         >
           <option value="1" disabled>
