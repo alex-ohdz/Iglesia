@@ -1,8 +1,25 @@
+import Link from "next/link";
+import PageShell from "@components/pageShell";
+
 export default function SuccessPage() {
   return (
-    <div className="p-4 bg-gray-100 rounded-md shadow-md">
-      <h1 className="text-3xl font-bold mb-4">¡Gracias por tu donación!</h1>
-      <p>Tu donación ha sido procesada exitosamente.</p>
-    </div>
+    <PageShell>
+      <section className="flex min-h-[60vh] items-center justify-center px-4 py-20">
+        <div className="max-w-xl rounded-2xl bg-white p-8 text-center shadow-xl">
+          <h1 className="mb-4 text-3xl font-display text-sanctuaryBrick">
+            ¡Gracias por tu donación!
+          </h1>
+          <p className="mb-8 font-body text-sanctuaryDeep">
+            Tu donación ha sido procesada exitosamente.
+          </p>
+          <Link
+            href="/"
+            className="inline-flex items-center justify-center rounded-full bg-sanctuaryBrick px-6 py-3 font-display text-sm uppercase tracking-widest text-sanctuaryLinen shadow-md transition hover:bg-sanctuaryTerracotta"
+          >
+            Volver al inicio
+          </Link>
+        </div>
+      </section>
+    </PageShell>
   );
 }

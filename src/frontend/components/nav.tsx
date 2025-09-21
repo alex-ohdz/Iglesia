@@ -7,11 +7,13 @@ import NavMobile from "@components/navMobile";
 
 export default function Nav() {
   const pathname = usePathname();
-  const [isDesktop, setIsDesktop] = useState(() =>
-    typeof window !== "undefined" ? window.innerWidth >= 1024 : false
-  );
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
     const handleResize = () => {
       setIsDesktop(window.innerWidth >= 1024);
     };
