@@ -36,62 +36,143 @@ const HomeCarousel = () => {
     return url ?? "";
   };
 
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+  };
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    if (event.dataTransfer.files?.length) {
+      handleFilesSelected(
+        event.dataTransfer.files,
+        selectedFiles,
+        setSelectedFiles,
+        setError
+      );
+    }
+  };
+
+  const handleMoveSelectedImage = (index: number, direction: number) => {
+    setSelectedFiles((prevFiles) => {
+      const nextIndex = index + direction;
+      if (nextIndex < 0 || nextIndex >= prevFiles.length) {
+        return prevFiles;
+      }
+
+      const updated = [...prevFiles];
+      const temp = updated[index];
+      updated[index] = updated[nextIndex];
+      updated[nextIndex] = temp;
+      return updated;
+    });
+  };
+
   return (
-    <div className="flex flex-col justify-center items-center w-full relative">
-      <h1 className="font-display text-3xl py-5 text-sanctuaryBrick">
-        Imágenes en el Carrusel
-      </h1>
-      <ProgressBar progress={uploadProgress} uploading={uploading} />
-      <ImageInput
-        onFilesSelected={(files) =>
-          handleFilesSelected(files, selectedFiles, setSelectedFiles, setError)
-        }
-      />
-      <ImagePreview
-        selectedFiles={selectedFiles}
-        onDelete={(index) => handleDeleteSelected(index, setSelectedFiles)}
-      />
-      <button
-        type="button"
-        onClick={() =>
-          handleUpload(
-            selectedFiles,
-            setUploading,
-            setUploadProgress,
-            setSelectedFiles,
-            fetchImages,
-            setUploadedImages
-          )
-        }
-        disabled={selectedFiles.length === 0 || uploading}
-        className="mt-6 flex items-center gap-2 rounded-md bg-green-600 px-4 py-2 text-white transition hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-gray-400"
-      >
-        <ArrowUpTrayIcon className="h-5 w-5" />
-        Subir imágenes
-      </button>
-      <ErrorMessage error={error} />
-      <h1 className="font-display text-2xl py-5 mt-8 text-sanctuaryBrick">Imágenes en la base de datos Carrusel</h1>
-      <div className="bg-sanctuaryCream mt-4 mx-10 mb-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-        {uploadedImages.map((image, index) => (
-          <div key={index} className="relative h-52">
-            <div className="h-40 bg-blue-400">
+    <div className="grid gap-8 xl:grid-cols-[minmax(0,420px),1fr] xl:items-start">
+      <section className="flex flex-col gap-6 rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-inner">
+        <header>
+          <h2 className="text-2xl font-bold text-sanctuaryBrick">
+            Cargar nuevas imágenes
+          </h2>
+          <p className="mt-2 text-sm leading-6 text-slate-600">
+            Arrastra tus archivos a la zona inferior o utiliza el botón para
+            seleccionarlos. Puedes organizar el orden antes de subirlos.
+          </p>
+        </header>
+        <div
+          className="flex min-h-[220px] flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed border-sanctuaryTerracotta/50 bg-white px-6 text-center text-slate-500 transition hover:border-sanctuaryTerracotta"
+          onDragOver={handleDragOver}
+          onDrop={handleDrop}
+        >
+          <span className="text-sm font-medium uppercase tracking-wide text-sanctuaryTerracotta">
+            Zona de carga
+          </span>
+          <p className="max-w-sm text-sm leading-6">
+            Arrastra y suelta tus imágenes aquí o utiliza el botón inferior.
+            Admitimos hasta 10 archivos con un máximo de 4 MB cada uno.
+          </p>
+          <ImageInput
+            onFilesSelected={(files) =>
+              handleFilesSelected(
+                files,
+                selectedFiles,
+                setSelectedFiles,
+                setError
+              )
+            }
+          />
+        </div>
+        <ImagePreview
+          selectedFiles={selectedFiles}
+          onDelete={(index) => handleDeleteSelected(index, setSelectedFiles)}
+          onMove={handleMoveSelectedImage}
+        />
+        <ErrorMessage error={error} />
+        <div className="flex flex-col gap-4">
+          {(uploading || uploadProgress > 0) && (
+            <ProgressBar progress={uploadProgress} uploading={uploading} />
+          )}
+          <button
+            type="button"
+            onClick={() =>
+              handleUpload(
+                selectedFiles,
+                setUploading,
+                setUploadProgress,
+                setSelectedFiles,
+                fetchImages,
+                setUploadedImages
+              )
+            }
+            disabled={selectedFiles.length === 0 || uploading}
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-green-600 px-5 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-gray-400"
+          >
+            <ArrowUpTrayIcon className="h-5 w-5" />
+            Subir imágenes
+          </button>
+        </div>
+      </section>
+      <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-lg">
+        <header className="flex flex-col gap-2 border-b border-slate-200 pb-4">
+          <h2 className="text-2xl font-bold text-sanctuaryBrick">
+            Biblioteca actual
+          </h2>
+          <p className="text-sm leading-6 text-slate-600">
+            Estas son las imágenes visibles en el carrusel del sitio. Puedes
+            eliminar las que ya no necesites.
+          </p>
+        </header>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+          {uploadedImages.map((image, index) => (
+            <article
+              key={image.id ?? index}
+              className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow"
+            >
               <img
                 src={resolveImageSrc(image)}
-                alt={`uploaded-${index}`}
-                className="w-full h-full object-cover rounded"
+                alt={`Imagen carrusel ${index + 1}`}
+                className="h-48 w-full object-cover"
               />
-              <button
-                type="button"
-                aria-label="Eliminar imagen"
-                className="absolute right-2 top-2 rounded-full bg-white/90 p-1 text-red-600 shadow transition hover:bg-red-100"
-                onClick={() => handleDeleteUploaded(image.id, setUploadedImages)}
-              >
-                <TrashIcon className="h-5 w-5" />
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+              <div className="absolute right-3 top-3">
+                <button
+                  type="button"
+                  aria-label="Eliminar imagen"
+                  className="rounded-full bg-white/95 p-2 text-red-600 shadow transition hover:bg-red-100"
+                  onClick={() => handleDeleteUploaded(image.id, setUploadedImages)}
+                >
+                  <TrashIcon className="h-5 w-5" />
+                </button>
+              </div>
+            </article>
+          ))}
+          {uploadedImages.length === 0 && (
+            <p className="col-span-full rounded-2xl border border-dashed border-slate-200 bg-slate-50 px-6 py-10 text-center text-sm text-slate-500">
+              No hay imágenes almacenadas actualmente. Sube nuevas fotos para
+              actualizar el carrusel del sitio.
+            </p>
+          )}
+        </div>
+      </section>
     </div>
   );
 };

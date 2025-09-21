@@ -1,13 +1,12 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
-import { PlusIcon, XMarkIcon } from "@components/icons";
-import Cards from "@components/noticias/cards";
+
+import React, { useEffect, useRef, useState } from "react";
+import { CalendarDaysIcon, PlusIcon } from "@components/icons";
 import axios from "axios";
 import ProgressBar from "@components/adminPage/home-carousel/progressBar";
 
 const RecentActivity = () => {
   const [activities, setActivities] = useState([]);
-  const [open, setOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [newActivity, setNewActivity] = useState({
     date: "",
@@ -15,10 +14,12 @@ const RecentActivity = () => {
     body: "",
   });
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [currentActivityId, setCurrentActivityId] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const objectUrlRef = useRef<string | null>(null);
 
   useEffect(() => {
     const fetchActivities = async () => {
@@ -35,63 +36,104 @@ const RecentActivity = () => {
     fetchActivities();
   }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNewActivity({ ...newActivity, [name]: value });
+  useEffect(() => {
+    return () => {
+      if (objectUrlRef.current) {
+        URL.revokeObjectURL(objectUrlRef.current);
+      }
+    };
+  }, []);
+
+  const resetForm = () => {
+    setNewActivity({
+      date: "",
+      title: "",
+      body: "",
+    });
+    setSelectedImage(null);
+    setImagePreview(null);
+    setCurrentActivityId(null);
+    setEditMode(false);
+    setUploadProgress(0);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+    if (objectUrlRef.current) {
+      URL.revokeObjectURL(objectUrlRef.current);
+      objectUrlRef.current = null;
+    }
   };
 
-  const handleImageChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      setSelectedImage(e.target.files[0]);
-    }
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    setNewActivity((previous) => ({ ...previous, [name]: value }));
   };
 
   const openFileDialog = () => {
     fileInputRef.current?.click();
   };
 
-  const handleOpen = (activity = null) => {
-    if (activity) {
-      setNewActivity({
-        date: activity.date,
-        title: activity.title,
-        body: activity.body,
-      });
-      setSelectedImage(null);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = "";
-      }
-      setCurrentActivityId(activity.id);
-      setEditMode(true);
-    } else {
-      setNewActivity({
-        date: "",
-        title: "",
-        body: "",
-      });
-      setSelectedImage(null);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = "";
-      }
-      setCurrentActivityId(null);
-      setEditMode(false);
+  const updatePreviewFromFile = (file: File) => {
+    if (objectUrlRef.current) {
+      URL.revokeObjectURL(objectUrlRef.current);
     }
-    setOpen(true);
+    const objectUrl = URL.createObjectURL(file);
+    objectUrlRef.current = objectUrl;
+    setImagePreview(objectUrl);
   };
 
-  const handleClose = () => {
-    setSelectedImage(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      setSelectedImage(file);
+      updatePreviewFromFile(file);
     }
-    setOpen(false);
+  };
+
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+  };
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    const file = event.dataTransfer.files?.[0];
+    if (file) {
+      setSelectedImage(file);
+      updatePreviewFromFile(file);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    }
+  };
+
+  const handleDropZoneKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openFileDialog();
+    }
+  };
+
+  const startNewEntry = () => {
+    resetForm();
+  };
+
+  const startEditEntry = (activity) => {
+    resetForm();
+    setNewActivity({
+      date: activity.date ?? "",
+      title: activity.title ?? "",
+      body: activity.body ?? "",
+    });
+    setImagePreview(activity.image ? `data:image/jpeg;base64,${activity.image}` : null);
+    setCurrentActivityId(activity.id);
+    setEditMode(true);
   };
 
   const isFormComplete = () => {
     return (
-      newActivity.date !== "" &&
-      newActivity.title !== "" &&
-      newActivity.body !== "" &&
+      newActivity.date.trim() !== "" &&
+      newActivity.title.trim() !== "" &&
+      newActivity.body.trim() !== "" &&
       selectedImage !== null
     );
   };
@@ -119,8 +161,8 @@ const RecentActivity = () => {
         },
       });
       if (response.data.success) {
-        setActivities([response.data.data, ...activities]);
-        handleClose();
+        setActivities((prevActivities) => [response.data.data, ...prevActivities]);
+        resetForm();
       }
     } catch (error) {
       console.error("Error adding activity", error);
@@ -156,12 +198,12 @@ const RecentActivity = () => {
         },
       });
       if (response.data.success) {
-        setActivities(
-          activities.map((activity) =>
+        setActivities((prevActivities) =>
+          prevActivities.map((activity) =>
             activity.id === currentActivityId ? response.data.data : activity
           )
         );
-        handleClose();
+        resetForm();
       }
     } catch (error) {
       console.error("Error updating activity", error);
@@ -176,7 +218,9 @@ const RecentActivity = () => {
         data: { id },
       });
       if (response.data.success) {
-        setActivities(activities.filter((activity) => activity.id !== id));
+        setActivities((prevActivities) =>
+          prevActivities.filter((activity) => activity.id !== id)
+        );
       }
     } catch (error) {
       console.error("Error deleting activity", error);
@@ -184,129 +228,187 @@ const RecentActivity = () => {
   };
 
   return (
-    <>
-      {uploading && (
-        <ProgressBar progress={uploadProgress} uploading={uploading} />
-      )}
-      <div className="text-center items-center mx-auto px-4 pb-10">
-        <h1 className="font-display text-3xl py-5 text-sanctuaryBrick">
-          Actividades Recientes
-        </h1>
-        <button
-          type="button"
-          onClick={() => handleOpen()}
-          className="flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 font-semibold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+    <div className="grid gap-8 xl:grid-cols-[minmax(0,440px),1fr] xl:items-start">
+      <section className="flex flex-col gap-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-lg">
+        <header className="flex flex-col gap-2 border-b border-slate-200 pb-4">
+          <h2 className="text-2xl font-bold text-sanctuaryBrick">
+            {editMode ? "Editar actividad" : "Nueva actividad"}
+          </h2>
+          <p className="text-sm leading-6 text-slate-600">
+            Completa la información, verifica la vista previa y publica la
+            novedad. La imagen se mostrará junto al título y la descripción.
+          </p>
+          <div className="flex flex-wrap items-center gap-2 pt-2">
+            <button
+              type="button"
+              onClick={startNewEntry}
+              className="inline-flex items-center gap-2 rounded-full border border-sanctuaryTerracotta px-4 py-2 text-xs font-semibold uppercase tracking-wide text-sanctuaryTerracotta transition hover:border-sanctuaryBrick hover:bg-sanctuaryBrick hover:text-white"
+            >
+              <PlusIcon className="h-4 w-4" /> Nueva publicación
+            </button>
+            {editMode && (
+              <span className="rounded-full bg-sanctuaryTerracotta/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-sanctuaryTerracotta">
+                Modo edición activo
+              </span>
+            )}
+          </div>
+        </header>
+        {(uploading || uploadProgress > 0) && (
+          <ProgressBar progress={uploadProgress} uploading={uploading} />
+        )}
+        <div
+          className="flex min-h-[240px] flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-sanctuaryTerracotta/50 bg-slate-50 px-6 text-center text-slate-600 transition hover:border-sanctuaryTerracotta"
+          onDragOver={handleDragOver}
+          onDrop={handleDrop}
+          onClick={openFileDialog}
+          onKeyDown={handleDropZoneKeyDown}
+          role="button"
+          tabIndex={0}
         >
-          <PlusIcon className="h-5 w-5" /> Añadir Actividad
-        </button>
-        <h2 className="font-display text-2xl py-1 mt-8 text-sanctuaryBrick">Actividades Recientes</h2>
-      </div>
-
-      {open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
-          <div className="w-full max-w-lg rounded-md bg-white p-6 shadow-xl" role="dialog" aria-modal="true">
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-800">
-                {editMode ? "Editar Actividad" : "Nueva Actividad"}
-              </h2>
-              <button
-                type="button"
-                onClick={handleClose}
-                className="rounded-md p-1 text-gray-500 transition hover:bg-gray-100"
-                aria-label="Cerrar"
-              >
-                <XMarkIcon className="h-5 w-5" />
-              </button>
-            </div>
-            <div className="mt-4 flex flex-col gap-4">
-              <div
-                className="flex h-44 cursor-pointer items-center justify-center rounded-md border-2 border-dashed border-gray-300 bg-gray-100 p-4 text-center text-sm text-gray-600"
-                onClick={openFileDialog}
-              >
-                {selectedImage ? (
-                  <img
-                    src={URL.createObjectURL(selectedImage)}
-                    alt="Selected"
-                    className="h-full w-full object-contain"
-                  />
-                ) : (
-                  <span>Haz clic para seleccionar una imagen</span>
-                )}
-              </div>
-              <input
-                ref={fileInputRef}
-                accept="image/*"
-                id="activity-image-upload"
-                type="file"
-                className="hidden"
-                onChange={handleImageChange}
-              />
-              <input
-                type="text"
-                name="date"
-                value={newActivity.date}
-                onChange={handleChange}
-                placeholder="Fecha"
-                className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-sanctuaryTerracotta focus:outline-none focus:ring-1 focus:ring-sanctuaryTerracotta"
-              />
-              <input
-                type="text"
-                name="title"
-                value={newActivity.title}
-                onChange={handleChange}
-                placeholder="Título"
-                className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-sanctuaryTerracotta focus:outline-none focus:ring-1 focus:ring-sanctuaryTerracotta"
-              />
-              <textarea
-                name="body"
-                value={newActivity.body}
-                onChange={handleChange}
-                placeholder="Cuerpo"
-                rows={4}
-                className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-sanctuaryTerracotta focus:outline-none focus:ring-1 focus:ring-sanctuaryTerracotta"
-              />
-              <button
-                type="button"
-                onClick={editMode ? updateActivity : addNewActivity}
-                disabled={!isFormComplete()}
-                className="rounded-md bg-blue-600 px-4 py-2 font-semibold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-blue-300"
-              >
-                Confirmar
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      <div className="cardsok pb-10">
-        {activities.map((activity) => (
-          <div key={activity.id} className="relative">
-            <Cards
-              imageUrl={`data:image/jpeg;base64,${activity.image}`}
-              date={activity.date}
-              title={activity.title}
-              text={activity.body}
+          {imagePreview ? (
+            <img
+              src={imagePreview}
+              alt="Vista previa de la actividad"
+              className="h-48 w-full rounded-xl object-cover shadow"
             />
-            <div className="absolute top-2 right-2 flex space-x-2">
-              <button
-                type="button"
-                className="rounded-md bg-blue-600 px-3 py-1 text-sm font-semibold text-white transition hover:bg-blue-700"
-                onClick={() => handleOpen(activity)}
-              >
-                Editar
-              </button>
-              <button
-                type="button"
-                className="rounded-md bg-red-600 px-3 py-1 text-sm font-semibold text-white transition hover:bg-red-700"
-                onClick={() => deleteActivity(activity.id)}
-              >
-                Eliminar
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-    </>
+          ) : (
+            <>
+              <span className="text-xs font-semibold uppercase tracking-[0.3em] text-sanctuaryTerracotta">
+                Zona de subida
+              </span>
+              <p className="max-w-sm text-sm leading-6">
+                Arrastra una imagen aquí o haz clic para seleccionarla. Se
+                recomienda utilizar fotografías horizontales para un mejor
+                resultado.
+              </p>
+            </>
+          )}
+          <input
+            ref={fileInputRef}
+            accept="image/*"
+            id="activity-image-upload"
+            type="file"
+            className="hidden"
+            onChange={handleImageChange}
+          />
+        </div>
+        <div className="grid gap-4">
+          <label className="flex flex-col gap-2 text-sm font-semibold text-slate-700">
+            Fecha
+            <input
+              type="text"
+              name="date"
+              value={newActivity.date}
+              onChange={handleChange}
+              placeholder="Ej. 12 de octubre de 2024"
+              className="rounded-xl border border-slate-300 px-4 py-3 text-sm text-slate-700 focus:border-sanctuaryTerracotta focus:outline-none focus:ring-2 focus:ring-sanctuaryTerracotta/30"
+            />
+          </label>
+          <label className="flex flex-col gap-2 text-sm font-semibold text-slate-700">
+            Título
+            <input
+              type="text"
+              name="title"
+              value={newActivity.title}
+              onChange={handleChange}
+              placeholder="Escribe un título claro y breve"
+              className="rounded-xl border border-slate-300 px-4 py-3 text-sm text-slate-700 focus:border-sanctuaryTerracotta focus:outline-none focus:ring-2 focus:ring-sanctuaryTerracotta/30"
+            />
+          </label>
+          <label className="flex flex-col gap-2 text-sm font-semibold text-slate-700">
+            Descripción
+            <textarea
+              name="body"
+              value={newActivity.body}
+              onChange={handleChange}
+              placeholder="Comparte los detalles más importantes de la actividad"
+              rows={5}
+              className="resize-none rounded-xl border border-slate-300 px-4 py-3 text-sm text-slate-700 focus:border-sanctuaryTerracotta focus:outline-none focus:ring-2 focus:ring-sanctuaryTerracotta/30"
+            />
+          </label>
+        </div>
+        <div className="flex flex-wrap gap-3 pt-2">
+          <button
+            type="button"
+            onClick={editMode ? updateActivity : addNewActivity}
+            disabled={!isFormComplete()}
+            className="inline-flex items-center justify-center rounded-full bg-blue-600 px-5 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-blue-300"
+          >
+            {editMode ? "Actualizar actividad" : "Publicar actividad"}
+          </button>
+          {editMode && (
+            <button
+              type="button"
+              onClick={startNewEntry}
+              className="inline-flex items-center justify-center rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold uppercase tracking-wide text-slate-600 transition hover:border-slate-400 hover:bg-slate-100"
+            >
+              Cancelar edición
+            </button>
+          )}
+        </div>
+      </section>
+      <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-lg">
+        <header className="flex flex-col gap-2 border-b border-slate-200 pb-4">
+          <h2 className="text-2xl font-bold text-sanctuaryBrick">
+            Actividades publicadas
+          </h2>
+          <p className="text-sm leading-6 text-slate-600">
+            Gestiona las noticias que aparecen en la web. Selecciona una tarjeta
+            para editarla o elimínala si ya no es relevante.
+          </p>
+        </header>
+        <div className="mt-6 grid gap-6 sm:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3">
+          {activities.map((activity) => (
+            <article
+              key={activity.id}
+              className="flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 shadow transition hover:border-sanctuaryTerracotta"
+            >
+              <div className="relative h-48 w-full overflow-hidden">
+                <img
+                  src={`data:image/jpeg;base64,${activity.image}`}
+                  alt={`Imagen de ${activity.title}`}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <div className="flex flex-col gap-3 px-5 py-4 text-left">
+                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-sanctuaryTerracotta">
+                  <CalendarDaysIcon className="h-4 w-4" />
+                  <span>{activity.date}</span>
+                </div>
+                <h3 className="text-lg font-semibold leading-6 text-sanctuaryBrick">
+                  {activity.title}
+                </h3>
+                <p className="line-clamp-3 text-sm leading-6 text-slate-600">
+                  {activity.body}
+                </p>
+              </div>
+              <div className="flex items-center gap-3 border-t border-slate-200 px-5 py-4">
+                <button
+                  type="button"
+                  className="flex-1 rounded-full bg-blue-600 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white shadow transition hover:bg-blue-700"
+                  onClick={() => startEditEntry(activity)}
+                >
+                  Editar
+                </button>
+                <button
+                  type="button"
+                  className="flex-1 rounded-full bg-red-600 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white shadow transition hover:bg-red-700"
+                  onClick={() => deleteActivity(activity.id)}
+                >
+                  Eliminar
+                </button>
+              </div>
+            </article>
+          ))}
+          {activities.length === 0 && (
+            <p className="col-span-full rounded-2xl border border-dashed border-slate-200 bg-slate-50 px-6 py-10 text-center text-sm text-slate-500">
+              Aún no hay actividades publicadas. Crea una nueva entrada desde el
+              panel izquierdo y aparecerá aquí automáticamente.
+            </p>
+          )}
+        </div>
+      </section>
+    </div>
   );
 };
 
