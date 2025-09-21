@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
-import BtnHome from "@components/btnHome";
+import PageShell from "@components/pageShell";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
@@ -79,14 +79,17 @@ const DonateForm = () => {
   };
 
   return (
-    <><BtnHome/>
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col justify-center items-center p-4 bg-sanctuaryCream h-screen rounded-md shadow-md"
+      className="flex w-full max-w-md flex-col items-center gap-6 rounded-2xl bg-white p-8 text-center shadow-xl"
     >
-
-      <h2 className="mb-4 text-center text-2xl font-display text-sanctuaryBrick">Donar</h2>
-      <div className="mb-3 w-[265px]">
+      <div>
+        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-sanctuaryTerracotta">
+          Aporta a la misión
+        </p>
+        <h2 className="mt-2 text-3xl font-display text-sanctuaryBrick">Realizar una donación</h2>
+      </div>
+      <div className="w-full">
         <label htmlFor="paymentMethod" className="sr-only">
           Método de pago
         </label>
@@ -106,16 +109,16 @@ const DonateForm = () => {
       </div>
       {paymentMethod === "stripe" && (
         <>
-          <div className="mb-4">
-            <h3 className="text-lg font-display mb-2 text-center text-sanctuaryBrick">
-              Selecciona un monto:
+          <div className="w-full">
+            <h3 className="mb-3 text-lg font-display text-sanctuaryBrick">
+              Selecciona un monto
             </h3>
-            <div className="grid grid-cols-2 justify-center gap-2">
+            <div className="grid grid-cols-2 gap-3">
               {[5, 10, 15, 20, 25, 30].map((value) => (
                 <button
                   key={value}
                   type="button"
-                  className={`p-1 w-32 h-10 rounded-md border transition ${
+                  className={`h-12 rounded-md border text-sm font-semibold transition ${
                     amount === value
                       ? "bg-sanctuaryTerracotta text-white border-sanctuaryTerracotta"
                       : "bg-white text-sanctuaryTerracotta border-sanctuaryTerracotta hover:bg-sanctuaryGold/20"
@@ -127,13 +130,13 @@ const DonateForm = () => {
               ))}
             </div>
           </div>
-          <div className="flex mb-4 justify-center">
+          <div className="w-full">
             <input
               type="number"
               id="amount"
               name="amount"
               placeholder="Monto personalizado"
-              className="p-2 w-[265px] border rounded-md focus:border-sanctuaryTerracotta focus:outline-none focus:ring-1 focus:ring-sanctuaryTerracotta"
+              className="w-full rounded-md border border-gray-300 px-4 py-3 text-center focus:border-sanctuaryTerracotta focus:outline-none focus:ring-1 focus:ring-sanctuaryTerracotta"
               value={amount}
               onChange={handleAmountChange}
               required
@@ -141,10 +144,10 @@ const DonateForm = () => {
           </div>
         </>
       )}
-      <div className="flex flex-col gap-y-5 justify-center items-center">
+      <div className="flex w-full flex-col items-center gap-3">
         <button
           type="submit"
-          className={`flex font-display font-semibold p-2 gap-3 rounded-md w-[265px] justify-center shadow-md text-white transition ${
+          className={`flex w-full items-center justify-center gap-3 rounded-md px-4 py-3 font-display text-lg font-semibold text-white shadow-md transition ${
             paymentMethod === "1"
               ? "bg-gray-400 cursor-not-allowed"
               : "bg-sanctuaryTerracotta hover:bg-sanctuaryBrick"
@@ -156,10 +159,15 @@ const DonateForm = () => {
       </div>
       {message && <p className="mt-4 text-red-500">{message}</p>}
     </form>
-    </>
   );
 };
 
-const DonatePage = () => <DonateForm />;
+const DonatePage = () => (
+  <PageShell>
+    <section className="flex justify-center px-4 py-20">
+      <DonateForm />
+    </section>
+  </PageShell>
+);
 
 export default DonatePage;

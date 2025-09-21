@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import AdminHome from "@components/adminPage/adminHome";
-import BtnHome from "@components/btnHome";
 import Loading from "@components/loading";
 
 const Admin = () => {
@@ -26,12 +25,7 @@ const Admin = () => {
     return <Loading />;
   }
 
-  return (
-    <>
-      <BtnHome />
-      <AdminHome />
-    </>
-  );
+  return <AdminHome />;
 };
 
 export default Admin;
