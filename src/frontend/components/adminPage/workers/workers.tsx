@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { PlusIcon } from "@components/icons";
 import axios from "axios";
 import ProgressBar from "@components/adminPage/home-carousel/progressBar";
+import { sanitizeTextInput } from "@frontend/utils/sanitize";
 
 const Workers = () => {
   const [workers, setWorkers] = useState([]);
@@ -20,12 +21,18 @@ const Workers = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const objectUrlRef = useRef<string | null>(null);
 
+  const sanitizeWorker = (worker) => ({
+    ...worker,
+    name: sanitizeTextInput(worker?.name ?? ""),
+    rol: sanitizeTextInput(worker?.rol ?? ""),
+  });
+
   useEffect(() => {
     const fetchWorkers = async () => {
       try {
         const response = await axios.get("/api/getWorkers");
         if (response.data.success) {
-          setWorkers(response.data.data);
+          setWorkers(response.data.data.map(sanitizeWorker));
         }
       } catch (error) {
         console.error("Error fetching workers", error);
@@ -64,7 +71,8 @@ const Workers = () => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setNewWorker((previous) => ({ ...previous, [name]: value }));
+    const sanitizedValue = sanitizeTextInput(value);
+    setNewWorker((previous) => ({ ...previous, [name]: sanitizedValue }));
   };
 
   const openFileDialog = () => {
@@ -118,8 +126,8 @@ const Workers = () => {
   const startEditEntry = (worker) => {
     resetForm();
     setNewWorker({
-      name: worker.name ?? "",
-      rol: worker.rol ?? "",
+      name: sanitizeTextInput(worker.name ?? ""),
+      rol: sanitizeTextInput(worker.rol ?? ""),
     });
     setImagePreview(worker.image ? `data:image/jpeg;base64,${worker.image}` : null);
     setCurrentWorkerId(worker.id);
@@ -156,7 +164,7 @@ const Workers = () => {
         },
       });
       if (response.data.success) {
-        setWorkers((prevWorkers) => [response.data.data, ...prevWorkers]);
+        setWorkers((prevWorkers) => [sanitizeWorker(response.data.data), ...prevWorkers]);
         resetForm();
       }
     } catch (error) {
@@ -194,7 +202,9 @@ const Workers = () => {
       if (response.data.success) {
         setWorkers((prevWorkers) =>
           prevWorkers.map((worker) =>
-            worker.id === currentWorkerId ? response.data.data : worker
+            worker.id === currentWorkerId
+              ? sanitizeWorker(response.data.data)
+              : worker
           )
         );
         resetForm();

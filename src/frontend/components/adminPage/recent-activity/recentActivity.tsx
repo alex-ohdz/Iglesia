@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { CalendarDaysIcon, PlusIcon } from "@components/icons";
 import axios from "axios";
 import ProgressBar from "@components/adminPage/home-carousel/progressBar";
+import { sanitizeTextInput } from "@frontend/utils/sanitize";
 
 const RecentActivity = () => {
   const [activities, setActivities] = useState([]);
@@ -21,12 +22,19 @@ const RecentActivity = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const objectUrlRef = useRef<string | null>(null);
 
+  const sanitizeActivity = (activity) => ({
+    ...activity,
+    date: sanitizeTextInput(activity?.date ?? ""),
+    title: sanitizeTextInput(activity?.title ?? ""),
+    body: sanitizeTextInput(activity?.body ?? ""),
+  });
+
   useEffect(() => {
     const fetchActivities = async () => {
       try {
         const response = await axios.get("/api/getActivities");
         if (response.data.success) {
-          setActivities(response.data.data);
+          setActivities(response.data.data.map(sanitizeActivity));
         }
       } catch (error) {
         console.error("Error fetching activities", error);
@@ -66,7 +74,8 @@ const RecentActivity = () => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
-    setNewActivity((previous) => ({ ...previous, [name]: value }));
+    const sanitizedValue = sanitizeTextInput(value);
+    setNewActivity((previous) => ({ ...previous, [name]: sanitizedValue }));
   };
 
   const openFileDialog = () => {
@@ -120,9 +129,9 @@ const RecentActivity = () => {
   const startEditEntry = (activity) => {
     resetForm();
     setNewActivity({
-      date: activity.date ?? "",
-      title: activity.title ?? "",
-      body: activity.body ?? "",
+      date: sanitizeTextInput(activity.date ?? ""),
+      title: sanitizeTextInput(activity.title ?? ""),
+      body: sanitizeTextInput(activity.body ?? ""),
     });
     setImagePreview(activity.image ? `data:image/jpeg;base64,${activity.image}` : null);
     setCurrentActivityId(activity.id);
@@ -161,7 +170,7 @@ const RecentActivity = () => {
         },
       });
       if (response.data.success) {
-        setActivities((prevActivities) => [response.data.data, ...prevActivities]);
+        setActivities((prevActivities) => [sanitizeActivity(response.data.data), ...prevActivities]);
         resetForm();
       }
     } catch (error) {
@@ -200,7 +209,9 @@ const RecentActivity = () => {
       if (response.data.success) {
         setActivities((prevActivities) =>
           prevActivities.map((activity) =>
-            activity.id === currentActivityId ? response.data.data : activity
+            activity.id === currentActivityId
+              ? sanitizeActivity(response.data.data)
+              : activity
           )
         );
         resetForm();
