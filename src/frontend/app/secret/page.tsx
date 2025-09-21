@@ -2,6 +2,10 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
+  grantAdminSessionAccess,
+  grantAdminTemporaryAccess,
+} from "@frontend/utils/adminAccess";
+import {
   ArrowRightOnRectangleIcon,
   LockClosedIcon,
   UserIcon,
@@ -19,6 +23,7 @@ const AdminLogin = () => {
     setError(""); // Limpiar cualquier mensaje de error previo
 
     if (user === "1" && pass === "1") {
+      grantAdminTemporaryAccess();
       router.push("/secret/admin");
       return;
     }
@@ -35,6 +40,7 @@ const AdminLogin = () => {
       const data = await response.json();
 
       if (response.ok) {
+        grantAdminSessionAccess();
         router.push("/secret/admin");
       } else {
         setError(data.error || "Error al iniciar sesión");

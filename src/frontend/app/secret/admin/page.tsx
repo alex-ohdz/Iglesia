@@ -3,22 +3,19 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import AdminHome from "@components/adminPage/adminHome";
 import Loading from "@components/loading";
+import { hasAdminAccess } from "@frontend/utils/adminAccess";
 
 const Admin = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const response = await fetch("/api/session");
-      if (response.ok) {
-        setLoading(false);
-      } else {
-        router.push("/secret");
-      }
-    };
+    if (hasAdminAccess()) {
+      setLoading(false);
+      return;
+    }
 
-    checkAuth();
+    router.replace("/secret");
   }, [router]);
 
   if (loading) {

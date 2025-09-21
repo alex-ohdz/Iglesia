@@ -1,27 +1,17 @@
-import { NextResponse } from 'next/server';
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+import { ADMIN_ACCESS_COOKIE_NAME } from "./src/shared/constants/admin";
 
-export async function middleware(req) {
+export function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
 
-  // Check session for all /secret/* routes except /secret itself
-  if (url.pathname.startsWith('/secret/') && url.pathname !== '/secret') {
-    const cookie = req.headers.get('cookie');
-    const res = await fetch(`${url.origin}/api/session`, {
-      headers: {
-        cookie: cookie || '',
-      },
-    });
+  if (url.pathname.startsWith("/secret/") && url.pathname !== "/secret") {
+    const adminAccessCookie = req.cookies.get(ADMIN_ACCESS_COOKIE_NAME);
 
-    const contentType = res.headers.get('content-type');
-    if (contentType && contentType.includes('application/json')) {
-      const session = await res.json();
-
-      if (!session.user) {
-        url.pathname = '/';
-        return NextResponse.redirect(url);
-      }
-    } else {
-      return new Response('Unauthorized', { status: 401 });
+    if (!adminAccessCookie || !adminAccessCookie.value) {
+      url.pathname = "/secret";
+      url.search = "";
+      return NextResponse.redirect(url);
     }
   }
 
@@ -29,5 +19,5 @@ export async function middleware(req) {
 }
 
 export const config = {
-  matcher: '/secret/:path*',
+  matcher: "/secret/:path*",
 };
