@@ -1,24 +1,72 @@
 {
-	"navigation": {
-		"us": "Nosotros",
-		"services": "Servicios",
-		"contact": "Contacto",
-		"donations": "Donar"
-	},
-	"welcome": "Bienvenidos a Nuestra Comunidad",
-	"image_description": "Descripción de la imagen",
-	"description": "La Iglesia de San Juan Bautista de Remedios ubicada en San Juan de los Remedios, Villa Clara se le atribuye ser la iglesia más antigua de Cuba. La iglesia actual fue construida en 1692 sobre la estructura existente de una iglesia que fue construida originalmente en 1570. La torre-campanario es un diseño neoclásico y el interior es barroco. Algunas de las características más importantes son el techo ornamentado, el pan de oro y el altar de cedro cubierto todo tallado en madera y laminado en oro realizado por un artesano remediano de descendencia asiática Rogelio Attá y coloca retablos barrocos y colección pictórica en ambas naves de la iglesia. Es hoy la única iglesia barroca interior y exteriormente en Cuba siendo visitada permanentemente por turismo nacional e internacional que acuden a apreciar sus bienes conservados patrimoniales.",
-	"Actividades Recientes": "Actividades Recientes",
-	"Servicios": "Servicios",
-	"Nuestro Equipo": "Nuestro Equipo",
-	"contact_us": "Contáctanos",
-	"hours": "Horarios",
-	"weekdays": "Lunes a Viernes",
-	"saturday": "Sábados",
-	"sunday": "Domingos",
-	"info": "Info",
-	"phone": "Teléfono",
-	"email": "Correo",
-    "Todos los derechos reservados.": "Todos los derechos reservados."
-  
+  "navigation": {
+    "us": "Nosotros",
+    "services": "Servicios",
+    "contact": "Contacto",
+    "donations": "Donar"
+  },
+  "hero": {
+    "slides": [
+      {
+        "title": "Fe que inspira",
+        "description": "Celebra con nosotros la tradición de San Juan Bautista de Remedios."
+      },
+      {
+        "title": "Una comunidad unida",
+        "description": "Participa en nuestras actividades y comparte momentos significativos."
+      },
+      {
+        "title": "Patrimonio vivo",
+        "description": "Descubre la belleza arquitectónica y espiritual de nuestra parroquia."
+      }
+    ]
+  },
+  "sections": {
+    "about": {
+      "title": "Nuestra historia",
+      "subtitle": "Conoce la comunidad que ha acompañado a Remedios por generaciones."
+    },
+    "services": {
+      "title": "Servicios pastorales",
+      "subtitle": "Te guiamos en cada sacramento y celebración importante.",
+      "intro": "Nuestro equipo está preparado para acompañarte en cada etapa de la vida con ceremonias personalizadas y llenas de fe."
+    },
+    "contact": {
+      "title": "Estamos para escucharte",
+      "subtitle": "Comunícate con nosotros y recibe orientación personalizada.",
+      "intro": "Puedes escribirnos, llamarnos o visitarnos. Siempre encontrarás una mano amiga dispuesta a ayudarte."
+    }
+  },
+  "services": {
+    "heading": "Nuestros servicios",
+    "items": {
+      "baptism": {
+        "title": "Bautismo",
+        "description": "La ceremonia de bautismo es un momento sagrado. Te ayudamos a preparar cada detalle para que la bienvenida a la fe sea cálida y significativa."
+      },
+      "wedding": {
+        "title": "Boda",
+        "description": "Tu celebración nupcial merece ser inolvidable. Organizamos una ceremonia que refleje su historia de amor y los valores de su familia."
+      },
+      "community": {
+        "title": "Acompañamiento comunitario",
+        "description": "Ofrecemos apoyo espiritual y actividades pastorales para fortalecer la vida de la comunidad y sus vínculos fraternos."
+      }
+    }
+  },
+  "welcome": "Bienvenidos a Nuestra Comunidad",
+  "image_description": "Descripción de la imagen",
+  "description": "La Iglesia de San Juan Bautista de Remedios ubicada en San Juan de los Remedios, Villa Clara se le atribuye ser la iglesia más antigua de Cuba. La iglesia actual fue construida en 1692 sobre la estructura existente de una iglesia que fue construida originalmente en 1570. La torre-campanario es un diseño neoclásico y el interior es barroco. Algunas de las características más importantes son el techo ornamentado, el pan de oro y el altar de cedro cubierto todo tallado en madera y laminado en oro realizado por un artesano remediano de descendencia asiática Rogelio Attá y coloca retablos barrocos y colección pictórica en ambas naves de la iglesia. Es hoy la única iglesia barroca interior y exteriormente en Cuba siendo visitada permanentemente por turismo nacional e internacional que acuden a apreciar sus bienes conservados patrimoniales.",
+  "Actividades Recientes": "Actividades Recientes",
+  "Servicios": "Servicios",
+  "Nuestro Equipo": "Nuestro Equipo",
+  "contact_us": "Contáctanos",
+  "hours": "Horarios",
+  "weekdays": "Lunes a Viernes",
+  "saturday": "Sábados",
+  "sunday": "Domingos",
+  "info": "Info",
+  "phone": "Teléfono",
+  "email": "Correo",
+  "Todos los derechos reservados.": "Todos los derechos reservados."
 }

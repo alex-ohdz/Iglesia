@@ -3,8 +3,20 @@ import { useTranslation, Trans } from "react-i18next";
 import useIntersectionObserver from "@hooks/useIntersectionObserver";
 import Loading from "./loading";
 
-const BoxText = () => {
-  const {  i18n } = useTranslation();
+type BoxTextProps = {
+  imageUrl?: string;
+  imageAltKey?: string;
+  titleKey?: string;
+  descriptionKey?: string;
+};
+
+const BoxText = ({
+  imageUrl = "/images/img1.jpg",
+  imageAltKey = "image_description",
+  titleKey = "welcome",
+  descriptionKey = "description",
+}: BoxTextProps) => {
+  const { t, i18n } = useTranslation();
   const [ref, isVisible] = useIntersectionObserver({
     threshold: 0.1,
   });
@@ -17,13 +29,13 @@ const BoxText = () => {
   return (
     <div className="py-7 flex flex-col items-center bg-sanctuaryLinen text-sanctuaryDeep">
       <h1 className="text-3xl font-display mb-6 text-center text-sanctuaryBrick">
-        <Trans i18nKey="welcome">Bienvenidos a Nuestra Comunidad</Trans>
+        <Trans i18nKey={titleKey}>Bienvenidos a Nuestra Comunidad</Trans>
       </h1>
       <div className="w-full flex items-center lg:flex-row flex-col md:items-center justify-items-start">
         <div className="flex-shrink-0 h-96 lg:w-96 sm:w-[500px] w-full mb-4">
           <img
-            src="/images/img1.jpg"
-            alt={"image_description"}
+            src={imageUrl}
+            alt={t(imageAltKey)}
             className="w-full h-full object-cover lg:rounded-r-full rounded-sm"
           />
         </div>
@@ -33,7 +45,7 @@ const BoxText = () => {
             isVisible ? "visible" : ""
           }`}
         >
-          <Trans i18nKey="description">
+          <Trans i18nKey={descriptionKey}>
             La Iglesia de San Juan Bautista de Remedios ubicada en San Juan de
             los Remedios, Villa Clara se le atribuye ser la iglesia más antigua
             de Cuba. La iglesia actual fue construida en 1692 sobre la estructura

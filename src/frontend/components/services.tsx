@@ -1,87 +1,55 @@
 "use client";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-// Definición de los servicios
-const servicios = [
-  {
-    id: 1,
-    nombre: "Bautismo",
-    descripcion:
-      "La ceremonia de bautismo es un evento significativo en la vida espiritual de la familia y el infante. Nuestro servicio de bautismo está diseñado para hacer de este momento algo memorable y sagrado, proporcionando una experiencia personalizada que refleje las creencias y deseos de la familia. Desde la planificación hasta la ejecución, cuidamos cada detalle para asegurar que la ceremonia sea hermosa, respetuosa y acorde a tus expectativas.",
-  },
-  {
-    id: 2,
-    nombre: "Boda",
-    descripcion:
-      "Creemos que tu día de boda debe ser tan único como tu amor. Con nuestro servicio de casamientos, te ayudamos a crear una celebración inolvidable que capture perfectamente tu relación. Desde lugares de ensueño hasta decoraciones de ensueño, nuestro equipo está dedicado a convertir tus visiones en realidad, asegurando que cada aspecto de tu boda sea perfecto, sin importar lo grande o pequeño que sea.",
-  },
-  {
-    id: 3,
-    nombre: "Ejemplo 3",
-    descripcion:
-      "Ejemplo 3 ofrece una gama de servicios diseñados para satisfacer tus necesidades específicas. Ya sea que estés buscando expandir tu negocio, mejorar tu bienestar personal o celebrar un hito, nuestro equipo dedicado está aquí para apoyarte. Con un enfoque personalizado y una atención meticulosa al detalle, nos esforzamos por superar tus expectativas y proporcionarte resultados excepcionales.",
-  },
+const serviceKeys = [
+  { id: 1, key: "baptism" },
+  { id: 2, key: "wedding" },
+  { id: 3, key: "community" },
 ];
 
 function Services() {
   const { t } = useTranslation();
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState(serviceKeys[0].id);
 
-  const handleChange = (id) => {
-    setValue(id);
-  };
+  const services = useMemo(
+    () =>
+      serviceKeys.map(({ id, key }) => ({
+        id,
+        key,
+        title: t(`services.items.${key}.title`),
+        description: t(`services.items.${key}.description`),
+      })),
+    [t]
+  );
 
-  const selectServices = servicios.find((servicio) => servicio.id === value);
+  const selected = services.find((service) => service.id === value) ?? services[0];
 
   return (
-    <div className="font-body bg-sanctuaryLinen anchored-section2" id="services">
-      <h1 className="text-center py-6 text-2xl font-display text-sanctuaryBrick">{t(`Servicios`)}</h1>
-      <div className="flex justify-between h-14 w-full">
-        <div className="flex justify-center items-center h-full w-1/3">
-          <button
-            className={`h-full w-full text-white transition ${
-              value === 1
-                ? "bg-sanctuaryBrick/90"
-                : "bg-sanctuaryTerracotta hover:bg-sanctuaryBrick/80"
-            }`}
-            onClick={() => handleChange(1)}
-            disabled={value === 1}
-          >
-            Bautismos
-          </button>
+    <section className="bg-sanctuaryLinen py-12">
+      <div className="mx-auto max-w-4xl px-6 font-body text-sanctuaryDeep">
+        <h1 className="text-center font-display text-3xl text-sanctuaryBrick">{t("services.heading")}</h1>
+        <div className="mt-8 grid gap-4 sm:grid-cols-3">
+          {services.map((service) => (
+            <button
+              key={service.id}
+              type="button"
+              onClick={() => setValue(service.id)}
+              className={`rounded-full px-4 py-3 text-sm font-display uppercase tracking-widest transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
+                service.id === selected.id
+                  ? "bg-sanctuaryBrick text-sanctuaryLinen shadow-lg"
+                  : "bg-sanctuaryTerracotta/80 text-sanctuaryLinen hover:bg-sanctuaryTerracotta"
+              }`}
+            >
+              {service.title}
+            </button>
+          ))}
         </div>
-        <div className="flex justify-center items-center h-full w-1/3">
-          <button
-            className={`h-full w-full text-white transition ${
-              value === 2
-                ? "bg-sanctuaryBrick/90"
-                : "bg-sanctuaryTerracotta hover:bg-sanctuaryBrick/80"
-            }`}
-            onClick={() => handleChange(2)}
-            disabled={value === 2}
-          >
-            Boda
-          </button>
-        </div>
-        <div className="flex justify-center items-center h-full w-1/3">
-          <button
-            className={`h-full w-full text-white transition ${
-              value === 3
-                ? "bg-sanctuaryBrick/90"
-                : "bg-sanctuaryTerracotta hover:bg-sanctuaryBrick/80"
-            }`}
-            onClick={() => handleChange(3)}
-            disabled={value === 3}
-          >
-            Lorem
-          </button>
+        <div className="mt-10 rounded-xl bg-white/80 p-6 text-center text-base shadow-md md:text-lg">
+          {selected.description}
         </div>
       </div>
-      <div className="flex mx-10 py-10 items-center justify-center text-md text-sanctuaryDeep">
-        {selectServices.descripcion}
-      </div>
-    </div>
+    </section>
   );
 }
 

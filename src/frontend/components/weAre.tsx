@@ -25,7 +25,7 @@ const ImageCircle = () => {
   }, []);
 
   return (
-    <div className="bg-sanctuaryLinen p-5 anchored-section" id="us">
+    <div className="bg-sanctuaryLinen p-5">
       <h2 className="text-3xl mb-8 text-center font-display text-sanctuaryBrick">{t('Nuestro Equipo')}</h2>
       <div className="flex flex-wrap justify-center gap-8">
         {teamMembers.map((member, index) => (

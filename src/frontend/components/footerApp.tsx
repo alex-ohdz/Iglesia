@@ -4,7 +4,11 @@ import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import Loading from "./loading";
 
-const FooterApp = () => {
+type FooterAppProps = {
+  showContact?: boolean;
+};
+
+const FooterApp = ({ showContact = true }: FooterAppProps) => {
   const { t, i18n } = useTranslation();
 
   if (!i18n.isInitialized) {
@@ -12,19 +16,18 @@ const FooterApp = () => {
   }
 
   return (
-    <div className="anchored-section2" id="contact">
-      <ContactUs />
-      <p className="flex flex-col sm:flex-row p-3 justify-center text-center font-display bg-sanctuaryDeep text-sanctuaryLinen cursor-default">
+    <footer className="bg-sanctuaryDeep text-sanctuaryLinen">
+      {showContact && <ContactUs />}
+      <p className="flex flex-col justify-center gap-1 px-4 py-3 text-center font-display sm:flex-row">
         <span>
           © 2024 Iglesia de San Bautista de{" "}
-          <Link className="cursor-default mr-1 text-sanctuaryGold" href="/secret">
+          <Link className="cursor-default text-sanctuaryGold" href="/secret">
             Remedios.
           </Link>
         </span>
         <span>{t("Todos los derechos reservados.")}</span>
-        {/* Developed by Dmigoya and alex-ohdz */}
       </p>
-    </div>
+    </footer>
   );
 };
 
