@@ -14,7 +14,9 @@ const PageShell = ({ children, showContactInFooter = true }: PageShellProps) => 
   return (
     <Suspense fallback={<Loading />}>
       <Nav />
-      <main className="flex flex-1 flex-col bg-sanctuaryLinen">{children}</main>
+      <main className="flex flex-1 flex-col bg-sanctuaryLinen pt-20 md:pt-24">
+        {children}
+      </main>
       <FooterApp showContact={showContactInFooter} />
     </Suspense>
   );

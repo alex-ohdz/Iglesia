@@ -43,7 +43,7 @@ const HomeHero = () => {
   };
 
   return (
-    <section className="relative flex h-[60vh] min-h-[320px] items-center justify-center overflow-hidden bg-black text-white md:h-[70vh]">
+    <section className="relative mt-[-80px] flex h-[60vh] min-h-[320px] items-center justify-center overflow-hidden bg-black text-white md:mt-[-96px] md:h-[70vh]">
       {slides.map((slide, index) => (
         <div
           key={slide.imageUrl}

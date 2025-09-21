@@ -8,24 +8,48 @@ const items = [
   { key: "donations", link: "/donations" },
 ];
 
-const NavText = ({ isMobile }) => {
+type NavTextProps = {
+  layout?: "horizontal" | "vertical";
+  variant?: "solid" | "overlay";
+  onNavigate?: () => void;
+};
+
+const NavText = ({ layout = "horizontal", variant = "solid", onNavigate }: NavTextProps) => {
   const { t } = useTranslation();
 
+  const containerClasses =
+    layout === "horizontal"
+      ? "flex flex-row items-center gap-6"
+      : "flex flex-col items-start gap-5";
+
+  const linkBaseClasses =
+    "font-display text-base sm:text-lg uppercase tracking-[0.15em] transition-colors duration-300";
+
+  const colorClasses =
+    variant === "overlay"
+      ? "text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.45)] hover:text-sanctuaryGold"
+      : "text-sanctuaryBrick hover:text-sanctuaryGold";
+
+  const handleClick = () => {
+    onNavigate?.();
+  };
+
   return (
-    <div className={`flex ${isMobile ? 'flex-row' : 'flex-col'} items-center`}>
-      {items.map((item, index) => {
-        return (
-          <div className={`${isMobile ? 'px-2' : 'mb-5'}`} key={index}>
+    <nav aria-label="Navegación principal">
+      <ul className={containerClasses}>
+        {items.map((item) => (
+          <li key={item.key}>
             <Link
               href={item.link}
-              className="text-sanctuaryBrick hover:text-sanctuaryGold transition-colors duration-300 text-lg font-display tracking-wider"
+              className={`${linkBaseClasses} ${colorClasses}`}
+              onClick={handleClick}
             >
               {t(`navigation.${item.key}`)}
             </Link>
-          </div>
-        );
-      })}
-    </div>
+          </li>
+        ))}
+      </ul>
+    </nav>
   );
 };
 
