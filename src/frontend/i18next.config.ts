@@ -37,7 +37,7 @@ if (!i18n.isInitialized) {
             },
           }
         : {}),
-      debug: process.env.NODE_ENV === "development",
+      debug: process.env.NEXT_PUBLIC_I18N_DEBUG === "true",
     })
     .catch((error) => {
       console.error("Error initializing i18next:", error);

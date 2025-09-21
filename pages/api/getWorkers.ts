@@ -11,7 +11,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const workers = await listWorkers();
     res.status(200).json({ success: true, data: workers });
   } catch (error) {
-    console.error("Error fetching data", error);
     res.status(500).json({ success: false, error: "Error fetching data" });
   }
 }
