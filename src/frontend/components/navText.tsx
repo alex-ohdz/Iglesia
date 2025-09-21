@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
 const items = [
-  { key: "us", link: "/nosotros" },
+  { key: "us", link: "/" },
   { key: "services", link: "/servicios" },
   { key: "contact", link: "/contacto" },
   { key: "donations", link: "/donations" },

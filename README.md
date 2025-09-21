@@ -25,7 +25,7 @@ src/
 │   ├── app/
 │   ├── components/
 │   ├── hooks/
-│   ├── i18next.config.js
+│   ├── i18next.config.ts
 │   └── styles/
 └── backend/              # Servicios y utilidades de backend
     ├── lib/              # Conexión a la base de datos y middleware de sesión
