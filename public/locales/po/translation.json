@@ -1,24 +1,72 @@
 {
-	"navigation": {
-		"us": "O nas",
-		"services": "Usługi",
-		"contact": "Kontakt",
-		"donations": "Darowizny"
-	},
-	"welcome": "Witamy w naszej społeczności",
-	"image_description": "Opis obrazu",
-	"description": "Kościół San Juan Bautista de Remedios położony w San Juan de los Remedios, Villa Clara uważany jest za najstarszy kościół na Kubie. Obecny kościół został zbudowany w 1692 roku na istniejącej strukturze kościoła, który został pierwotnie zbudowany w 1570 roku. Wieża-dzwonnica ma neoklasyczny styl, a wnętrze jest barokowe. Niektóre z najważniejszych cech to ozdobny sufit, złote liście i ołtarz z cedru, wszystkie rzeźbione w drewnie i pokryte złotem przez rzemieślnika z Remedios pochodzenia azjatyckiego Rogelio Attá, który umieszcza barokowe ołtarze i kolekcję obrazów w obu nawach kościoła. Jest to dzisiaj jedyny barokowy kościół wewnętrznie i zewnętrznie na Kubie, który jest stale odwiedzany przez krajowych i międzynarodowych turystów, którzy przyjeżdżają, aby docenić jego zachowane zabytkowe dobra.",
-	"Actividades Recientes": "Najnowsze Działania",
-	"Servicios": "Usługi",
-	"Nuestro Equipo": "Nasz Zespół",
-	"contact_us": "Skontaktuj się z nami",
-	"hours": "Godziny",
-	"weekdays": "Poniedziałek do piątku",
-	"saturday": "Sobota",
-	"sunday": "Niedziela",
-	"info": "Informacje",
-	"phone": "Telefon",
-	"email": "E-mail",
-    "Todos los derechos reservados.": "Wszelkie prawa zastrzeżone."
-  
+  "navigation": {
+    "us": "O nas",
+    "services": "Usługi",
+    "contact": "Kontakt",
+    "donations": "Darowizny"
+  },
+  "hero": {
+    "slides": [
+      {
+        "title": "Wiara, która inspiruje",
+        "description": "Świętuj z nami tradycję San Juan Bautista de Remedios."
+      },
+      {
+        "title": "Zjednoczona wspólnota",
+        "description": "Dołącz do naszych aktywności i dziel się wyjątkowymi chwilami."
+      },
+      {
+        "title": "Żywe dziedzictwo",
+        "description": "Odkryj architektoniczne i duchowe piękno naszej parafii."
+      }
+    ]
+  },
+  "sections": {
+    "about": {
+      "title": "Nasza historia",
+      "subtitle": "Poznaj wspólnotę, która towarzyszy Remedios od pokoleń."
+    },
+    "services": {
+      "title": "Posługa duszpasterska",
+      "subtitle": "Prowadzimy cię przez każdy sakrament i ważną uroczystość.",
+      "intro": "Nasz zespół towarzyszy ci na każdym etapie życia, organizując uroczystości pełne wiary i ciepła."
+    },
+    "contact": {
+      "title": "Jesteśmy tu dla ciebie",
+      "subtitle": "Skontaktuj się z nami i otrzymaj indywidualne wsparcie.",
+      "intro": "Napisz, zadzwoń lub odwiedź nas. Zawsze znajdziesz życzliwą dłoń gotową do pomocy."
+    }
+  },
+  "services": {
+    "heading": "Nasze usługi",
+    "items": {
+      "baptism": {
+        "title": "Chrzest",
+        "description": "Uroczystość chrztu to święty moment. Pomożemy ci przygotować każdy szczegół, aby powitanie w wierze było ciepłe i wyjątkowe."
+      },
+      "wedding": {
+        "title": "Ślub",
+        "description": "Twoja ceremonia ślubna powinna być niezapomniana. Organizujemy uroczystość, która odzwierciedla waszą historię miłości i rodzinne wartości."
+      },
+      "community": {
+        "title": "Wsparcie wspólnoty",
+        "description": "Zapewniamy duchowe wsparcie i działania duszpasterskie, które wzmacniają więzi w naszej wspólnocie."
+      }
+    }
+  },
+  "welcome": "Witamy w naszej społeczności",
+  "image_description": "Opis obrazu",
+  "description": "Kościół San Juan Bautista de Remedios położony w San Juan de los Remedios, Villa Clara uważany jest za najstarszy kościół na Kubie. Obecny kościół został zbudowany w 1692 roku na istniejącej strukturze kościoła, który został pierwotnie zbudowany w 1570 roku. Wieża-dzwonnica ma neoklasyczny styl, a wnętrze jest barokowe. Niektóre z najważniejszych cech to ozdobny sufit, złote liście i ołtarz z cedru, wszystkie rzeźbione w drewnie i pokryte złotem przez rzemieślnika z Remedios pochodzenia azjatyckiego Rogelio Attá, który umieszcza barokowe ołtarze i kolekcję obrazów w obu nawach kościoła. Jest to dzisiaj jedyny barokowy kościół wewnętrznie i zewnętrznie na Kubie, który jest stale odwiedzany przez krajowych i międzynarodowych turystów, którzy przyjeżdżają, aby docenić jego zachowane zabytkowe dobra.",
+  "Actividades Recientes": "Najnowsze Działania",
+  "Servicios": "Usługi",
+  "Nuestro Equipo": "Nasz Zespół",
+  "contact_us": "Skontaktuj się z nami",
+  "hours": "Godziny",
+  "weekdays": "Poniedziałek do piątku",
+  "saturday": "Sobota",
+  "sunday": "Niedziela",
+  "info": "Informacje",
+  "phone": "Telefon",
+  "email": "E-mail",
+  "Todos los derechos reservados.": "Wszelkie prawa zastrzeżone."
 }

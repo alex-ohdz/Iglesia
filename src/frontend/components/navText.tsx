@@ -2,10 +2,10 @@ import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
 const items = [
-  { key: "us", link: "#us" },
-  { key: "services", link: "#services" },
-  { key: "contact", link: "#contact" },
-  { key: "donations", link: "donations" },
+  { key: "us", link: "/nosotros" },
+  { key: "services", link: "/servicios" },
+  { key: "contact", link: "/contacto" },
+  { key: "donations", link: "/donations" },
 ];
 
 const NavText = ({ isMobile }) => {

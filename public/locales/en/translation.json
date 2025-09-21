@@ -1,24 +1,72 @@
 {
-	"navigation": {
-		"us": "Us",
-		"services": "Services",
-		"contact": "Contact",
-		"donations": "Donate"
-	},
-	"welcome": "Welcome to Our Community",
-	"image_description": "Image Description",
-	"description": "The Church of San Juan Bautista de Remedios located in San Juan de los Remedios, Villa Clara is considered the oldest church in Cuba. The current church was built in 1692 on the existing structure of a church that was originally built in 1570. The bell tower is a neoclassical design and the interior is baroque. Some of the most important features are the ornate ceiling, the gold leaf, and the cedar altar all carved in wood and laminated in gold by a Remedios artisan of Asian descent Rogelio Attá and places baroque altarpieces and pictorial collection in both naves of the church. It is today the only baroque church interior and exteriorly in Cuba being permanently visited by national and international tourism who come to appreciate its preserved patrimonial assets.",
-	"Actividades Recientes": "Recent Activities",
-	"Servicios": "Services",
-	"Nuestro Equipo": "Our Team",
-	"contact_us": "Contact Us",
-	"hours": "Hours",
-	"weekdays": "Monday to Friday",
-	"saturday": "Saturday",
-	"sunday": "Sunday",
-	"info": "Info",
-	"phone": "Phone",
-	"email": "Email",
-    "Todos los derechos reservados.": "All rights reserved."
-  
+  "navigation": {
+    "us": "About us",
+    "services": "Services",
+    "contact": "Contact",
+    "donations": "Donate"
+  },
+  "hero": {
+    "slides": [
+      {
+        "title": "Faith that inspires",
+        "description": "Celebrate with us the tradition of San Juan Bautista de Remedios."
+      },
+      {
+        "title": "A united community",
+        "description": "Join our activities and share meaningful moments."
+      },
+      {
+        "title": "Living heritage",
+        "description": "Experience the architectural and spiritual beauty of our parish."
+      }
+    ]
+  },
+  "sections": {
+    "about": {
+      "title": "Our history",
+      "subtitle": "Get to know the community that has accompanied Remedios for generations."
+    },
+    "services": {
+      "title": "Pastoral services",
+      "subtitle": "We guide you through every sacrament and important celebration.",
+      "intro": "Our team walks beside you with warm, faith-filled ceremonies for every stage of life."
+    },
+    "contact": {
+      "title": "We are here for you",
+      "subtitle": "Reach out to us and receive personalized guidance.",
+      "intro": "Write, call or visit us. You will always find a friendly hand ready to help."
+    }
+  },
+  "services": {
+    "heading": "Our services",
+    "items": {
+      "baptism": {
+        "title": "Baptism",
+        "description": "Baptism is a sacred celebration. We help you prepare every detail so that the welcome into faith is warm and meaningful."
+      },
+      "wedding": {
+        "title": "Wedding",
+        "description": "Your wedding deserves to be unforgettable. We organize a ceremony that reflects your love story and your family values."
+      },
+      "community": {
+        "title": "Community support",
+        "description": "We provide spiritual support and pastoral activities that strengthen the bonds within our community."
+      }
+    }
+  },
+  "welcome": "Welcome to Our Community",
+  "image_description": "Image Description",
+  "description": "The Church of San Juan Bautista de Remedios located in San Juan de los Remedios, Villa Clara is considered the oldest church in Cuba. The current church was built in 1692 on the existing structure of a church that was originally built in 1570. The bell tower is a neoclassical design and the interior is baroque. Some of the most important features are the ornate ceiling, the gold leaf, and the cedar altar all carved in wood and laminated in gold by a Remedios artisan of Asian descent Rogelio Attá and places baroque altarpieces and pictorial collection in both naves of the church. It is today the only baroque church interior and exteriorly in Cuba being permanently visited by national and international tourism who come to appreciate its preserved patrimonial assets.",
+  "Actividades Recientes": "Recent Activities",
+  "Servicios": "Services",
+  "Nuestro Equipo": "Our Team",
+  "contact_us": "Contact Us",
+  "hours": "Hours",
+  "weekdays": "Monday to Friday",
+  "saturday": "Saturday",
+  "sunday": "Sunday",
+  "info": "Info",
+  "phone": "Phone",
+  "email": "Email",
+  "Todos los derechos reservados.": "All rights reserved."
 }
