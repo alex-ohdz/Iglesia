@@ -34,7 +34,7 @@ const ImagePreview = ({ selectedFiles, onDelete, onMove, className }: ImagePrevi
 
   return (
     <div
-      className={`grid gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-2 2xl:grid-cols-3 ${
+      className={`grid gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-2 2xl:grid-cols-2 ${
         className ?? ""
       }`}
     >
@@ -48,7 +48,7 @@ const ImagePreview = ({ selectedFiles, onDelete, onMove, className }: ImagePrevi
             <img
               src={preview.url}
               alt={`preview-${index}`}
-              className="h-48 w-full object-cover"
+              className="h-48 w-full object-contain"
             />
             <div className="flex items-center justify-between gap-2 border-t border-slate-200 bg-slate-50 px-3 py-2 text-slate-600">
               {onMove ? (
