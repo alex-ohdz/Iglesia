@@ -11,7 +11,7 @@ import "../i18next.config";
 
 export default function Home() {
   const { t, i18n } = useTranslation();
-  const [ref, isVisible] = useIntersectionObserver({ threshold: 0.2 });
+  const [introRef, isIntroVisible] = useIntersectionObserver<HTMLDivElement>({ threshold: 0.2 });
 
   if (!i18n.isInitialized) {
     return <Loading />;
@@ -21,19 +21,37 @@ export default function Home() {
     <PageShell>
       <HomeHero />
       <section className="bg-sanctuaryLinen py-12">
-        <div className="mx-auto flex max-w-4xl flex-col items-center gap-6 px-6 text-center md:items-start md:text-left">
-          <h2 className="text-3xl font-display text-sanctuaryBrick sm:text-4xl">{t("welcome")}</h2>
+        <div
+          ref={introRef}
+          className={`mx-auto flex max-w-4xl transform-gpu flex-col items-center gap-6 px-6 text-center transition-all duration-700 ease-out md:items-start md:text-left ${
+            isIntroVisible
+              ? "translate-x-0 opacity-100"
+              : "-translate-x-6 opacity-0 md:-translate-x-12"
+          }`}
+        >
+          <h2
+            className={`text-3xl font-display text-sanctuaryBrick transition-all duration-700 ease-out sm:text-4xl ${
+              isIntroVisible ? "translate-x-0" : "translate-x-4 md:translate-x-8"
+            }`}
+          >
+            {t("welcome")}
+          </h2>
           <p
-            ref={ref}
             className={`font-body text-base text-sanctuaryDeep transition-all duration-700 ease-out md:text-lg ${
-              isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+              isIntroVisible
+                ? "translate-x-0 opacity-100 delay-150"
+                : "translate-x-6 opacity-0 delay-0 md:translate-x-10"
             }`}
           >
             {t("sections.about.subtitle")}
           </p>
           <Link
             href="/nosotros"
-            className="rounded-full bg-sanctuaryBrick px-6 py-3 font-display text-sm uppercase tracking-widest text-sanctuaryLinen shadow-md transition hover:bg-sanctuaryTerracotta"
+            className={`rounded-full bg-sanctuaryBrick px-6 py-3 font-display text-sm uppercase tracking-widest text-sanctuaryLinen shadow-md transition-all duration-700 ease-out hover:bg-sanctuaryTerracotta ${
+              isIntroVisible
+                ? "translate-x-0 opacity-100 delay-200"
+                : "translate-x-8 opacity-0 delay-0 md:translate-x-12"
+            }`}
           >
             {t("navigation.us")}
           </Link>
