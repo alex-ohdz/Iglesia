@@ -1,8 +1,14 @@
-import { Inter } from "next/font/google";
+import { Cormorant_Garamond, Cinzel } from "next/font/google";
 import "@styles/globals.css";
 import Head from "next/head";
 
-const inter = Inter({ subsets: ["latin"] });
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-cormorant",
+});
+
+const cinzel = Cinzel({ subsets: ["latin"], variable: "--font-cinzel" });
 
 export const metadata = {
   title: "Iglesia",
@@ -22,7 +28,7 @@ export default function RootLayout({ children }) {
         />
       </Head>
       <html lang="en">
-        <body className={inter.className}>
+        <body className={`${cormorant.className} ${cinzel.variable} font-body bg-sanctuaryLinen text-sanctuaryDeep`}>
           {children}
         </body>
       </html>

@@ -24,8 +24,8 @@ const Noticias = () => {
   }, []);
 
   return (
-    <div className="mx-auto px-4 bg-yellow-200 pb-10">
-      <h1 className="text-center font-serif text-3xl py-10 text-amber-800">{t(`Actividades Recientes`)}</h1>
+    <div className="mx-auto px-4 bg-sanctuaryCream pb-10">
+      <h1 className="text-center font-display text-3xl py-10 text-sanctuaryBrick">{t(`Actividades Recientes`)}</h1>
       <div className="cardsok">
         {notices.map((n, index) => (
           <Cards key={index} itemKey={index} title={n.title} text={n.body} imageUrl={`data:image/jpeg;base64,${n.image}`} date={n.date}/>

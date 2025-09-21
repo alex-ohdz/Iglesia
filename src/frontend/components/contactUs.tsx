@@ -6,13 +6,13 @@ import SocialMedia from "./socialMedia";
 const ContactUs = () => {
   return (
     <>
-      <div className="bg-amber-200 text-stone-700">
+      <div className="bg-sanctuaryCream text-sanctuaryDeep">
         <div className="text-center pt-5 pb-3">
-          <h1 className="font-roboto text-2xl text-stone-600">
+          <h1 className="font-display text-2xl text-sanctuaryBrick">
             <Trans i18nKey="contact_us">Contáctanos</Trans>
           </h1>
         </div>
-        <div className="flex flex-col md:flex-row items-center place-content-center gap-3 p-3 lg:gap-28 font-roboto">
+        <div className="flex flex-col md:flex-row items-center place-content-center gap-3 p-3 lg:gap-28 font-body">
           <div className="p-10 w-[390px] h-80" id="contact">
             <h2 className="font-semibold">
               <Trans i18nKey="hours">Horarios</Trans>:

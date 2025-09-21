@@ -14,10 +14,10 @@ const FooterApp = () => {
   return (
     <div className="anchored-section2" id="contact">
       <ContactUs />
-      <p className="flex flex-col sm:flex-row p-3 justify-center text-center font-playfair bg-gray-800 text-white cursor-default">
+      <p className="flex flex-col sm:flex-row p-3 justify-center text-center font-display bg-sanctuaryDeep text-sanctuaryLinen cursor-default">
         <span>
           © 2024 Iglesia de San Bautista de{" "}
-          <Link className="cursor-default mr-1" href="/secret">
+          <Link className="cursor-default mr-1 text-sanctuaryGold" href="/secret">
             Remedios.
           </Link>
         </span>

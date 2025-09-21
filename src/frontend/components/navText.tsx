@@ -18,7 +18,7 @@ const NavText = ({ isMobile }) => {
           <div className={`${isMobile ? 'px-2' : 'mb-5'}`} key={index}>
             <Link
               href={item.link}
-              className="text-amber-800 hover:text-yellow-500 transition-colors duration-300 text-lg font-playfair tracking-wider"
+              className="text-sanctuaryBrick hover:text-sanctuaryGold transition-colors duration-300 text-lg font-display tracking-wider"
             >
               {t(`navigation.${item.key}`)}
             </Link>

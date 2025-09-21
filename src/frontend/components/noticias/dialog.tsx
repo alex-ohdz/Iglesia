@@ -26,7 +26,7 @@ function DialogCard({ open, handleClose, title, date, text, imageUrl }: DialogCa
           <img src={imageUrl} alt={title} className="h-full w-full object-cover" />
         </div>
         <div className="flex w-full flex-col gap-3 px-6 py-4 text-center">
-          <h2 id="dialog-title" className="font-serif text-xl text-gray-900">
+          <h2 id="dialog-title" className="font-display text-xl text-sanctuaryBrick">
             {title}
           </h2>
           <p className="text-sm text-gray-600">{date}</p>
@@ -34,7 +34,7 @@ function DialogCard({ open, handleClose, title, date, text, imageUrl }: DialogCa
           <div className="mt-4 flex justify-end">
             <button
               onClick={handleClose}
-              className="rounded-md bg-amber-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+              className="rounded-md bg-sanctuaryTerracotta px-4 py-2 text-sm font-semibold text-white transition hover:bg-sanctuaryBrick focus:outline-none focus:ring-2 focus:ring-sanctuaryGold focus:ring-offset-2"
             >
               Cerrar
             </button>

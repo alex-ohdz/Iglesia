@@ -82,10 +82,10 @@ const DonateForm = () => {
     <><BtnHome/>
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col justify-center items-center p-4 bg-gray-200 h-screen rounded-md shadow-md"
+      className="flex flex-col justify-center items-center p-4 bg-sanctuaryCream h-screen rounded-md shadow-md"
     >
-      
-      <h2 className="mb-4 text-center text-2xl font-bold">Donar</h2>
+
+      <h2 className="mb-4 text-center text-2xl font-display text-sanctuaryBrick">Donar</h2>
       <div className="mb-3 w-[265px]">
         <label htmlFor="paymentMethod" className="sr-only">
           Método de pago
@@ -95,7 +95,7 @@ const DonateForm = () => {
           name="paymentMethod"
           value={paymentMethod}
           onChange={(e) => setPaymentMethod(e.target.value)}
-          className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+          className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-sanctuaryTerracotta focus:outline-none focus:ring-1 focus:ring-sanctuaryTerracotta"
         >
           <option value="1" disabled>
             Seleccione un método de pago
@@ -107,7 +107,7 @@ const DonateForm = () => {
       {paymentMethod === "stripe" && (
         <>
           <div className="mb-4">
-            <h3 className="text-lg font-semibold mb-2 text-center">
+            <h3 className="text-lg font-display mb-2 text-center text-sanctuaryBrick">
               Selecciona un monto:
             </h3>
             <div className="grid grid-cols-2 justify-center gap-2">
@@ -115,10 +115,10 @@ const DonateForm = () => {
                 <button
                   key={value}
                   type="button"
-                  className={`p-1 w-32 h-10 rounded-md border ${
+                  className={`p-1 w-32 h-10 rounded-md border transition ${
                     amount === value
-                      ? "bg-blue-500 text-white"
-                      : "bg-white text-blue-500"
+                      ? "bg-sanctuaryTerracotta text-white border-sanctuaryTerracotta"
+                      : "bg-white text-sanctuaryTerracotta border-sanctuaryTerracotta hover:bg-sanctuaryGold/20"
                   }`}
                   onClick={() => handleAmountClick(value)}
                 >
@@ -133,7 +133,7 @@ const DonateForm = () => {
               id="amount"
               name="amount"
               placeholder="Monto personalizado"
-              className="p-2 w-[265px] border rounded-md"
+              className="p-2 w-[265px] border rounded-md focus:border-sanctuaryTerracotta focus:outline-none focus:ring-1 focus:ring-sanctuaryTerracotta"
               value={amount}
               onChange={handleAmountChange}
               required
@@ -144,10 +144,10 @@ const DonateForm = () => {
       <div className="flex flex-col gap-y-5 justify-center items-center">
         <button
           type="submit"
-          className={`flex font-serif font-semibold p-2 gap-3 rounded-md w-[265px] justify-center shadow-md text-white ${
+          className={`flex font-display font-semibold p-2 gap-3 rounded-md w-[265px] justify-center shadow-md text-white transition ${
             paymentMethod === "1"
               ? "bg-gray-400 cursor-not-allowed"
-              : "bg-amber-600 "
+              : "bg-sanctuaryTerracotta hover:bg-sanctuaryBrick"
           }`}
           disabled={paymentMethod === "1"}
         >

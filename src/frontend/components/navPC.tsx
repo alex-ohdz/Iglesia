@@ -21,13 +21,13 @@ function NavPC({ isMobile }) {
   return (
     <>
       <header
-        className={`fixed top-0 z-50 w-full bg-white transition-shadow duration-300 ${
+        className={`fixed top-0 z-50 w-full bg-white/95 backdrop-blur transition-shadow duration-300 ${
           scrolled ? "shadow-md" : "shadow-none"
         }`}
       >
         <div className="mx-auto flex max-w-6xl items-center px-4 py-3 md:px-8">
           <Link href="/">
-            <h1 className="text-amber-900 font-playfair text-lg sm:text-xl md:text-2xl">
+            <h1 className="text-sanctuaryBrick font-display text-lg sm:text-xl md:text-2xl">
               San Juan Bautista de Remedios
             </h1>
           </Link>

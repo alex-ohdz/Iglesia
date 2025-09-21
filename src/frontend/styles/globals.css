@@ -18,7 +18,7 @@
 }
 
 .iconClose {
-  color: #5c4506; /* Este es el valor de text-amber-900 en Tailwind CSS */
+  color: #93412c;
 }
 
 html {
@@ -31,18 +31,18 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #bb6b2f;
+  background-color: #c65b3a;
   border-radius: 4px; /* Bordes redondeados */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #374151; /* Ajustado para coincidir con gray-700 de Tailwind */
+  background: #93412c;
 }
 
 /* Estilos para Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #c87f47 #ebceb4; /* Color amber-800 para el "pulgar" y transparente para la "pista" */
+  scrollbar-color: #c65b3a #f4d8a8;
 }
 
 /* Añade transiciones para suavizar la aparición del dropdown */

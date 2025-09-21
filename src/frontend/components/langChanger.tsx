@@ -50,7 +50,7 @@ const LangChanger = () => {
   return (
     <div
       ref={dropdownRef}
-      className={`relative ml-2 rounded-md p-1 transition ${isOpen ? "bg-yellow-100" : ""}`}
+      className={`relative ml-2 rounded-md p-1 transition ${isOpen ? "bg-sanctuaryCream" : ""}`}
     >
       <button onClick={toggleDropdown} className="flex items-center gap-1">
         <img
@@ -59,13 +59,13 @@ const LangChanger = () => {
           className="h-6 w-6"
         />
         <ChevronUpIcon
-          className={`h-4 w-4 text-amber-900 transition-transform duration-200 ${
+          className={`h-4 w-4 text-sanctuaryBrick transition-transform duration-200 ${
             isOpen ? "rotate-180" : ""
           }`}
         />
       </button>
       {isOpen && (
-        <div className="absolute right-0 top-8 z-20 flex flex-col items-center gap-1 rounded-md bg-yellow-100 p-2 shadow-md">
+        <div className="absolute right-0 top-8 z-20 flex flex-col items-center gap-1 rounded-md bg-sanctuaryCream p-2 shadow-md">
           {flags
             .filter((flag) => flag.code !== selectedFlag.code)
             .map((flag) => (
@@ -73,7 +73,7 @@ const LangChanger = () => {
                 key={`${fileId}-${flag.code}`}
                 type="button"
                 onClick={() => handleSelectFlag(flag)}
-                className="rounded-md p-1 transition hover:bg-yellow-200"
+                className="rounded-md p-1 transition hover:bg-sanctuaryGold/20"
               >
                 <img src={flag.imgF} alt={`${flag.code} flag`} className="h-6 w-6" />
               </button>

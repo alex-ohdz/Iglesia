@@ -189,7 +189,7 @@ const RecentActivity = () => {
         <ProgressBar progress={uploadProgress} uploading={uploading} />
       )}
       <div className="text-center items-center mx-auto px-4 pb-10">
-        <h1 className="font-serif text-3xl py-5 text-amber-800">
+        <h1 className="font-display text-3xl py-5 text-sanctuaryBrick">
           Actividades Recientes
         </h1>
         <button
@@ -199,7 +199,7 @@ const RecentActivity = () => {
         >
           <PlusIcon className="h-5 w-5" /> Añadir Actividad
         </button>
-        <h2 className="font-serif text-2xl py-1 mt-8">Actividades Recientes</h2>
+        <h2 className="font-display text-2xl py-1 mt-8 text-sanctuaryBrick">Actividades Recientes</h2>
       </div>
 
       {open && (
@@ -247,7 +247,7 @@ const RecentActivity = () => {
                 value={newActivity.date}
                 onChange={handleChange}
                 placeholder="Fecha"
-                className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-sanctuaryTerracotta focus:outline-none focus:ring-1 focus:ring-sanctuaryTerracotta"
               />
               <input
                 type="text"
@@ -255,7 +255,7 @@ const RecentActivity = () => {
                 value={newActivity.title}
                 onChange={handleChange}
                 placeholder="Título"
-                className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-sanctuaryTerracotta focus:outline-none focus:ring-1 focus:ring-sanctuaryTerracotta"
               />
               <textarea
                 name="body"
@@ -263,7 +263,7 @@ const RecentActivity = () => {
                 onChange={handleChange}
                 placeholder="Cuerpo"
                 rows={4}
-                className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-sanctuaryTerracotta focus:outline-none focus:ring-1 focus:ring-sanctuaryTerracotta"
               />
               <button
                 type="button"
