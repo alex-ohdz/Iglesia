@@ -1,22 +1,24 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
-import { PlusIcon, XMarkIcon } from "@components/icons";
+
+import React, { useEffect, useRef, useState } from "react";
+import { PlusIcon } from "@components/icons";
 import axios from "axios";
 import ProgressBar from "@components/adminPage/home-carousel/progressBar";
 
 const Workers = () => {
   const [workers, setWorkers] = useState([]);
-  const [open, setOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [newWorker, setNewWorker] = useState({
     name: "",
     rol: "",
   });
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [currentWorkerId, setCurrentWorkerId] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const objectUrlRef = useRef<string | null>(null);
 
   useEffect(() => {
     const fetchWorkers = async () => {
@@ -33,58 +35,103 @@ const Workers = () => {
     fetchWorkers();
   }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNewWorker({ ...newWorker, [name]: value });
+  useEffect(() => {
+    return () => {
+      if (objectUrlRef.current) {
+        URL.revokeObjectURL(objectUrlRef.current);
+      }
+    };
+  }, []);
+
+  const resetForm = () => {
+    setNewWorker({
+      name: "",
+      rol: "",
+    });
+    setSelectedImage(null);
+    setImagePreview(null);
+    setCurrentWorkerId(null);
+    setEditMode(false);
+    setUploadProgress(0);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+    if (objectUrlRef.current) {
+      URL.revokeObjectURL(objectUrlRef.current);
+      objectUrlRef.current = null;
+    }
   };
 
-  const handleImageChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      setSelectedImage(e.target.files[0]);
-    }
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setNewWorker((previous) => ({ ...previous, [name]: value }));
   };
 
   const openFileDialog = () => {
     fileInputRef.current?.click();
   };
 
-  const handleOpen = (worker = null) => {
-    if (worker) {
-      setNewWorker({
-        name: worker.name,
-        rol: worker.rol,
-      });
-      setSelectedImage(null);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = "";
-      }
-      setCurrentWorkerId(worker.id);
-      setEditMode(true);
-    } else {
-      setNewWorker({
-        name: "",
-        rol: "",
-      });
-      setSelectedImage(null);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = "";
-      }
-      setCurrentWorkerId(null);
-      setEditMode(false);
+  const updatePreviewFromFile = (file: File) => {
+    if (objectUrlRef.current) {
+      URL.revokeObjectURL(objectUrlRef.current);
     }
-    setOpen(true);
+    const objectUrl = URL.createObjectURL(file);
+    objectUrlRef.current = objectUrl;
+    setImagePreview(objectUrl);
   };
 
-  const handleClose = () => {
-    setSelectedImage(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      setSelectedImage(file);
+      updatePreviewFromFile(file);
     }
-    setOpen(false);
+  };
+
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+  };
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    const file = event.dataTransfer.files?.[0];
+    if (file) {
+      setSelectedImage(file);
+      updatePreviewFromFile(file);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    }
+  };
+
+  const handleDropZoneKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openFileDialog();
+    }
+  };
+
+  const startNewEntry = () => {
+    resetForm();
+  };
+
+  const startEditEntry = (worker) => {
+    resetForm();
+    setNewWorker({
+      name: worker.name ?? "",
+      rol: worker.rol ?? "",
+    });
+    setImagePreview(worker.image ? `data:image/jpeg;base64,${worker.image}` : null);
+    setCurrentWorkerId(worker.id);
+    setEditMode(true);
   };
 
   const isFormComplete = () => {
-    return newWorker.name !== "" && newWorker.rol !== "" && selectedImage !== null;
+    return (
+      newWorker.name.trim() !== "" &&
+      newWorker.rol.trim() !== "" &&
+      selectedImage !== null
+    );
   };
 
   const addNewWorker = async () => {
@@ -109,8 +156,8 @@ const Workers = () => {
         },
       });
       if (response.data.success) {
-        setWorkers([response.data.data, ...workers]);
-        handleClose();
+        setWorkers((prevWorkers) => [response.data.data, ...prevWorkers]);
+        resetForm();
       }
     } catch (error) {
       console.error("Error adding worker", error);
@@ -145,12 +192,12 @@ const Workers = () => {
         },
       });
       if (response.data.success) {
-        setWorkers(
-          workers.map((worker) =>
+        setWorkers((prevWorkers) =>
+          prevWorkers.map((worker) =>
             worker.id === currentWorkerId ? response.data.data : worker
           )
         );
-        handleClose();
+        resetForm();
       }
     } catch (error) {
       console.error("Error updating worker", error);
@@ -165,7 +212,9 @@ const Workers = () => {
         data: { id },
       });
       if (response.data.success) {
-        setWorkers(workers.filter((worker) => worker.id !== id));
+        setWorkers((prevWorkers) =>
+          prevWorkers.filter((worker) => worker.id !== id)
+        );
       }
     } catch (error) {
       console.error("Error deleting worker", error);
@@ -173,129 +222,166 @@ const Workers = () => {
   };
 
   return (
-    <>
-      {uploading && (
-        <ProgressBar progress={uploadProgress} uploading={uploading} />
-      )}
-      <div className="text-center items-center mx-auto px-4 pb-5">
-        <h1 className="font-display text-3xl py-5 text-sanctuaryBrick">
-          Trabajadores Actuales
-        </h1>
-        <button
-          type="button"
-          onClick={() => handleOpen()}
-          className="flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 font-semibold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-        >
-          <PlusIcon className="h-5 w-5" /> Añadir Trabajador
-        </button>
-      </div>
-
-      {open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
-          <div className="w-full max-w-lg rounded-md bg-white p-6 shadow-xl" role="dialog" aria-modal="true">
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-800">
-                {editMode ? "Editar Trabajador" : "Nuevo Trabajador"}
-              </h2>
-              <button
-                type="button"
-                onClick={handleClose}
-                className="rounded-md p-1 text-gray-500 transition hover:bg-gray-100"
-                aria-label="Cerrar"
-              >
-                <XMarkIcon className="h-5 w-5" />
-              </button>
-            </div>
-            <div className="mt-4 flex flex-col gap-4">
-              <div
-                className="flex h-44 cursor-pointer items-center justify-center rounded-md border-2 border-dashed border-gray-300 bg-gray-100 p-4 text-center text-sm text-gray-600"
-                onClick={openFileDialog}
-              >
-                {selectedImage ? (
-                  <img
-                    src={URL.createObjectURL(selectedImage)}
-                    alt="Selected"
-                    className="h-full w-full object-contain"
-                  />
-                ) : (
-                  <span>Haz clic para seleccionar una imagen</span>
-                )}
-              </div>
-              <input
-                ref={fileInputRef}
-                accept="image/*"
-                id="image-upload"
-                type="file"
-                className="hidden"
-                onChange={handleImageChange}
-              />
-              <input
-                type="text"
-                name="name"
-                value={newWorker.name}
-                onChange={handleChange}
-                placeholder="Nombre"
-                className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-sanctuaryTerracotta focus:outline-none focus:ring-1 focus:ring-sanctuaryTerracotta"
-              />
-              <input
-                type="text"
-                name="rol"
-                value={newWorker.rol}
-                onChange={handleChange}
-                placeholder="Rol"
-                className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-sanctuaryTerracotta focus:outline-none focus:ring-1 focus:ring-sanctuaryTerracotta"
-              />
-              <button
-                type="button"
-                onClick={editMode ? updateWorker : addNewWorker}
-                disabled={!isFormComplete()}
-                className="rounded-md bg-blue-600 px-4 py-2 font-semibold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-blue-300"
-              >
-                Confirmar
-              </button>
-            </div>
+    <div className="grid gap-8 xl:grid-cols-[minmax(0,420px),1fr] xl:items-start">
+      <section className="flex flex-col gap-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-lg">
+        <header className="flex flex-col gap-2 border-b border-slate-200 pb-4">
+          <h2 className="text-2xl font-bold text-sanctuaryBrick">
+            {editMode ? "Editar integrante" : "Nuevo integrante"}
+          </h2>
+          <p className="text-sm leading-6 text-slate-600">
+            Actualiza los perfiles del equipo. Carga una fotografía, indica el
+            nombre y el rol que desempeña dentro del santuario.
+          </p>
+          <div className="flex flex-wrap items-center gap-2 pt-2">
+            <button
+              type="button"
+              onClick={startNewEntry}
+              className="inline-flex items-center gap-2 rounded-full border border-sanctuaryTerracotta px-4 py-2 text-xs font-semibold uppercase tracking-wide text-sanctuaryTerracotta transition hover:border-sanctuaryBrick hover:bg-sanctuaryBrick hover:text-white"
+            >
+              <PlusIcon className="h-4 w-4" /> Nuevo registro
+            </button>
+            {editMode && (
+              <span className="rounded-full bg-sanctuaryTerracotta/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-sanctuaryTerracotta">
+                Modo edición activo
+              </span>
+            )}
           </div>
+        </header>
+        {(uploading || uploadProgress > 0) && (
+          <ProgressBar progress={uploadProgress} uploading={uploading} />
+        )}
+        <div
+          className="flex min-h-[220px] flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-sanctuaryTerracotta/50 bg-slate-50 px-6 text-center text-slate-600 transition hover:border-sanctuaryTerracotta"
+          onDragOver={handleDragOver}
+          onDrop={handleDrop}
+          onClick={openFileDialog}
+          onKeyDown={handleDropZoneKeyDown}
+          role="button"
+          tabIndex={0}
+        >
+          {imagePreview ? (
+            <img
+              src={imagePreview}
+              alt="Vista previa del integrante"
+              className="h-48 w-48 rounded-full object-cover shadow"
+            />
+          ) : (
+            <>
+              <span className="text-xs font-semibold uppercase tracking-[0.3em] text-sanctuaryTerracotta">
+                Zona de subida
+              </span>
+              <p className="max-w-sm text-sm leading-6">
+                Arrastra una fotografía aquí o haz clic para seleccionarla. Usa
+                imágenes cuadradas o recortadas para un mejor encuadre.
+              </p>
+            </>
+          )}
+          <input
+            ref={fileInputRef}
+            accept="image/*"
+            id="worker-image-upload"
+            type="file"
+            className="hidden"
+            onChange={handleImageChange}
+          />
         </div>
-      )}
-
-      <h1 className="text-center font-display text-2xl py-5 mt-8 text-sanctuaryBrick">
-        Trabajadores Actuales
-      </h1>
-      <div className="p-5" id="us">
-        <div className="flex flex-wrap justify-center gap-8">
+        <div className="grid gap-4">
+          <label className="flex flex-col gap-2 text-sm font-semibold text-slate-700">
+            Nombre completo
+            <input
+              type="text"
+              name="name"
+              value={newWorker.name}
+              onChange={handleChange}
+              placeholder="Nombre y apellido"
+              className="rounded-xl border border-slate-300 px-4 py-3 text-sm text-slate-700 focus:border-sanctuaryTerracotta focus:outline-none focus:ring-2 focus:ring-sanctuaryTerracotta/30"
+            />
+          </label>
+          <label className="flex flex-col gap-2 text-sm font-semibold text-slate-700">
+            Rol
+            <input
+              type="text"
+              name="rol"
+              value={newWorker.rol}
+              onChange={handleChange}
+              placeholder="Responsabilidad o ministerio"
+              className="rounded-xl border border-slate-300 px-4 py-3 text-sm text-slate-700 focus:border-sanctuaryTerracotta focus:outline-none focus:ring-2 focus:ring-sanctuaryTerracotta/30"
+            />
+          </label>
+        </div>
+        <div className="flex flex-wrap gap-3 pt-2">
+          <button
+            type="button"
+            onClick={editMode ? updateWorker : addNewWorker}
+            disabled={!isFormComplete()}
+            className="inline-flex items-center justify-center rounded-full bg-blue-600 px-5 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-blue-300"
+          >
+            {editMode ? "Actualizar integrante" : "Guardar integrante"}
+          </button>
+          {editMode && (
+            <button
+              type="button"
+              onClick={startNewEntry}
+              className="inline-flex items-center justify-center rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold uppercase tracking-wide text-slate-600 transition hover:border-slate-400 hover:bg-slate-100"
+            >
+              Cancelar edición
+            </button>
+          )}
+        </div>
+      </section>
+      <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-lg">
+        <header className="flex flex-col gap-2 border-b border-slate-200 pb-4">
+          <h2 className="text-2xl font-bold text-sanctuaryBrick">Equipo visible</h2>
+          <p className="text-sm leading-6 text-slate-600">
+            Estos son los perfiles publicados en el sitio. Puedes actualizar
+            cualquier tarjeta con un clic o eliminar a quien ya no forme parte
+            del equipo.
+          </p>
+        </header>
+        <div className="mt-6 grid gap-6 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
           {workers.map((worker) => (
-            <div
+            <article
               key={worker.id}
-              className="relative flex flex-col items-center text-center mt-10"
+              className="group relative flex flex-col items-center gap-4 rounded-3xl border border-slate-200 bg-slate-50 p-6 text-center shadow transition hover:border-sanctuaryTerracotta"
             >
               <img
                 src={`data:image/jpeg;base64,${worker.image}`}
                 alt={`Imagen de ${worker.name}`}
-                className="rounded-full w-24 h-24 object-cover border border-gray-300 shadow-md"
+                className="h-28 w-28 rounded-full object-cover shadow-lg"
               />
-              <p className="mt-4 font-semibold text-sanctuaryDeep">{worker.name}</p>
-              <p className="text-sm text-sanctuaryBrick/80">{worker.rol}</p>
-              <div className="relative bottom-52 left-2 flex space-x-2">
+              <div>
+                <p className="text-lg font-semibold text-sanctuaryBrick">
+                  {worker.name}
+                </p>
+                <p className="text-sm text-slate-600">{worker.rol}</p>
+              </div>
+              <div className="flex w-full justify-center gap-3 opacity-0 transition group-hover:opacity-100">
                 <button
                   type="button"
-                  className="rounded-md bg-blue-600 px-3 py-1 text-sm font-semibold text-white transition hover:bg-blue-700"
-                  onClick={() => handleOpen(worker)}
+                  className="rounded-full bg-blue-600 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white shadow transition hover:bg-blue-700"
+                  onClick={() => startEditEntry(worker)}
                 >
                   Editar
                 </button>
                 <button
                   type="button"
-                  className="rounded-md bg-red-600 px-3 py-1 text-sm font-semibold text-white transition hover:bg-red-700"
+                  className="rounded-full bg-red-600 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white shadow transition hover:bg-red-700"
                   onClick={() => deleteWorker(worker.id)}
                 >
                   Eliminar
                 </button>
               </div>
-            </div>
+            </article>
           ))}
+          {workers.length === 0 && (
+            <p className="col-span-full rounded-2xl border border-dashed border-slate-200 bg-slate-50 px-6 py-10 text-center text-sm text-slate-500">
+              Todavía no hay integrantes registrados. Completa el formulario de
+              la izquierda para añadir al primer miembro del equipo.
+            </p>
+          )}
         </div>
-      </div>
-    </>
+      </section>
+    </div>
   );
 };
 

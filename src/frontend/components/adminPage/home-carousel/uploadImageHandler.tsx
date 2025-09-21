@@ -28,12 +28,12 @@ export const fetchImages = async (setUploadedImages: (images: CarouselItem[]) =>
 };
 
 export const handleFilesSelected = (
-  files: FileList,
+  files: FileList | File[],
   selectedFiles: File[],
-  setSelectedFiles: (updater: (prevFiles: File[]) => File[]) => void,
+  setSelectedFiles: (files: File[] | ((prevFiles: File[]) => File[])) => void,
   setError: (message: string) => void
 ) => {
-  const newFiles = Array.from(files);
+  const newFiles = Array.isArray(files) ? files : Array.from(files ?? []);
   const oversizedFiles = newFiles.filter((file) => file.size > MAX_IMAGE_SIZE);
 
   if (oversizedFiles.length > 0) {
