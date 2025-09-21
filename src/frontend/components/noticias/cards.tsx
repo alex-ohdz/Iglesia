@@ -17,7 +17,7 @@ const Cards = ({ title, text, imageUrl, date, itemKey }) => {
         onClick={toggleDialog}
         key={itemKey}
       >
-        <div className="flex flex-col rounded-xl font-merriweather">
+        <div className="flex flex-col rounded-xl font-body">
           <div className="flex justify-center">
             <img
               src={imageUrl}
@@ -25,12 +25,12 @@ const Cards = ({ title, text, imageUrl, date, itemKey }) => {
               alt=""
             />
           </div>
-          <div className="flex flex-col p-4 gap-y-1 text-gray-500 ">
+          <div className="flex flex-col p-4 gap-y-1 text-sanctuaryDeep/80 ">
             <div className="flex items-center gap-2 ">
-              <CalendarDaysIcon className="h-4 w-4 text-amber-700" />
+              <CalendarDaysIcon className="h-4 w-4 text-sanctuaryTerracotta" />
               <p className="text-xs">{date}</p>
             </div>
-            <h1 className="text-base text-black font-semibold">{title}</h1>
+            <h1 className="text-base text-sanctuaryBrick font-semibold font-display">{title}</h1>
             <p className="text-sm overflow-hidden h-16 text-ellipsis line-clamp-3">{text}</p>
           </div>
         </div>

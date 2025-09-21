@@ -25,8 +25,8 @@ const ImageCircle = () => {
   }, []);
 
   return (
-    <div className="bg-amber-100 p-5 anchored-section" id="us">
-      <h2 className="text-3xl mb-8 text-center font-serif text-gray-600">{t('Nuestro Equipo')}</h2>
+    <div className="bg-sanctuaryLinen p-5 anchored-section" id="us">
+      <h2 className="text-3xl mb-8 text-center font-display text-sanctuaryBrick">{t('Nuestro Equipo')}</h2>
       <div className="flex flex-wrap justify-center gap-8">
         {teamMembers.map((member, index) => (
           <div key={index} className="flex flex-col items-center text-center">
@@ -35,8 +35,8 @@ const ImageCircle = () => {
               alt={`Imagen de ${member.name}`}
               className="rounded-full w-24 h-24 object-cover border border-gray-300 shadow-md"
             />
-            <p className="mt-4 font-semibold text-gray-800">{member.name}</p>
-            <p className="text-sm text-gray-600">{member.rol}</p>
+            <p className="mt-4 font-semibold text-sanctuaryDeep">{member.name}</p>
+            <p className="text-sm text-sanctuaryBrick/80">{member.rol}</p>
           </div>
         ))}
       </div>

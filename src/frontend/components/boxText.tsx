@@ -15,8 +15,8 @@ const BoxText = () => {
   }
 
   return (
-    <div className="py-7 flex flex-col items-center bg-amber-50 text-amber-900">
-      <h1 className="text-3xl font-serif mb-6 text-center">
+    <div className="py-7 flex flex-col items-center bg-sanctuaryLinen text-sanctuaryDeep">
+      <h1 className="text-3xl font-display mb-6 text-center text-sanctuaryBrick">
         <Trans i18nKey="welcome">Bienvenidos a Nuestra Comunidad</Trans>
       </h1>
       <div className="w-full flex items-center lg:flex-row flex-col md:items-center justify-items-start">
@@ -29,7 +29,7 @@ const BoxText = () => {
         </div>
         <p
           ref={ref}
-          className={`font-serif text-center lg:text-left max-w-full lg:mx-20 mx-6 fade-up ${
+          className={`font-body text-center lg:text-left max-w-full lg:mx-20 mx-6 fade-up ${
             isVisible ? "visible" : ""
           }`}
         >

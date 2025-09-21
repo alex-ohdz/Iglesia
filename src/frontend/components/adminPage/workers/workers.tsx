@@ -178,7 +178,7 @@ const Workers = () => {
         <ProgressBar progress={uploadProgress} uploading={uploading} />
       )}
       <div className="text-center items-center mx-auto px-4 pb-5">
-        <h1 className="font-serif text-3xl py-5 text-amber-800">
+        <h1 className="font-display text-3xl py-5 text-sanctuaryBrick">
           Trabajadores Actuales
         </h1>
         <button
@@ -235,7 +235,7 @@ const Workers = () => {
                 value={newWorker.name}
                 onChange={handleChange}
                 placeholder="Nombre"
-                className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-sanctuaryTerracotta focus:outline-none focus:ring-1 focus:ring-sanctuaryTerracotta"
               />
               <input
                 type="text"
@@ -243,7 +243,7 @@ const Workers = () => {
                 value={newWorker.rol}
                 onChange={handleChange}
                 placeholder="Rol"
-                className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-sanctuaryTerracotta focus:outline-none focus:ring-1 focus:ring-sanctuaryTerracotta"
               />
               <button
                 type="button"
@@ -258,7 +258,7 @@ const Workers = () => {
         </div>
       )}
 
-      <h1 className="text-center font-serif text-2xl py-5 mt-8">
+      <h1 className="text-center font-display text-2xl py-5 mt-8 text-sanctuaryBrick">
         Trabajadores Actuales
       </h1>
       <div className="p-5" id="us">
@@ -273,8 +273,8 @@ const Workers = () => {
                 alt={`Imagen de ${worker.name}`}
                 className="rounded-full w-24 h-24 object-cover border border-gray-300 shadow-md"
               />
-              <p className="mt-4 font-semibold text-gray-800">{worker.name}</p>
-              <p className="text-sm text-gray-600">{worker.rol}</p>
+              <p className="mt-4 font-semibold text-sanctuaryDeep">{worker.name}</p>
+              <p className="text-sm text-sanctuaryBrick/80">{worker.rol}</p>
               <div className="relative bottom-52 left-2 flex space-x-2">
                 <button
                   type="button"

@@ -10,7 +10,7 @@ const NavTextMobile = ({ items }) => {
           <div key={index}>
             <Link
               href={item.link}
-              className="text-amber-800 hover:text-yellow-500 transition-colors duration-300 text-lg font-playfair tracking-wider px-2"
+              className="text-sanctuaryBrick hover:text-sanctuaryGold transition-colors duration-300 text-lg font-display tracking-wider px-2"
             >
               {item.text}
             </Link>

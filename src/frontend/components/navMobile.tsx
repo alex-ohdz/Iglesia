@@ -25,13 +25,13 @@ function NavMobile({ isMobile }) {
   return (
     <>
       <header
-        className={`fixed top-0 z-50 w-full bg-white transition-shadow duration-300 ${
+        className={`fixed top-0 z-50 w-full bg-white/95 backdrop-blur transition-shadow duration-300 ${
           scrolled ? "shadow-md" : "shadow-none"
         }`}
       >
         <div className="flex items-center justify-between px-4 py-3">
           <Link href="/">
-            <h1 className="text-amber-900 font-playfair text-lg">
+            <h1 className="text-sanctuaryBrick font-display text-lg">
               San Juan Bautista de Remedios
             </h1>
           </Link>
@@ -41,7 +41,7 @@ function NavMobile({ isMobile }) {
               type="button"
               onClick={toggleDrawer}
               aria-label="Abrir menú"
-              className="rounded-md p-2 text-amber-900 transition hover:bg-amber-100"
+              className="rounded-md p-2 text-sanctuaryBrick transition hover:bg-sanctuaryCream"
             >
               <Bars3Icon className="h-7 w-7" />
             </button>
@@ -56,12 +56,12 @@ function NavMobile({ isMobile }) {
             onClick={closeDrawer}
             aria-hidden="true"
           />
-          <aside className="relative ml-auto flex h-full w-64 flex-col bg-white p-4 shadow-lg transition-transform">
+          <aside className="relative ml-auto flex h-full w-64 flex-col bg-sanctuaryLinen/95 p-4 shadow-lg transition-transform">
             <button
               type="button"
               onClick={closeDrawer}
               aria-label="Cerrar menú"
-              className="self-end rounded-md p-2 text-amber-900 transition hover:bg-amber-100"
+              className="self-end rounded-md p-2 text-sanctuaryBrick transition hover:bg-sanctuaryCream"
             >
               <XMarkIcon className="h-6 w-6" />
             </button>

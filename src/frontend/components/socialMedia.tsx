@@ -24,14 +24,14 @@ const YouTubeIcon = () => (
 
 const SocialMedia = () => {
   return (
-    <div className="flex gap-3 mt-1">
-      <Link href="asd" aria-label="Instagram" className="text-rose-500 transition hover:text-rose-600">
+    <div className="flex gap-3 mt-1 text-sanctuaryTerracotta">
+      <Link href="asd" aria-label="Instagram" className="transition hover:text-sanctuaryBrick">
         <InstagramIcon />
       </Link>
-      <Link href="sdf" aria-label="Facebook" className="text-blue-600 transition hover:text-blue-700">
+      <Link href="sdf" aria-label="Facebook" className="transition hover:text-sanctuaryBrick">
         <FacebookIcon />
       </Link>
-      <Link href="ad" aria-label="YouTube" className="text-red-600 transition hover:text-red-700">
+      <Link href="ad" aria-label="YouTube" className="transition hover:text-sanctuaryBrick">
         <YouTubeIcon />
       </Link>
     </div>

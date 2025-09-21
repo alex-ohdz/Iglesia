@@ -41,16 +41,16 @@ const AdminLogin = () => {
 
   return (
     <form
-      className="flex flex-col items-center font-serif mb-10"
+      className="flex flex-col items-center font-body mb-10"
       onSubmit={handleLogin}
     >
-      <label className="text-3xl text-center text-slate-700 my-14">
+      <label className="text-3xl text-center text-sanctuaryBrick my-14 font-display">
         Bienvenido al Sistema de Administración
       </label>
       <BtnHome />
       <div className="flex flex-col text-center items-center border w-96 drop-shadow-lg bg-white">
         <div className="w-72 my-8">
-          <label className="text-xl">Administrador</label>
+          <label className="text-xl font-display text-sanctuaryBrick">Administrador</label>
           <div className="flex flex-col w-full mt-8 text-left gap-y-8">
             <label className="relative flex items-center">
               <UserIcon className="absolute left-3 h-5 w-5 text-slate-500" />
@@ -59,7 +59,7 @@ const AdminLogin = () => {
                 onChange={(e) => setUser(e.target.value)}
                 type="text"
                 placeholder="Usuario"
-                className="w-full rounded-sm border border-slate-300 bg-slate-200 py-2 pl-10 pr-3 text-sm text-slate-700 outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500"
+                className="w-full rounded-sm border border-slate-300 bg-slate-200 py-2 pl-10 pr-3 text-sm text-slate-700 outline-none focus:border-sanctuaryTerracotta focus:ring-1 focus:ring-sanctuaryTerracotta"
               />
             </label>
             <label className="relative flex items-center">
@@ -69,7 +69,7 @@ const AdminLogin = () => {
                 onChange={(e) => setPass(e.target.value)}
                 type="password"
                 placeholder="Contraseña"
-                className="w-full rounded-sm border border-slate-300 bg-slate-200 py-2 pl-10 pr-3 text-sm text-slate-700 outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500"
+                className="w-full rounded-sm border border-slate-300 bg-slate-200 py-2 pl-10 pr-3 text-sm text-slate-700 outline-none focus:border-sanctuaryTerracotta focus:ring-1 focus:ring-sanctuaryTerracotta"
               />
             </label>
           </div>
@@ -83,7 +83,7 @@ const AdminLogin = () => {
           <div className="flex flex-row justify-center mt-5 gap-6">
             <button
               type="submit"
-              className="flex w-full items-center justify-center gap-2 rounded-md bg-green-600 py-2 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+              className="flex w-full items-center justify-center gap-2 rounded-md bg-sanctuaryTerracotta py-2 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-sanctuaryBrick focus:outline-none focus:ring-2 focus:ring-sanctuaryGold focus:ring-offset-2"
             >
               <ArrowRightOnRectangleIcon className="h-5 w-5" />
               Entrar
