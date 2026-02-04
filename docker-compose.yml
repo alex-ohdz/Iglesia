@@ -79,8 +79,8 @@ services:
     image: postgres:custom
     container_name: postgres-learn-shop
     environment:
-      - POSTGRES_PASSWORD=rootpassword
-      - POSTGRES_DB=mydatabase
+      - POSTGRES_PASSWORD=mypassword
+      - POSTGRES_DB=Iglesia
       - POSTGRES_USER=myuser
     volumes:
       - postgres_data:/var/lib/postgresql/data

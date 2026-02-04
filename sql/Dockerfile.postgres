@@ -1,15 +1,21 @@
 # Dockerfile.postgres
-FROM postgres:latest
+FROM postgres:14.12-alpine3.20
 
 # Create a database, change as needed
-ENV POSTGRES_DB=mydatabase
+ENV POSTGRES_DB=Iglesia
 
 # Create a user and set a password, change as needed
 ENV POSTGRES_USER=myuser
 ENV POSTGRES_PASSWORD=mypassword
 
-# Copy the schema.sql file to the docker-entrypoint-initdb.d directory
-COPY /sql/pg_schema.sql /docker-entrypoint-initdb.d/
+# Copy the schema-pg.dump file to the docker-entrypoint-initdb.d directory
+COPY /sql/schema-pg.sql /docker-entrypoint-initdb.d/
+
+# Copy the initialization script to the container
+COPY /sql/pg_restore_schema.sh .
+
+# Make the script executable
+RUN chmod +x ./pg_restore_schema.sh
 
 # Expose port 5432
 EXPOSE 5432
